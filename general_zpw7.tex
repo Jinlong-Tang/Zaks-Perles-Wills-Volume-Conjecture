@@ -1,0 +1,2550 @@
+\documentclass[reqno, 11pt]{article}
+
+\usepackage{enumerate}
+\usepackage{needspace}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb,mathtools}
+\setcounter{MaxMatrixCols}{20}
+\usepackage{newlfont}
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{float}
+\usepackage{diagbox}
+\usepackage{tocloft}
+\usepackage{titlesec}
+\usepackage{booktabs,array,longtable,enumitem,microtype}
+\usepackage{extpfeil}
+\usepackage{centernot}
+
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\usepackage{url}
+
+\usepackage[margin=1in]{geometry}
+
+\usepackage{tabularx}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage{extarrows}
+\usepackage[sort,compress,numbers]{natbib}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{aliascnt}
+\usepackage[pagebackref,colorlinks=true,linkcolor=blue,citecolor=red,urlcolor=blue]{hyperref}
+\usepackage[nameinlink,noabbrev,capitalize]{cleveref}
+\numberwithin{equation}{section}
+
+\setlist[enumerate]{label=\textup{(\roman*)},leftmargin=*}
+\newtheorem{theorem}{Theorem}[section]
+\newaliascnt{proposition}{theorem}
+\newtheorem{proposition}[proposition]{Proposition}
+\aliascntresetthe{proposition}
+\newaliascnt{lemma}{theorem}
+\newtheorem{lemma}[lemma]{Lemma}
+\aliascntresetthe{lemma}
+\newaliascnt{corollary}{theorem}
+\newtheorem{corollary}[corollary]{Corollary}
+\aliascntresetthe{corollary}
+\newtheorem{maintheorem}{Theorem}
+\renewcommand{\themaintheorem}{\Alph{maintheorem}}
+\theoremstyle{definition}
+\newaliascnt{definition}{theorem}
+\newtheorem{definition}[definition]{Definition}
+\aliascntresetthe{definition}
+\newaliascnt{remark}{theorem}
+\newtheorem{remark}[remark]{Remark}
+\aliascntresetthe{remark}
+\newaliascnt{example}{theorem}
+\newtheorem{example}[example]{Example}
+\aliascntresetthe{example}
+\newaliascnt{conjecture}{theorem}
+\newtheorem{conjecture}[conjecture]{Conjecture}
+\aliascntresetthe{conjecture}
+\newaliascnt{question}{theorem}
+\newtheorem{question}[question]{Question}
+\aliascntresetthe{question}
+\newaliascnt{problem}{theorem}
+\newtheorem{problem}[problem]{Problem}
+\aliascntresetthe{problem}
+\newaliascnt{alg}{theorem}
+\newtheorem{alg}[alg]{Algorithm}
+\aliascntresetthe{alg}
+\newtheorem{fig}{Figure}
+
+\allowdisplaybreaks[4]
+
+\SetKwInput{KwInput}{Input}                
+\SetKwInput{KwOutput}{Output}              
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\lw}{lw}
+\DeclareMathOperator{\intr}{int}
+
+\setcounter{tocdepth}{1}
+\renewcommand{\cftsecfont}{\normalfont\bfseries\color{blue}} 
+\renewcommand{\cftsecpagefont}{\normalfont\bfseries\color{blue}} 
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} 
+
+
+\title{Proof of the Zaks--Perles--Wills volume conjecture}
+
+\author{Feihu Liu$^{\color{blue} \dag}$, Jinlong Tang$^{\color{blue} \ddag}$, Sihao Tao$^{\color{blue} \P}$, and Zihao Zhang$^{\color{blue} \S}$
+\\[2mm]
+{\small $^{\color{blue} \dag}$ Center for Combinatorics, LPMC,}\\[-0.8ex]
+{\small Nankai University, Tianjin 300071, P.R.~China}\\
+{\small $^{\color{blue} \ddag, \P}$ School of Mathematical Sciences,}\\[-0.8ex]
+{\small Capital Normal University, Beijing, 100048, P.R.~China}\\
+{\small $^{\color{blue} \S}$ School of Mathematics and Statistics,}\\[-0.8ex]
+{\small Beijing Institute of Technology, Beijing 102400, P.R.~China}\\
+{\small {\color{blue} $^\dag$} Email address: \url{liufeihu7476@163.com}}\\
+{\small {\color{blue} $^\ddag$} Email address: \url{jinlong\_tang@cnu.edu.cn}}\\
+{\small {\color{blue} $^\P$} Email address: \url{sihao\_tao@cnu.edu.cn}}\\
+{\small {\color{blue} $^\S$} Email address: \url{zihao-zhang@foxmail.com}}\\
+}
+
+
+\date{\today}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The Zaks--Perles--Wills volume conjecture concerns the largest volume
+of a lattice polytope with a prescribed number of interior lattice
+points. We prove that for $d\ge4$ and $k\ge1$, a $d$-dimensional
+lattice polytope with $k$ interior lattice points has normalized volume
+at most $(k+1)(s_d-1)^2$, where $s_d$ is the $d$th Sylvester number.
+Equality holds if and only if the polytope is affinely unimodularly
+equivalent to the Sylvester simplex. Together with the known results
+in dimension three, this settles the conjecture for all $d\ge3$.
+We prove a volume bound for rational polytopes by induction on the
+dimension. At equality, an edge of a lower-dimensional fiber lifts to
+an edge of the polytope. Its lattice length identifies the maximizing
+polytope.
+\end{abstract}
+
+\noindent
+\begin{small}
+\emph{2020 Mathematics Subject Classification}: Primary 52B20; Secondary 52A38, 52C07.
+\end{small}
+
+\noindent
+\begin{small}
+\emph{Keywords}: Lattice polytope, interior lattice point, volume, Sylvester sequence, lattice projection.
+\end{small}
+
+%\tableofcontents
+
+\section{Introduction}
+
+Let $N$ be a lattice of rank $d$, that is, the group of integer
+linear combinations of a basis of a $d$-dimensional real vector
+space. We write $N_{\R}=N\otimes_{\Z}\R$ for this space.
+A \emph{lattice polytope} is the convex hull of finitely many
+points of $N$. A $d$-dimensional \emph{simplex} is the convex hull of
+$d+1$ affinely independent points. For a full-dimensional polytope
+$P\subset N_{\R}$, let $\intr P$ denote its interior and $|P|$ its
+volume, measured so that a fundamental parallelepiped of $N$ has
+volume one. We use
+\[
+ I(P):=\#(\intr P\cap N),\qquad \Vol_d(P):=d!\,|P|.
+\]
+Thus $\Vol_d(P)$ is the normalized volume. In lattice coordinates,
+$\Vol_d(P)$ is $d!$ times the usual Euclidean volume. Two lattice polytopes
+$P$ and $Q$ are \emph{affinely unimodularly equivalent}, denoted by
+$P\simeq Q$, if $Q=UP+b$ in lattice coordinates, where
+$U$ is an integer matrix of determinant $1$ or $-1$ and $b$ is a lattice vector.
+Such a map preserves both $I(P)$ and $\Vol_d(P)$.
+
+Hensley~\cite[Theorem~3.6]{Hensley} proved that the volume of a
+lattice polytope is bounded when its dimension and its positive
+number of interior lattice points are fixed. Lagarias and
+Ziegler~\cite[Theorem~1]{LZ} obtained an explicit bound for
+lattice polytopes with a prescribed positive number of interior
+points in a sublattice of the form $u\Z^d$, for a fixed positive
+integer $u$. Which lattice polytopes attain the largest possible
+volume? The simplices constructed by Zaks, Perles, and Wills~\cite{ZPW}
+provide candidates for each dimension and each positive number of
+interior lattice points.
+
+The \emph{Sylvester sequence} is defined by $s_1=2$ and
+$s_{j+1}=1+\prod_{i=1}^{j}s_i$ for $j\ge1$. Thus its first terms are
+$2,3,7,43$. For integers $d\ge3$ and $k\ge1$ and a lattice basis
+$e_1,\ldots,e_d$, the \emph{Sylvester simplex} is
+\[
+ S_{d,k}:=\conv\{0,s_1e_1,\ldots,s_{d-1}e_{d-1},
+                           (k+1)(s_d-1)e_d\}.
+\]
+Zaks, Perles, and Wills~\cite[p.~45]{ZPW} showed that the interior
+lattice points in these coordinates are precisely $(1,\ldots,1,j)$
+for $1\le j\le k$. The edge vectors from the origin
+are the columns of a diagonal matrix. Its determinant is the
+normalized volume, so
+\[
+ \Vol_d(S_{d,k})
+  =(k+1)(s_d-1)\prod_{i=1}^{d-1}s_i=(k+1)(s_d-1)^2 .
+\]
+
+\Needspace{7\baselineskip}
+We use the following formulation of the Zaks--Perles--Wills volume
+conjecture due to Balletti and Kasprzyk~\cite[Conjecture~1.5]{BK}.
+
+\begin{conjecture}\label{conj:zpw}
+Let $d\ge3$ and $k\ge1$ be integers. Every $d$-dimensional lattice
+polytope $P$ with $I(P)=k$ satisfies
+$\Vol_d(P)\le\Vol_d(S_{d,k})$. Except when $(d,k)=(3,1)$,
+equality holds if and only if $P\simeq S_{d,k}$.
+\end{conjecture}
+
+\Cref{tab:known-cases} summarizes previously established cases of
+\cref{conj:zpw}. In the table, a lattice
+polytope containing the origin in its interior is \emph{reflexive}
+if every vertex of its polar
+\[
+  \{h\in N_{\R}^{*}:h(x)\le1\text{ for all }x\in P\}
+\]
+belongs to the dual lattice $\operatorname{Hom}(N,\Z)$. Here
+$N_{\R}^{*}$ is the space of real linear forms on $N_{\R}$. The two maximizers for
+$(d,k)=(3,1)$ are $S_{3,1}$ and $\conv\{0,2e_1,6e_2,6e_3\}$,
+up to affine unimodular equivalence. They occur in Kasprzyk's
+classification~\cite{Kasprzyk} and are identified explicitly in
+the discussion following \cite[Conjecture~1.5]{BK}.
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabularx}{\textwidth}{@{}ll>{\raggedright\arraybackslash}X@{}}
+\toprule
+Parameters & Class of polytopes & Reference\\
+\midrule
+$d=3$, $k=1$ & Lattice polytopes & Kasprzyk~\cite{Kasprzyk}\\
+$d=3$, $k=2$ & Lattice polytopes &
+  Balletti and Kasprzyk~\cite[Corollary~5.2]{BK}\\
+$d=3$, $k\ge3$ & Lattice polytopes &
+  Liu, Tang, Tao, and Zhang~\cite[Theorem~1.2]{LTTZ}\\
+$d\ge4$, $k=1$ & Lattice simplices &
+  Averkov, Kr\"umpelmann, and Nill~\cite[Theorem~2.2]{AKN}\\
+$d\ge4$, $k=1$ & Reflexive polytopes &
+  Balletti, Kasprzyk, and Nill~\cite[Corollary~1.2]{BKN}\\
+$d\ge4$, $k\ge1$ & Lattice simplices &
+  Liu, Tang, Tao, and Zhang~\cite[Theorem~1.2]{LTTZII}\\
+\bottomrule
+\end{tabularx}
+\caption{Previously established cases of \cref{conj:zpw}.}\label{tab:known-cases}
+\end{table}
+
+Our main result establishes the sharp bound for arbitrary lattice
+polytopes of dimension at least four.
+
+\begin{theorem}\label{thm:general-zpw}
+Let $d\ge4$ and $k\ge1$ be integers. Every $d$-dimensional lattice
+polytope $P$ with exactly $k$ interior lattice points satisfies
+\[
+                        \Vol_d(P)\le(k+1)(s_d-1)^2 .
+\]
+Equality holds if and only if $P$ is affinely unimodularly equivalent
+to $S_{d,k}$.
+\end{theorem}
+
+It follows from \cref{thm:general-zpw} and the three-dimensional
+results in \cref{tab:known-cases} that \cref{conj:zpw} holds for
+all lattice polytopes of dimension at least three.
+
+Our proof begins with a section through an interior lattice point,
+which we translate to the origin. The \emph{lattice width} $\lw(P)$
+is the minimum of $\max_P h-\min_P h$ over nonzero linear forms $h$
+that take integer values on $N$. Since the origin lies in $\intr P$,
+every such form attains a negative minimum and a positive maximum.
+Both are integers, since they are attained at vertices of $P$.
+Thus $\lw(P)\ge2$. If $\lw(P)=2$, a form attaining the width has
+range $[-1,1]$, so every interior lattice point has height zero.
+
+A face of $P$ is the set of maximizers of a linear form on $P$.
+Faces of dimensions zero, one, and $d-1$ are called vertices, edges,
+and facets, respectively. The relative interior of a face is its
+interior in its affine span. Now consider a vertex of the section
+at height zero and the smallest face of $P$ containing this vertex.
+The vertex lies in the relative interior of that face. If the face had
+dimension at least two, its affine span would contain a line of
+constant height through the vertex. A short segment of this line on
+both sides of the vertex would lie in the section, contrary to
+extremality. Thus the vertex is either a vertex of $P$ or lies in an
+edge that crosses the section. The endpoints of a crossing edge have
+integer heights of opposite sign, hence heights $-1$ and $1$.
+Its point at height zero is its midpoint. Consequently, each vertex
+$v$ of the section satisfies $2v\in N$. An induction on dimension
+must therefore allow rational vertices. For a rational vertex $v$, its
+\emph{denominator} is the least positive integer $a$ such that
+$av\in N$. We prove a volume bound for rational polytopes in terms
+of an upper bound $u$ on these denominators.
+
+For larger widths, suppose the volume of the polytope is at least
+the proposed bound. We find a surjection of lattices under which
+the image of the polytope has small volume. The volume of this image
+bounds the denominators of the vertices
+in the fiber over zero. Here the fiber consists of those points of the
+polytope that map to zero. At equality, a face of the original polytope
+is a translate of a dilation of this fiber. By induction there is
+an edge of lattice length $(k+1)(s_d-1)$ in the original lattice
+polytope. The lattice-diameter theorem
+of Averkov, Kr\"umpelmann, and Nill~\cite[Theorem~2.8]{AKN} determines
+the maximizing lattice polytope.
+
+The paper is organized as follows. \Cref{sec:reduction} states the
+rational volume bound and relates the volume of a polytope to that
+of its fiber over zero. \Cref{sec:tools} establishes the estimates for chord
+lengths, covering radii, and planar areas that we use to find a
+projection of small volume. \Cref{sec:rational-volumes} proves the
+projection bound for $u=2$ and $u\ge6$. For $u=1$, we treat dimension
+four in \cref{sec:gzpw-four-chords} and higher dimensions in
+\cref{sec:gzpw-wide}. Finally,
+\cref{sec:volume-proof} completes the induction and determines the
+equality case.
+
+\section{Rational polytopes and their central fibers}\label{sec:reduction}
+
+The induction requires two estimates for the section through an
+interior lattice point. One controls its vertex denominators, and
+the other relates its volume to the volume of the original polytope.
+
+\subsection{The volume bound for rational polytopes}
+
+A polytope is \emph{rational} if all its vertices have rational
+coordinates in a lattice basis. Different vertices may have different
+denominators, each bounded by the same integer $u$.
+For each positive integer $u$, define $f_0(u)=u$ and
+$f_{j+1}(u)=f_j(u)(f_j(u)+1)$ for $j\ge0$. Set
+\[
+ A_d(u)=\frac{f_{d-1}(u)^2}{d!\,u^{d+1}}\qquad(d\ge1).
+\]
+The identity $s_{j+2}-1=s_{j+1}(s_{j+1}-1)$ and the initial value
+$s_1-1=1$ show that $f_j(1)=s_{j+1}-1$. The value $f_j(u)$ is
+obtained by iterating the map $t\mapsto t(t+1)$ exactly $j$ times,
+so $f_i(f_j(u))=f_{i+j}(u)$. If the displacement of a segment is
+$te$ for a primitive lattice vector
+$e$ (a generator of the lattice on its
+line), its \emph{lattice length} is $|t|$.
+
+\begin{theorem}\label{thm:general-rational}
+Let $C$ be a rational $d$-polytope with $I(C)=k\ge1$, and let $u$ be
+a positive integer. Assume that each vertex of $C$ has denominator at
+most $u$. If $u=1$ and $d\ge4$, or if $u\in\{2\}\cup\Z_{\ge6}$ and
+$d\ge1$, then
+\[
+                         |C|\le(k+1)A_d(u).
+\]
+For every such $d,u,k$, there is a polytope attaining equality.
+If $(d,u,k)\ne(2,2,1)$ and equality holds, then $C$ is a simplex
+with an edge of lattice length $\frac{(k+1)f_{d-1}(u)}{u}$.
+\end{theorem}
+
+In dimension one the interval $[0,k+1]$ attains the bound.
+For $d\ge2$, take the coordinate simplex of Lagarias and
+Ziegler~\cite[Proposition~2.6]{LZ} and divide it by $u$. Their
+sublattice $u\Z^d$ becomes $\Z^d$. The resulting simplex has
+intercepts $\frac{f_{i-1}(u)+1}{u}$ for $1\le i<d$ and
+$\frac{(k+1)f_{d-1}(u)}{u}$ in the last coordinate. Each vertex has
+denominator at most $u$. The interior lattice
+points are $(1,\ldots,1,j)$ for $1\le j\le k$, by the cited
+proposition. By the recurrence,
+$\prod_{i=1}^{d-1}(f_{i-1}(u)+1)=\frac{f_{d-1}(u)}{u}$, so the product
+of the intercepts is $d!(k+1)A_d(u)$.
+
+\subsection{A volume estimate for the central fiber}
+
+A \emph{convex body} is a compact convex set with nonempty interior
+in its ambient space. For a body $K$ in an $m$-dimensional lattice
+space, we use the same notation $\Vol_m(K)=m!|K|$ and write $I(K)$
+for its number of interior lattice points. We call $K$ \emph{hollow}
+if $I(K)=0$.
+
+A \emph{lattice projection} is a linear map $\pi$ induced by a
+surjection of lattices. For $y\in\pi(K)$, write $K_y=K\cap\pi^{-1}(y)$.
+We use the quotient lattice on the image. On each affine fiber we
+use the translate of the volume measure on $\ker\pi$ determined by
+the kernel lattice. Above a lattice point of the image, the ambient
+lattice induces an affine translate of the kernel lattice on the
+fiber space. We call $K_0$ the \emph{central fiber} when $0\in\intr\pi(K)$.
+Since a basis of the kernel together with lifts of a
+quotient basis forms a basis of the ambient lattice, Fubini's theorem takes the form
+$|K|=\int_{\pi(K)}|K_y|\,dy$.
+
+The \emph{relative interior} of a convex set is its interior in
+its affine hull. Two elementary facts about relative interiors will be
+used below. A linear map takes the relative interior of a convex set
+onto the relative interior of its image. Moreover, if an affine
+subspace meets the relative interior of a convex set, the relative
+interior of their intersection is the intersection of that subspace
+with the relative interior of the set
+\cite[Corollary~6.5.1 and Theorem~6.6]{Rockafellar}. Since $K$ and
+$\pi(K)$ have interior in their respective spaces, the first fact
+implies that $\pi^{-1}(y)$ meets $\intr K$ whenever $y\in\intr\pi(K)$.
+The second fact then implies
+\begin{equation}\label{eq:relative-fiber}
+                 \operatorname{relint} K_y=\intr K\cap\pi^{-1}(y).
+\end{equation}
+In particular, such a fiber has dimension $\dim\ker\pi$.
+
+For nonempty compact convex sets $A,B$ in an $r$-dimensional
+space with $r\ge1$, the Brunn--Minkowski inequality~\cite[Theorem~4.1, inequality~(10)]{Gardner}
+states that
+\[
+  |(1-t)A+tB|^{\frac{1}{r}}
+    \ge (1-t)|A|^{\frac{1}{r}}+t|B|^{\frac{1}{r}}
+    \qquad (0\le t\le1).
+\]
+Here $A+B$ denotes the
+set of all $a+b$ with $a\in A$ and $b\in B$. After identifying fibers
+by translation, convexity of $K$ yields
+$(1-t)K_y+tK_z\subseteq K_{(1-t)y+tz}$. With $r=\dim\ker\pi\ge1$,
+the stated inequality therefore implies that
+$y\mapsto |K_y|^{\frac{1}{r}}$ is concave on $\pi(K)$.
+It is also upper semicontinuous there. Indeed, a linear splitting of the projection identifies the fibers
+with subsets of a common space.
+If $y_j\to y$, compactness ensures that every limit point of a
+sequence in the fibers $K_{y_j}$ lies in $K_y$. Thus every open
+neighborhood of $K_y$ contains $K_{y_j}$ for all sufficiently large
+$j$. The volumes of shrinking closed neighborhoods of $K_y$ decrease
+to $|K_y|$, so $\limsup_{j\to\infty}|K_{y_j}|\le |K_y|$.
+
+The minimum defining the lattice width is attained. Indeed,
+in lattice coordinates a convex body contains a Euclidean ball of
+some radius $\varepsilon>0$. An integral linear form $h$ has range
+of length at least $2\varepsilon\|h\|$ on this ball. Only finitely
+many integral forms have norm below any prescribed bound. A
+minimizing nonzero form is primitive, since division by any common
+factor of its coefficients would decrease the width. Each nonzero
+integral form on the quotient pulls back to a nonzero integral form
+on the ambient lattice. Consequently $\lw(\pi(K))\ge\lw(K)$.
+
+For a polytope of width less than $1+\frac{2}{u}$, we use the section through
+an interior lattice point in a direction of minimum width. For width
+at least $1+\frac{2}{u}$ and $d\ge3$, suppose $|C|\ge(k+1)A_d(u)$. We use
+a projection of rank $n$ whose
+image has volume at most
+\[
+                     V_n(u):=\frac{f_n(u)}{n!\,u^{n+1}} .
+\]
+The following proposition establishes its existence.
+
+\begin{proposition}\label{prop:projections}
+Let $C,d,u,k$ be as in \cref{thm:general-rational}.
+Assume that $d\ge3$, $\lw(C)\ge1+\frac{2}{u}$, and $|C|\ge(k+1)A_d(u)$.
+Then there exists a lattice projection $\pi$ of rank $2\le n<d$
+such that $|\pi(C)|\le V_n(u)$.
+\end{proposition}
+
+We prove \cref{prop:projections} in
+\cref{sec:rational-volumes,sec:gzpw-four-chords,sec:gzpw-wide}.
+We first bound the volume in terms of one fiber. Its equality conditions
+will determine how an edge of the fiber lifts to the original polytope.
+
+\begin{lemma}\label{lem:central-fiber-volume}
+Let $C$ be a $d$-dimensional convex body, and suppose that its image
+$B$ under a lattice projection of rank $1\le n<d$ is a polytope with
+$0\in\intr B$. Set $r=d-n$, $W=\Vol_n(B)$, and
+$\delta=\min_F\Vol_n(\conv(0,F))$, where $F$ ranges over the facets
+of $B$. Then
+\begin{equation}\label{eq:facet-volume}
+                   \Vol_d(C)\le\Vol_r(C_0)\,W(\frac{W}{\delta})^r.
+\end{equation}
+For each facet $F$, let $\ell_F$ be its affine height, zero on $F$
+and one at the origin. At equality, $|C_y|=|C_0|\ell(y)^r$ on $B$,
+where $\ell$ is a convex combination of heights $\ell_F$ for which
+$\Vol_n(\conv(0,F))=\delta$ and $B$ is a pyramid on $F$, that is,
+the convex hull of $F$ and one point outside its affine hull.
+If $r>1$, then $\ell=\ell_F$ for one such facet.
+\end{lemma}
+
+\begin{proof}
+The fiber $C_0$ has positive $r$-dimensional volume by
+\eqref{eq:relative-fiber}. Since $0\in\intr B$, the concave function
+$y\mapsto |C_y|^{\frac{1}{r}}$ admits an affine upper bound that
+agrees with it at zero \cite[Theorem~23.4]{Rockafellar}. After
+division by $|C_0|^{\frac{1}{r}}$, this upper bound is an affine
+function $\ell$ with $\ell(0)=1$ and
+$|C_y|\le |C_0|\ell(y)^r$ on $B$. In particular $\ell\ge0$ on $B$.
+The polar of $B$ consists of the linear forms bounded above by one on
+$B$. Its vertices are the facet normals normalized to take the value
+one on the corresponding facet, namely $1-\ell_F$. Since $1-\ell$
+belongs to the polar, it is a convex combination of these normals.
+Consequently $\ell$ is a convex combination of the corresponding
+facet heights.
+
+For a fixed facet $F$, let $H=\max_B\ell_F$ and
+$T=\frac{W}{\Vol_n(\conv(0,F))}$. The pyramid on $F$ with apex at
+a point of height $H$ has volume $H|\conv(0,F)|$ and lies in $B$.
+Hence $H\le T$. For $0\le t\le H$, write
+$v(t)=|\{y\in B:\ell_F(y)\ge t\}|$. Since $\ell_F$ is affine,
+the Minkowski convex combination of two such sets lies in the set at
+the corresponding intermediate height. By Brunn--Minkowski,
+$v(t)^{\frac{1}{n}}$ is concave.
+
+We compute the right derivative at zero. In Euclidean coordinates
+chosen so that the lattice has covolume one, the distance between
+heights zero and one is $\frac{1}{\|\nabla\ell_F\|}$. The
+$(n-1)$-dimensional volumes of the parallel sections at small positive
+heights converge to the area of $F$. Indeed, compactness places these
+sections in arbitrarily small neighborhoods of $F$ after normal
+translation. Conversely, the sections of the inscribed pyramid at
+the same heights contain translates of
+$\left(1-\frac{t}{H}\right)F$. By integration across the slab of
+heights between $0$ and $t$, we obtain
+\[
+ v(0)=|B|,\qquad v'(0+)=-n|\conv(0,F)|=-\frac{n|B|}{T}.
+\]
+For $n=1$ this is the corresponding formula for a subinterval.
+The right derivative of $v^{\frac{1}{n}}$ at zero is therefore
+$-\frac{|B|^{\frac{1}{n}}}{T}$. The graph of a concave function
+lies below its right tangent at the left endpoint. Hence
+$v(t)\le |B|\left(1-\frac{t}{T}\right)^n$ on $[0,H]$.
+
+The identity $\ell_F(y)^r=\int_0^{\ell_F(y)}rt^{r-1}\,dt$
+and Fubini's theorem now yield
+\[
+ \int_B\ell_F(y)^r\,dy
+   =r\int_0^H t^{r-1}v(t)\,dt
+   \le r|B|\int_0^T t^{r-1}\left(1-\frac{t}{T}\right)^n\,dt
+   =\frac{|B|T^r}{\binom{d}{n}} .
+\]
+The last equality uses $t=Ts$ and the integer beta integral
+$\int_0^1s^{r-1}(1-s)^n\,ds=\frac{(r-1)!\,n!}{(r+n)!}$.
+Since $T\le\frac{W}{\delta}$, each facet height has the same integral
+upper bound with $T$ replaced by $\frac{W}{\delta}$. The convexity
+of the $r$th power on $[0,\infty)$ shows that $\ell^r$ is bounded
+pointwise by the same convex combination of the $r$th powers of
+the facet heights. Thus
+\[
+ |C|=\int_B|C_y|\,dy
+ \le |C_0|\int_B\ell(y)^r\,dy
+ \le \frac{|C_0|\,|B|}{\binom{d}{n}}
+               \left(\frac{W}{\delta}\right)^r .
+\]
+Multiplication by $d!$ proves \eqref{eq:facet-volume} because
+$\frac{d!}{\binom{d}{n}}=n!\,r!$.
+
+Suppose equality holds. For every facet height with a positive
+coefficient in $\ell$, equality must hold in its integral estimate.
+If $H<T$, the integral from $H$ to $T$ of the upper bound has
+positive value. If $T<\frac{W}{\delta}$, replacing $T$ by
+$\frac{W}{\delta}$ strictly increases the bound. Thus
+$H=T=\frac{W}{\delta}$ for each of these facets. Its pyramid with
+apex at height $H$ is contained in $B$ and has volume $|B|$.
+A proper closed convex subset of a convex body has smaller volume. Indeed, a point of the body outside the subset has a neighborhood disjoint
+from the subset which meets the interior of the body. Hence $B$
+equals the pyramid. If $r>1$, two distinct facet heights differ on an
+open subset of $B$. Strict convexity of the $r$th power would then
+make the integral inequality strict, so $\ell$ is a single height.
+
+Finally, equality in the fiber integral forces
+$|C_y|=|C_0|\ell(y)^r$ almost everywhere. On $\intr B$ this identity
+holds everywhere because a finite concave function is continuous in
+the interior of its domain. At a boundary point, an interior sequence
+approaching that point and upper semicontinuity imply
+$|C_y|\ge |C_0|\ell(y)^r$. The supporting bound yields the reverse
+inequality, which completes the proof.
+\end{proof}
+
+\subsection{Vertex denominators and equality in the fiber estimate}
+
+We now use the denominators of the vertices to bound both the right
+side of \eqref{eq:facet-volume} and the vertex denominators of the central fiber.
+
+\begin{lemma}\label{lem:reduction}
+Let $C$ be a rational $d$-polytope with $0\in\intr C$, and assume that
+each vertex has denominator at most a positive integer $u$. Let $\pi$
+be a lattice projection of rank $1\le n<d$. Assume that one of the
+following conditions holds.
+\begin{enumerate}
+\item $n=1$ and $|\pi(C)|<1+\frac{2}{u}$.
+\item $n\ge2$, $|\pi(C)|\le V_n(u)$, and $\lw(\pi(C))>\frac{2}{u}$.
+\end{enumerate}
+Let $r=d-n$ be the dimension of the central fiber $C_0=C\cap\ker\pi$,
+and set $U=f_n(u)$. Each vertex of $C_0$ has denominator at most $U$
+in the kernel lattice, and
+\begin{equation}\label{eq:one-lift}
+            \Vol_d(C)\le \frac{U^{r+1}}{u^{d+1}}\,\Vol_r(C_0).
+\end{equation}
+If equality holds and $(d,u)\ne(2,1)$, then $\pi(C)$ is a simplex.
+For some vertex $v$ of this simplex, $C_v$ is a face of $C$ and a
+translate of $\frac{U}{u}C_0$. Moreover, $C$ is the convex hull of $C_v$ and
+one point over each of the other vertices of $\pi(C)$.
+\end{lemma}
+
+\begin{proof}
+Write $B=\pi(C)$ and $W=\Vol_n(B)$. In case~(i), the quotient
+lattice has a primitive height coordinate in which $B=[-p,q]$
+with $p\le q$, after changing the sign of the coordinate if necessary.
+Its endpoints are projected vertices of $C$. Since they are nonzero
+rational numbers with denominators at most $u$, both $p$ and $q$ are
+at least $\frac{1}{u}$. If $q>1$, the same argument applied to $q-1$
+implies $q\ge1+\frac{1}{u}$. This would imply
+$p+q\ge1+\frac{2}{u}$, contrary to the hypothesis. We have proved
+$\frac{1}{u}\le p\le q\le1$.
+
+Suppose $C$ has $m$ vertices. We write them as
+$\frac{z_i}{a_i}$, with $z_i\in N$ and $1\le a_i\le u$ for
+$1\le i\le m$. Consider the polytope of possible coefficients
+\[
+ \left\{c\in\mathbb R_{\ge0}^{m}:
+          \sum_{i=1}^{m}c_i(\pi z_i,a_i)=(0,1)\right\}.
+\]
+The map $c\mapsto\sum_{i=1}^{m}c_i z_i$ takes this polytope onto $C_0$.
+Indeed, if $c$ satisfies these equations, the numbers $a_ic_i$ are
+nonnegative and sum to one. The convex combination of the vertices
+with these coefficients is $\sum_{i=1}^{m}c_i z_i$ and projects to
+zero. Conversely, from any convex representation of a point above zero,
+division of the $i$th coefficient by $a_i$ produces such a vector $c$.
+The coefficient polytope is bounded because $0\le a_ic_i\le1$.
+
+Its vertices map to a finite set whose convex hull is $C_0$, so
+each vertex of $C_0$ is the image of at least one of those vertices.
+At a vertex $c$, the columns $(\pi z_i,a_i)$ for which $c_i>0$ are
+linearly independent. Otherwise a nonzero linear relation supported
+on these indices would permit a small perturbation of $c$ in both
+directions within the coefficient polytope. The projected vertices
+$\frac{\pi z_i}{a_i}$ affinely span the $n$-dimensional image $B$.
+Thus the columns $(\frac{\pi z_i}{a_i},1)$ span a space of dimension
+$n+1$, as do the original columns. We may therefore extend the
+independent columns to $n+1$ independent columns from the same list.
+In a lattice basis of the quotient these columns form an integral
+square matrix. Cramer's rule, with right side $(0,1)$, shows that
+its absolute determinant clears the denominators of $c$, including
+all its zero entries. It also clears the denominator of
+$\sum_{i=1}^{m} c_i z_i$, since the latter point lies in $\ker\pi$
+and its integral multiple belongs to $N\cap\ker\pi$.
+
+For the selected indices $i_0,\ldots,i_n$, the absolute determinant
+is
+\[
+ \left(\prod_{j=0}^{n}a_{i_j}\right)
+ \Vol_n\left(\conv\left\{\frac{\pi z_{i_0}}{a_{i_0}},\ldots,
+                             \frac{\pi z_{i_n}}{a_{i_n}}\right\}\right).
+\]
+Indeed, division of column $j$ by $a_{i_j}$ makes its last entry
+one. Subtraction of the first column from each remaining column
+leaves the usual determinant for the normalized simplex volume.
+In case~(ii) the simplex lies in $B$, so the displayed product is at
+most $u^{n+1}W\le U$. In case~(i), with selected indices $i,j$,
+the absolute determinant is less than $a_i a_j(1+\frac{2}{u})$.
+If $a_i=a_j=u$, this determinant is a multiple of $u$ strictly
+below $u(u+2)$, and hence at most $u(u+1)$. Otherwise $a_i a_j\le
+u(u-1)$ and it is less than $(u-1)(u+2)<u(u+1)$. Since $U=f_1(u)
+=u(u+1)$ in this case, the required denominator bound follows.
+
+We next apply \cref{lem:central-fiber-volume} to $C$ and $\pi$. In
+case~(i), the two cones from zero to the facets are intervals of
+lengths $p,q$. Thus $\delta=p$, $W=p+q$, and
+\[
+ W\left(\frac{W}{\delta}\right)^r
+ =\frac{(p+q)^d}{p^{d-1}}\le\frac{(p+1)^d}{p^{d-1}}
+ \le\frac{(u+1)^d}{u}=\frac{U^{r+1}}{u^{d+1}}.
+\]
+For the second inequality, the logarithmic derivative of
+$\frac{(p+1)^d}{p^{d-1}}$ is $\frac{p-(d-1)}{p(p+1)}$.
+It is negative on $0<p<1$ for $d\ge2$, and the maximum on
+$[\frac{1}{u},1]$ is attained at $\frac{1}{u}$.
+In case~(ii), take any facet of $B$ and choose $n$ affinely
+independent vertices on it. A linear projection sends vertices to
+points of denominator at most $u$, and every vertex of $B$ is the
+image of a vertex of $C$. The normalized volume of the simplex
+on these $n$ vertices and zero is the absolute determinant of their
+integral numerators divided by the product of their denominators.
+Its numerator is a nonzero integer because zero lies off the facet
+hyperplane. Hence the volume is at least $u^{-n}$. This proves
+$\delta\ge u^{-n}$. Together with $W\le\frac{U}{u^{n+1}}$, we obtain
+\[
+  W\left(\frac{W}{\delta}\right)^r\le
+  \frac{U}{u^{n+1}}\left(\frac{U}{u}\right)^r
+  =\frac{U^{r+1}}{u^{d+1}} .
+\]
+In each case, \eqref{eq:facet-volume} now implies \eqref{eq:one-lift}.
+
+Suppose equality holds in \eqref{eq:one-lift}. Then
+\eqref{eq:facet-volume} is an equality. Each facet occurring in the
+affine upper bound $\ell$ of \cref{lem:central-fiber-volume} is the
+base of a pyramid equal to $B$, and its cone from zero has normalized
+volume $\delta$. In case~(i), equality requires $p=\frac{1}{u}$ and $q=1$.
+In case~(ii), equality requires $\delta=u^{-n}$ and
+$W=\frac{U}{u^{n+1}}$. Let $F$ be a facet whose height occurs in
+$\ell$ with positive coefficient. Choose $n$ affinely independent
+vertices on $F$. Their cone from zero has normalized volume at
+least $u^{-n}$ by the determinant bound above. It is contained in
+$\conv(0,F)$, whose normalized volume is exactly $\delta=u^{-n}$.
+Thus the two cones coincide. Their common intersection with the
+hyperplane of $F$ is the simplex on the chosen vertices, so $F$
+is a simplex. Since $B$ is a pyramid on $F$, it too is a simplex.
+In case~(i), $B$ is already an interval. In both cases the height
+of the vertex opposite any facet occurring in $\ell$ with positive
+coefficient is $\frac{W}{\delta}=\frac{U}{u}$.
+
+For the equality assertion, assume $(d,u)\ne(2,1)$. We claim that
+$\ell=\ell_F$ for one facet $F$. For $r>1$ this follows
+from \cref{lem:central-fiber-volume}. Suppose $r=1$. In case~(i) this forces $d=2$, so the exclusion
+of $(d,u)=(2,1)$ implies $u>1$.
+Hence $p<q$ and only one endpoint attains the minimum $\delta$.
+In case~(ii), fix a facet $F$ with positive coefficient in $\ell$.
+Since the normalized volume of the cone on $F$ is exactly $u^{-n}$,
+the product of the $n$ vertex denominators must be $u^n$
+and the numerator determinant must have absolute value one. Each
+denominator is therefore $u$, and the integral numerators form a
+basis of the quotient lattice. Thus the vertices of $F$ are
+$\frac{e_1}{u},\ldots,\frac{e_n}{u}$ for a lattice basis $e_1,\ldots,e_n$. All
+coordinates of the opposite vertex $v$ in this basis are negative.
+Indeed, the barycentric coordinates of $0$ in the simplex $B$ are
+positive, so in every coordinate the contribution of $v$ must
+cancel a positive multiple of $\frac{1}{u}$.
+If a second facet had positive coefficient, its vertices would be
+obtained by replacing some $\frac{e_i}{u}$ by $v$. Its cone determinant
+would give $\frac{|v_i|}{u^{n-1}}=u^{-n}$. Hence $v_i=-\frac{1}{u}$, whereas the $i$th coordinates of the
+vertices of $F$ are zero or $\frac{1}{u}$. The range of the integral
+$i$th coordinate on $B$ would have length $\frac{2}{u}$, contrary to $\lw(B)>\frac{2}{u}$.
+This proves the claim.
+
+Let $v$ be the vertex opposite $F$, so that $\ell_F(v)=\frac{U}{u}$.
+Choose a point of $C$ above each vertex of $F$, and take their convex
+hull with $C_v$. The fiber of this hull at $y\in B$ is a translate
+of $(\frac{\ell_F(y)}{\ell_F(v)})C_v$, since this ratio is the barycentric
+coordinate of $v$. In fact, $y$ has unique barycentric coordinates
+in $B$. All coefficients on the chosen points over $F$ are
+therefore fixed, and only the point over $v$ can vary. By \cref{lem:central-fiber-volume},
+$|C_v|=|C_0|\ell_F(v)^r$. Thus the fiber of the hull has volume
+$|C_0|\ell_F(y)^r=|C_y|$. The hull has the full volume of $C$ and hence
+equals $C$. At zero its fiber is a translate of $\frac{u}{U}C_v$. Since a linear form exposing $v$ pulls back
+to a form exposing $C_v$, the fiber $C_v$ is a face of $C$ and a
+translate of $\frac{U}{u}C_0$.
+\end{proof}
+
+\section{Chord lengths and covering radii}\label{sec:tools}
+
+We use the following estimates to find a projection of small volume.
+The first two concern the lengths of parallel chords, and the next
+two compare lattice-point counts before and after projection.
+
+\subsection{Chord lengths and integrals of their powers}
+
+The \emph{rational diameter} $L(K)$ of a convex body $K$ is the
+maximum lattice length of a chord of $K$ over all primitive lattice
+directions. If $K$ contains a chord of lattice length at least
+$\varepsilon>0$ parallel to a primitive vector $e$, then $e$ belongs to
+$\frac{K-K}{\varepsilon}$. This set contains only finitely many lattice
+vectors. The body has interior, so at least one direction has a
+chord of positive length. We may take $\varepsilon$ equal to this
+length and consider just those finitely many directions. In each
+direction compactness ensures that the maximum length is attained.
+
+\begin{lemma}\label{aux:chords}
+Let $K$ be a convex body of dimension at least two, and let $D$ be
+its image under the projection along a primitive lattice vector $e$.
+For $y\in D$, let $h(y)$ be the lattice length of the fiber over $y$.
+Set $L=\max_D h$ and $D_t=\{y\in D:h(y)\ge t\}$ for $0\le t\le L$.
+Then $D_0=D$, $|K|\le L|D|$, and $D_t$ contains a translate of
+$(1-\frac{t}{L})D$. In particular, if $n=\dim D$ and $0\le t<L$, then
+\[
+  \operatorname{lw}(D_t)\ge(1-\frac{t}{L})\operatorname{lw}(D),\qquad
+  |D_t|\ge(1-\frac{t}{L})^n|D|.
+\]
+For every integer $t$ with $0<t<L$, we have $tI(D_t)\le I(K)$.
+If $e$ attains the rational diameter of $K$, so that $L=L(K)$, then
+\begin{equation}\label{aux:nested}
+                   L(D_t)\le\max\{L,2L-2t\}\qquad(0\le t<L).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The fiber length $h$ is upper semicontinuous and concave by the
+fiber properties in \cref{sec:reduction}. By Fubini's
+theorem, $|K|=\int_D h\le L|D|$. Fix $y_*$ with $h(y_*)=L$.
+For each $y\in D$, concavity and $h(y)\ge0$ imply
+\[
+ h\left(\left(1-\frac{t}{L}\right)y+\frac{t}{L}y_*\right)
+ \ge\left(1-\frac{t}{L}\right)h(y)+\frac{t}{L}h(y_*)\ge t .
+\]
+Consequently
+\[
+              (1-\frac{t}{L})D+(\frac{t}{L})y_*\subseteq D_t.
+\]
+This proves the bounds on width and volume. Suppose $0<t<L$.
+If $y\in\intr D_t$ and $y\ne y_*$, the segment from $y_*$ through
+$y$ extends beyond $y$ in $D_t$. Since $h(y_*)>t$, concavity implies
+$h(y)>t$. Thus the interior of the fiber over each interior lattice
+point of $D_t$ is an open interval of length greater than $t$ in its
+lattice line. For integral $t$ this interval contains at least $t$
+interior lattice points of $K$. The fibers over distinct lattice points are disjoint, so
+$tI(D_t)\le I(K)$.
+
+To prove \eqref{aux:nested}, choose a longest chord of $D_t$ with
+displacement $Jv$, where $v$ is primitive in the quotient lattice.
+Both fibers of $K$ over the endpoints of this chord have length at
+least $t$. Their difference, taken in the order corresponding to $Jv$,
+is an interval in the fiber of $K-K$ above $Jv$. The length of the
+difference of two intervals is the sum of their lengths, so this
+interval has radius at least $t$.
+The fiber of $K-K$ over zero contains $[-Le,Le]$. Hence, for every
+$0<s<J$, the fiber over $sv$ contains an interval of radius at least
+$L(1-\frac{s}{J})+\frac{ts}{J}$ by convexity. Suppose that
+$J>\max\{L,2L-2t\}$. At $s=L$ the radius is at least
+\[
+ L\left(1-\frac{L-t}{J}\right)>\frac{L}{2},
+\]
+since $J>2(L-t)$. The radius bound depends continuously on $s$,
+so it still exceeds $\frac{s}{2}$ for some $s$ with $L<s<J$. Choose a lattice lift
+$\widetilde v$ of $v$. Consecutive points $s(\widetilde v+je)$,
+$j\in\Z$, are at lattice distance $s$ on this line. Hence one of them
+belongs to $K-K$. Since $\widetilde v+je$ projects to $v$, it is
+primitive. We obtain a chord of $K$ of length $s>L$, a contradiction.
+\end{proof}
+
+We shall apply the following integral bounds both to chord lengths
+and to square roots of areas of two-dimensional fibers.
+
+\begin{lemma}\label{aux:support}
+Let $h$ be a nonnegative upper semicontinuous concave function on an
+$n$-dimensional convex body $D$. Set $D_t=\{y\in D:h(y)\ge t\}$
+and $X=\max_D h$. Fix $0<a<X$ and $A\ge |D_a|$, and write $x=\frac{X}{a}$.
+There exists a real number $c$ satisfying
+\[
+ \max\{0,(\frac{|D|}{A})^{\frac{1}{n}}-1\}\le c\le \frac{1}{x-1}
+\]
+such that, for every positive integer $p$,
+\begin{align}
+ \int_D h^p
+ &\le a^p A\int_0^x pt^{p-1}(1+c(1-t))^n\,dt ,
+                         \label{eq:moment-line}\\
+ \int_D h^p
+ &\le a^p A\frac{(1+c)^{n+p}}{\binom{n+p}{n}c^p}
+                    \qquad(c>0). \label{eq:moment-cone}
+\end{align}
+In particular,
+\begin{equation}\label{aux:support-basic}
+ \int_D h\le A\max\left\{X,\frac{X^{n+1}}{(n+1)(X-a)^n}\right\}.
+\end{equation}
+If $x\ge n+1$ and $0<\eta\le (\frac{|D|}{A})^{\frac{1}{n}}-1$, then
+\begin{equation}\label{aux:cone}
+                 \int_D h\le aA\frac{(1+\eta)^{n+1}}{(n+1)\eta}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+By concavity of $h$, we have
+$(1-\lambda)D_s+\lambda D_t\subseteq D_{(1-\lambda)s+\lambda t}$
+for $0\le\lambda\le1$. The Brunn--Minkowski inequality implies that
+$t\mapsto |D_{at}|^{\frac{1}{n}}$ is concave on $[0,x]$. This function is
+nonincreasing. Its value at $1$ is positive, since $D_a$ contains a
+translate of $(1-\frac{a}{X})D$ by concavity of $h$. Choose a supporting
+line at $1$ and write it as $|D_a|^{\frac{1}{n}}(1+c(1-t))$. At $t=0$ its
+value is at least $|D|^{\frac{1}{n}}$, and at $t=x$ it is nonnegative. These
+two inequalities imply
+\[
+ \left(\frac{|D|}{A}\right)^{\frac{1}{n}}-1
+ \le\left(\frac{|D|}{|D_a|}\right)^{\frac{1}{n}}-1
+ \le c\le\frac{1}{x-1}.
+\]
+Since the function is nonincreasing and $1$ is an interior point of
+$[0,x]$, its supporting line has nonpositive slope, so $c\ge0$.
+The identity
+\[
+             \int_D h^p=a^p\int_0^x pt^{p-1}|D_{at}|\,dt
+\]
+and the supporting bound
+$|D_{at}|\le |D_a|(1+c(1-t))^n\le A(1+c(1-t))^n$
+imply \eqref{eq:moment-line}. If $c>0$, we may extend the
+integral of the supporting bound to $1+\frac{1}{c}$, where the line vanishes.
+Under the substitution $t=\frac{1+c}{c}s$ the supporting line
+factor $1+c(1-t)$ becomes $(1+c)(1-s)$. Thus the integral up to
+$\frac{1+c}{c}$ equals
+\[
+ \frac{(1+c)^{n+p}}{c^p}\int_0^1 p s^{p-1}(1-s)^n\,ds
+ =\frac{(1+c)^{n+p}}{\binom{n+p}{n}c^p},
+\]
+which proves \eqref{eq:moment-cone}.
+
+For $p=1$ the integral in \eqref{eq:moment-line} is convex as a
+function of $c$ on $[0,\frac{1}{x-1}]$. Indeed, for fixed $t\in[0,x]$
+the base $1+c(1-t)$ is nonnegative on this entire interval and
+the $n$th power is convex there. The value at $c=0$ is $x$.
+At $c=\frac{1}{x-1}$ it is
+\[
+ \int_0^x\left(\frac{x-t}{x-1}\right)^n\,dt
+  =\frac{x^{n+1}}{(n+1)(x-1)^n}.
+\]
+The maximum is attained at an endpoint. Multiplication by $aA$
+and the identity $ax=X$ yield \eqref{aux:support-basic}.
+If $x\ge n+1$ and $\eta$ satisfies the hypotheses of
+\eqref{aux:cone}, then $0<\eta\le c\le\frac{1}{n}$. The logarithmic
+derivative of $\frac{(1+c)^{n+1}}{c}$ is
+$\frac{nc-1}{c(1+c)}$, which is nonpositive on this interval.
+The estimate \eqref{eq:moment-cone} with $p=1$ therefore implies
+\eqref{aux:cone}.
+\end{proof}
+
+\subsection{Covering radii of successive projections}
+
+The \emph{covering radius} $\mu(K)$ of a convex body $K$ is the least
+positive $\lambda$ for which $N+\lambda K=N_\R$. Equivalently, every
+translate of $\lambda K$ meets $N$. Indeed, $z+\lambda K$ meets $N$
+exactly when $-z\in N+\lambda K$. All the assertions about translates
+are invariant under translation of $K$.
+
+If $s>\mu(K)$ and $x_0\in\intr K$, then
+$\mu(K)K+(s-\mu(K))x_0\subset s\intr K$ by convexity. Thus every
+translate of $s\intr K$ contains a lattice point. If $0<s<\mu(K)$,
+some translate of $sK$ misses $N$. At $s=\mu(K)$ there is a translate
+of $\mu(K)K$ whose interior misses $N$. To see this, take a sequence
+of positive scales increasing to $\mu(K)$ and choose a translate
+missing $N$ at each scale. We may take the translation vectors in
+a fixed compact fundamental parallelepiped, and pass to a convergent
+subsequence. Any lattice point in the interior of the limiting
+translate would belong to the preceding translates for all sufficiently
+large indices, a contradiction. In particular, a hollow body has
+covering radius at least one.
+
+\begin{lemma}\label{aux:torus}
+Let $K$ be an $m$-dimensional convex body, and set $L=L(K)$.
+Then $|K|\le L^m$. For every real $T\ge L$ and integer $j$ with
+$1\le j\le\mu(K)T$, we have
+\[
+                              j|K|\le T^m.
+\]
+If $m\ge2$ and $Q$ is the projection along a direction attaining $L$,
+then $\mu(Q)\ge\mu(K)-\frac{1}{L}$. More generally, if every translate of
+$\lambda\intr Q$ contains at least $j$ lattice points for some
+$\lambda>0$ and positive integer $j$, then every translate of
+$(\lambda+\frac{h}{L})\intr K$ contains at least $jh$ lattice points for
+each positive integer $h$.
+\end{lemma}
+
+\begin{proof}
+Fix $0<s<\frac{1}{T}$. If $s(K-K)$ contained a nonzero lattice vector,
+we could write it as a positive integer multiple of a primitive
+vector and obtain a chord of $K$ of lattice length at least
+$\frac{1}{s}>L$. Hence the quotient map is injective on $sK$.
+The torus obtained by identifying points of $N_\R$ differing by a
+lattice vector carries the translation-invariant measure of total mass
+one. The image of $sK$ in this torus has measure $s^m|K|$ by the
+injectivity just proved. Denote this image by $A$.
+For $T=L$, we obtain $|K|\le L^m$ in the limit $s\uparrow\frac{1}{L}$.
+For the second bound, the $j$-fold sum of $A$ is the image of
+$jsK$, as $K$ is convex. Since $js<\frac{j}{T}\le\mu(K)$,
+the translates of $jsK$ by $N$ do not cover $N_\R$. Its image is a
+proper compact subset of the torus. Its complement contains a nonempty
+open set, so its measure is less than one.
+By Macbeath's sum theorem~\cite{Macbeath}, the measure of the sum
+of two nonempty compact subsets of the torus is at least the smaller
+of one and the sum of their measures. Thus the $j$-fold sum of $A$
+has measure at least $\min\{1,js^m|K|\}$. It follows that
+$js^m|K|<1$. We obtain $j|K|\le T^m$ in the limit $s\uparrow\frac{1}{T}$.
+
+For the assertions on projections, let $\pi$ denote the projection
+onto $Q$ and assume that every translate of $\lambda\intr Q$ contains
+at least $j$ lattice points. Let $e$ be a primitive generator of the
+kernel lattice. Since $\pi$ projects along a longest chord and the
+assertion concerns all translates, we may translate $K$ so that
+$[0,Le]$ is such a chord.
+For each translation vector $z$, choose $j$ lattice points in
+$\pi(z)+\lambda\intr Q$. By \eqref{eq:relative-fiber}, each has a
+lift $y\in z+\lambda\intr K$. For every positive integer $h$, we have
+$[0,he]\subset(\frac{h}{L})K$, so convexity implies
+\[
+                       y+[0,he]\subset z+(\lambda+\frac{h}{L})\intr K.
+\]
+This segment lies on a line projecting to a lattice point, so the
+line contains a translate of the kernel lattice. The segment has
+lattice length $h$ and therefore
+contains at least $h$ lattice points. Indeed, in coordinates with lattice
+$\mathbb Z$, every closed interval of integral length $h$ contains
+at least $h$ integers. The segments for distinct
+projected points are disjoint. Thus every translate of
+$(\lambda+\frac{h}{L})\intr K$ contains at least $jh$ lattice points.
+With $j=h=1$, we obtain $\mu(K)\le\lambda+\frac{1}{L}$ for every
+$\lambda>\mu(Q)$. The desired inequality follows.
+\end{proof}
+
+\begin{lemma}\label{aux:flag}
+Let $K$ be a $d$-dimensional convex body with $I(K)=k$. Then
+\begin{equation}\label{eq:gzpw-density}
+                      1-\mu(K)\le(\frac{k}{|K|})^{\frac{1}{d}}.
+\end{equation}
+Set $Q_d=K$. For $2\le i\le d$, let $Q_{i-1}$ be the projection
+of $Q_i$ along a direction attaining $L_i=L(Q_i)$, and write
+$\mu_i=\mu(Q_i)$ for $1\le i\le d$.
+For every $1\le m<d$ and positive integers $h_{m+1},\ldots,h_d$,
+\begin{equation}\label{eq:gzpw-integer-count}
+     \prod_{i=m+1}^d h_i\ge k+1
+        \quad\Longrightarrow\quad
+        1-\mu_m\le\sum_{i=m+1}^d \frac{h_i}{L_i} .
+\end{equation}
+In particular, if $|K|\ge(k+1)\tau$ for some $\tau>0$ and $d\ge2$, then
+\begin{align}
+  1-\mu_m &\le (d-m)(\frac{|Q_m|}{\tau})^{\frac{1}{d-m}}
+                      +\sum_{i=m+1}^d \frac{1}{L_i} ,
+                         \label{eq:gzpw-continuous-count}\\
+  1-\mu_{d-1}&\le \frac{k+1}{L_d}\le \frac{|Q_{d-1}|}{\tau} .
+                         \label{eq:gzpw-one-step}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+If $\mu(K)\ge1$, then \eqref{eq:gzpw-density} is immediate.
+Otherwise fix $\mu(K)<\lambda<1$. The average number of lattice points in a
+translate of $(1-\lambda)\intr K$ is $(1-\lambda)^d|K|$. Indeed,
+we may average the translation over a fundamental parallelepiped of
+volume one. For each lattice point the integral of its membership
+indicator is the volume of the part of $(1-\lambda)\intr K$ lying in
+the corresponding translate of the reflected parallelepiped. These
+parallelepipeds tile the space up to their boundaries, so the integrals
+sum to the volume of $(1-\lambda)K$. We choose
+a translate $z+(1-\lambda)\intr K$ containing at least that many
+lattice points, and choose a lattice point in $-z+\lambda\intr K$.
+The sums of this point and the points in the first translate are
+distinct interior lattice points of $K$, since
+$(1-\lambda)\intr K+\lambda\intr K=\intr K$. Hence
+$k\ge(1-\lambda)^d|K|$ for each such $\lambda$, which proves
+\eqref{eq:gzpw-density}.
+
+For $s>\mu_m$, every translate of $s\intr Q_m$ contains a lattice
+point. By \cref{aux:torus}, passage from $Q_{i-1}$ to $Q_i$
+increases the scale by $\frac{h_i}{L_i}$ and multiplies the
+guaranteed number of lattice points by $h_i$. After the steps $i=m+1,\ldots,d$, every translate of
+\[
+               \left(s+\sum_{i=m+1}^d \frac{h_i}{L_i}\right)\intr K
+\]
+contains at least $\prod_{i=m+1}^d h_i$ lattice points. Suppose
+the product is at least $k+1$ and
+$\mu_m+\sum_{i=m+1}^{d}\frac{h_i}{L_i}<1$.
+For $s$ sufficiently close to $\mu_m$, the scale in this display is
+less than one. A dilate of $K$ by this factor about an interior point
+lies in $\intr K$, a contradiction. This proves
+\eqref{eq:gzpw-integer-count}.
+
+By \cref{aux:chords}, we have $|K|\le |Q_m|\prod_{i=m+1}^d L_i$.
+Set $a=(\frac{|Q_m|}{\tau})^{\frac{1}{d-m}}$ and take $h_i=\lceil aL_i\rceil$.
+Then $\prod_{i=m+1}^d h_i\ge a^{d-m}\prod_{i=m+1}^d L_i
+\ge \frac{|K|}{\tau}\ge k+1$ and $\frac{h_i}{L_i}\le a+\frac{1}{L_i}$. Thus \eqref{eq:gzpw-continuous-count} follows from
+\eqref{eq:gzpw-integer-count}. For $m=d-1$, we may take
+$h_d=k+1$ directly. The first inequality in \eqref{eq:gzpw-one-step}
+follows, and the second follows from $|K|\le L_d|Q_{d-1}|$.
+\end{proof}
+
+\subsection{Planar area bounds and their application to fibers}
+
+\begin{lemma}\label{aux:planar}
+Let $B$ be a planar convex body with $w=\lw(B)>1$ and $k=I(B)$.
+For $1<t\le2$, set $\Phi(t)=\frac{t^2}{2(t-1)}$. If $1<w\le2$, then
+$|B|\le(k+1)\Phi(w)$. If $w\ge2$, then $|B|\le2$ for $k=0$
+and $|B|\le2k+\frac{5}{2}$ for $k\ge1$. In particular, a hollow planar
+body of width at least $\rho$, where $1<\rho\le2$, has area at most
+$\Phi(\rho)$. For every lower bound $1<\rho\le w$ on the width,
+we also have
+\begin{equation}\label{aux:planar-radius}
+             \min\{\mu(B),\frac{2}{\rho}\}\le \frac{1}{\rho}+\frac{\rho}{2|B|}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For a hollow planar convex body, Averkov and
+Wagner~\cite[Theorems~2.1 and~2.2]{AW} state that
+$w\le1+\frac{2}{\sqrt3}$. Their area bound for $1<w\le2$ is
+$\Phi(w)$. For $2<w\le1+\frac{2}{\sqrt3}$ it is
+\[
+ \frac{3w^2}{3w+1-\sqrt{1+6w-3w^2}}
+ =\frac{3w+1+\sqrt{1+6w-3w^2}}{4}\le 2 .
+\]
+The equality follows by rationalizing the denominator. For the last
+inequality, $7-3w>0$ on the specified interval and
+$(7-3w)^2-(1+6w-3w^2)=12(w-2)^2\ge0$.
+
+For positive $k$, Bohnert~\cite[Theorem~1.2]{Bohnert} proves the
+bounds $(k+1)\Phi(w)$ for $1<w\le2$ and $2k+\frac{5}{2}$ for
+$2<w\le5$. For $w>5$, his Theorem~1.1 implies $|B|\le2(k+1)$.
+At $w=2$, the first bound is $2(k+1)\le2k+\frac{5}{2}$.
+The derivative
+$\Phi'(t)=\frac{t(t-2)}{2(t-1)^2}$ is nonpositive on $(1,2]$.
+If a hollow body has width in $[\rho,2]$, its area is thus at most
+$\Phi(\rho)$. For a hollow body of width greater than two, the bound
+$2=\Phi(2)\le\Phi(\rho)$ applies.
+
+To deduce \eqref{aux:planar-radius}, fix
+$0<s<\min\{\mu(B),\frac{2}{\rho}\}$. A translate of $sB$ is hollow,
+and its width is at least $s\rho$. If $s\rho>1$, then $1<s\rho<2$,
+so the preceding bound implies
+\[
+ s^2|B|\le\Phi(s\rho)=\frac{s^2\rho^2}{2(s\rho-1)}.
+\]
+After cancellation and multiplication by $2(s\rho-1)$ this becomes
+$2|B|(s\rho-1)\le\rho^2$, or
+$s\le\frac{1}{\rho}+\frac{\rho}{2|B|}$. If $s\rho\le1$, this
+inequality follows directly from $s\le\frac{1}{\rho}$. The bound
+therefore persists as $s$ increases to the indicated minimum.
+\end{proof}
+
+For $1<v\le2$, set $\Phi_+(v)=\max\{\frac{9}{4},\Phi(v)\}$. If a planar body
+has width at least $v$ and fewer than $h$ interior lattice points,
+where $h$ is a positive integer, then its area is at most $h\Phi_+(v)$.
+Indeed, for width greater than two and $k\ge1$,
+$2k+\frac{5}{2}\le(\frac{9}{4})(k+1)$, and the other cases follow directly from
+\cref{aux:planar}. We use this area estimate for the level sets of
+chord lengths in dimension three.
+
+\begin{lemma}\label{lem:three-count}
+Let $T$ be a three-dimensional convex body with $I(T)<p$ for a
+positive integer $p$. Set $J=L(T)$, and suppose the projection
+along a direction attaining $J$ has width at least $w$, with $w\le2$.
+For every positive integer $m$ such that $t=\frac{J}{m}\ge\frac{5}{2}$ and
+$v=w(1-\frac{1}{t})>1$, we have
+\[
+ |T|\le J\left(1+\left\lfloor\frac{p-1}{m}\right\rfloor\right)\Phi_+(v).
+\]
+In particular, $\frac{|T|}{p}\le(t+\frac{J}{p})\Phi_+(v)$. If $m$ divides $p$, then
+$\frac{|T|}{p}\le t\Phi_+(v)$.
+\end{lemma}
+
+\begin{proof}
+Let $D_m$ be the set of points in the projection whose fibers have
+length at least $m$. By \cref{aux:chords}, it has width at least $v$
+and at most $\lfloor\frac{p-1}{m}\rfloor$ interior lattice points.
+Here $t\ge\frac{5}{2}$ implies
+$3(1-\frac{1}{t})^2\ge3(\frac{3}{5})^2>1$.
+In \eqref{aux:support-basic}, we now take $n=2$, $X=J$, $a=m$ and
+$A=|D_m|$. The second expression in the maximum is
+$\frac{J}{3(1-\frac{1}{t})^2}\le J$, so $|T|\le J|D_m|$.
+The planar area bound applied to $D_m$ therefore proves the first
+assertion. Since $\lfloor\frac{p-1}{m}\rfloor\le\frac{p}{m}$
+and $\frac{J}{m}=t$, division by $p$ yields
+$\frac{|T|}{p}\le(t+\frac{J}{p})\Phi_+(v)$.
+If $m$ divides $p$, then $\lfloor\frac{p-1}{m}\rfloor=\frac{p}{m}-1$,
+and the exact factor is $\frac{J}{m}=t$.
+\end{proof}
+
+\section{Small projections of rational polytopes}\label{sec:rational-volumes}
+
+We assume the hypotheses of \cref{prop:projections} with $u=2$ or $u\ge6$.
+Suppose, to the contrary, that every proper lattice projection of rank
+$i\ge2$ has volume greater than $V_i(u)$. We write $V_i=V_i(u)$ and
+$A_i=A_i(u)$ throughout this section. We start with $Q_d=C$ and project along a longest chord in each
+dimension until we reach a planar image
+$Q_2$, as in \cref{aux:flag}. Write $L_i=L(Q_i)$ and $\mu_i=\mu(Q_i)$.
+For $2\le i<d$, the composite projection is a lattice projection, so
+$|Q_i|>V_i$. At the top dimension, $|C|\ge(k+1)A_d\ge2A_d>V_d$,
+since $\frac{2A_d}{V_d}=\frac{2f_{d-1}(u)}{f_{d-1}(u)+1}>1$.
+It follows from \cref{aux:torus} that $L_i^i\ge|Q_i|>V_i$ for every
+$2\le i\le d$.
+
+Every planar lattice image $B$ has width at least $w=1+\frac{2}{u}$.
+For $u\ge6$, its area satisfies
+\[
+ |B|>V_2=\frac{(u+1)(u^2+u+1)}{2u^2}>\frac{u+2}{2}.
+\]
+The last inequality follows by subtracting $u^2(u+2)$ from the
+numerator, which leaves $2u+1$. For $u=2$, twice each vertex of $B$
+is integral, so $2!\,|2B|=8|B|$ is an integer. Since $|B|>V_2=\frac{21}{8}$,
+we obtain $|B|\ge\frac{22}{8}=\frac{11}{4}$. In either case the right
+side of \eqref{aux:planar-radius}, with lower width bound $w$, is less
+than one. Since $\frac{2}{w}\ge1$, the minimum in that estimate must be
+$\mu(B)$. The two area bounds therefore imply
+\begin{equation}\label{eq:rat-planar-radius}
+ \begin{aligned}
+ \mu(B)&<\frac{u}{u+2}+\frac{1}{u}\le1-\frac{1}{2u} &&(u\ge6),\\
+ \mu(B)&\le\frac{1}{2}+\frac{4}{11}=\frac{19}{22} &&(u=2).
+ \end{aligned}
+\end{equation}
+Indeed, $\frac{w}{2|B|}<\frac{1}{u}$ in the first case, and
+$\frac{u}{u+2}+\frac{1}{u}\le1-\frac{1}{2u}$ is equivalent to $u\ge6$.
+
+\subsection{The projection bound in dimension three}
+
+\begin{proof}[Proof of \cref{prop:projections} in dimension three]
+Set $X=\frac{L_3}{k+1}$. From \eqref{eq:gzpw-one-step},
+$1-\mu_2\le\frac{1}{X}$. Thus \eqref{eq:rat-planar-radius} implies
+$X<2u$ for $u\ge6$ and $X\le\frac{22}{3}$ for $u=2$.
+We use \cref{lem:three-count} with $T=C$ and $p=k+1$. For any
+$\frac{5}{2}\le a\le L_3$, the integer $m=\lfloor\frac{L_3}{a}\rfloor$
+satisfies $m\ge1$ and $ma\le L_3<(m+1)a$. Consequently,
+$a\le t=\frac{L_3}{m}<2a$.
+
+Suppose first that $u\ge6$. Since $f_2(u)=u(u+1)(u^2+u+1)$
+and $u^2+u+1>u(u+1)$, we have
+\[
+ A_3=\frac{(u+1)^2(u^2+u+1)^2}{6u^2}>\frac{(u+1)^4}{6}.
+\]
+Also, $(u+1)(\frac{u+1}{u+2})^3\ge7(\frac{7}{8})^3>3$. Hence
+$L_3^3\ge|C|\ge2A_3>(u+2)^3$, and we may take $a=u+2$.
+The width parameter in \cref{lem:three-count} satisfies
+\[
+ w\left(1-\frac{1}{t}\right)\ge
+ \left(1+\frac{2}{u}\right)\left(1-\frac{1}{u+2}\right)=1+\frac{1}{u}.
+\]
+At this lower endpoint, $\Phi(1+\frac{1}{u})=\frac{(u+1)^2}{2u}>
+\frac{9}{4}$, so $\Phi_+$ has the same value. By monotonicity of $\Phi_+$
+and the bounds $t<2a$, $X<2u$, it follows that
+\[
+ \frac{|C|}{k+1}\le(2a+2u)\frac{(u+1)^2}{2u}
+    =\frac{2(u+1)^3}{u}<\frac{(u+1)^4}{6}<A_3.
+\]
+Here the strict comparison reduces to $12<u(u+1)$. This contradicts
+the volume hypothesis.
+
+Suppose next that $u=2$. Then $w=2$, $A_3=\frac{147}{8}$, and
+$L_3^3\ge2A_3>(\frac{5}{2})^3$. For $t>2$ we have
+\[
+ \Phi\left(2-\frac{2}{t}\right)=2+\frac{2}{t(t-2)},\qquad
+ t\Phi\left(2-\frac{2}{t}\right)=2t+\frac{2}{t-2}.
+\]
+Both functions are convex. For the first one, $\frac{1}{t(t-2)}$
+has convex logarithm $-\log t-\log(t-2)$ and is therefore convex.
+For the second one this follows directly by differentiation.
+Thus $t\Phi_+(2-\frac{2}{t})$ and $(t+\frac{5}{2})\Phi_+(2-\frac{2}{t})$
+are convex as well. In each case replacing $\Phi$ by $\Phi_+$ amounts
+to taking the maximum with an affine function of $t$.
+
+If $X\le\frac{5}{2}$, then $\frac{5}{2}\le t\le5$ by our choice $a=\frac{5}{2}$. The lemma bounds $\frac{|C|}{k+1}$ by
+$(t+\frac{5}{2})\Phi_+(2-\frac{2}{t})$. At the two endpoints
+$\Phi_+$ is respectively $\frac{18}{5}$ and $\frac{9}{4}$, so the
+corresponding bounds are $18$ and $\frac{135}{8}$. If instead
+$\frac{5}{2}\le X\le\frac{22}{3}$, take $m=k+1$. Now $m$ divides $p$
+and $t=X$, so the sharper bound of the lemma is $t\Phi_+(2-\frac{2}{t})$.
+Its values at $\frac{5}{2}$ and $\frac{22}{3}$ are $9$ and $\frac{33}{2}$.
+A convex function on an interval is bounded by its larger endpoint
+value. All four values are less than $\frac{147}{8}$, again a contradiction.
+\end{proof}
+
+\subsection{Three-dimensional images in the half-integral case}
+
+For $u=2$ and $d\ge4$, the three-dimensional image has volume
+$|Q_3|>V_3(2)=\frac{301}{16}$. Each of its planar lattice images
+is also an image of $C$, so its area is at least $\frac{11}{4}$.
+
+\begin{lemma}\label{lem:half-three-image}
+Let $Q$ be a three-dimensional convex body with $|Q|>\frac{301}{16}$.
+Suppose that each planar lattice projection of $Q$ has width at
+least two and area at least $\frac{11}{4}$. Then
+\begin{equation}\label{eq:rat-half-radius-three}
+                           \mu(Q)<\frac{15}{16}.
+\end{equation}
+If a three-dimensional convex body $T$ in the same lattice space
+contains a translate of $\frac{9}{10}Q$ and has fewer than $p$ interior
+lattice points for a positive integer $p$, then
+\begin{equation}\label{eq:rat-thick-three}
+                               |T|\le88p.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Suppose $\mu(Q)\ge\frac{15}{16}$. There exists a hollow translate
+$H$ of $\frac{15}{16}Q$, so
+$|H|>(\frac{15}{16})^3\frac{301}{16}>15$. Write $J=L(H)$ and take
+the sets $D_t$ of \cref{aux:chords} in a direction attaining $J$.
+If $J\le3$, we can apply \cref{aux:torus} with $T=j=3$, since
+$\mu(H)\ge1$. This implies $|H|\le\frac{3^3}{3}=9$.
+
+If $3\le J\le7$, the set $D_1$ is hollow. Its width is at least
+$\frac{15}{8}(1-\frac{1}{J})$ by \cref{aux:chords}, since the projected
+body has width at least $\frac{15}{16}\cdot2$. This lower bound lies
+between $1$ and $2$. Since $3(1-\frac{1}{J})^2\ge1$,
+\eqref{aux:support-basic} with $a=1$ implies $|H|\le J|D_1|$. By
+\cref{aux:planar},
+\[
+ |H|\le J\Phi\left(\frac{15}{8}\left(1-\frac{1}{J}\right)\right)
+       =\frac{225(J-1)^2}{16(7J-15)}.
+\]
+On this interval the denominator is positive. The function is convex,
+as one sees by writing $J-1=\frac{1}{7}(7J-15)+\frac{8}{7}$ and
+expanding the square. The endpoint values are $\frac{75}{8}$ and
+$\frac{2025}{136}$, both less than $15$.
+
+If $J\ge7$, the width of $D_1$ is at least
+$\frac{15}{8}(1-\frac{1}{7})>\frac{8}{5}$, whence
+$|D_1|\le\Phi(\frac{8}{5})=\frac{32}{15}$.
+The full projection satisfies
+\[
+ |D_0|\ge\left(\frac{15}{16}\right)^2\frac{11}{4}>
+           \left(\frac{17}{16}\right)^2\frac{32}{15}.
+\]
+Thus $\sqrt{\frac{15|D_0|}{32}}-1>\frac{1}{16}$, and $J\ge3$.
+These are the two hypotheses of \eqref{aux:cone} for $n=2$,
+$a=1$, $A=\frac{32}{15}$, and $\eta=\frac{1}{16}$. Hence
+\[
+ |H|\le\frac{32}{15}\left(\frac{17}{16}\right)^3
+              \frac{16}{3}=\frac{4913}{360}<15.
+\]
+The alternatives exhaust all $J$ and contradict $|H|>15$.
+This proves \eqref{eq:rat-half-radius-three}.
+
+For the second assertion, write $J=L(T)$ and use the sets $D_t$ for
+$T$ in a direction attaining $J$. Denote the projection of $Q$ along
+this direction by $B$. From \eqref{aux:planar-radius} with width bound
+two, $\mu(B)\le\frac{1}{2}+\frac{4}{11}=\frac{19}{22}<1$.
+If $J>p$, then $pI(D_p)\le I(T)<p$, so $D_p$ is hollow. It contains
+a translate of $\frac{9}{10}(1-\frac{p}{J})B$ by \cref{aux:chords}.
+This scale cannot exceed $\mu(B)$, since above the covering radius
+every translate contains an interior lattice point. Consequently,
+\[
+ \frac{9}{10}\left(1-\frac{p}{J}\right)\le\frac{19}{22},
+ \qquad \frac{p}{J}\ge\frac{4}{99},\qquad J\le\frac{99p}{4}<25p .
+\]
+If $J\le p$, then $J<25p$ also holds. For $J<4$, the bound
+$|T|\le J^3<64\le88p$ suffices. For $J\ge4$ we take
+$m=\lfloor\frac{J}{4}\rfloor$ and $t=\frac{J}{m}$, so $4\le t<8$.
+The planar image of $T$ has width at least $\frac{9}{10}\cdot2$.
+Hence the width parameter in \cref{lem:three-count} is at least
+$\frac{9}{5}\cdot\frac{3}{4}=\frac{27}{20}>\frac{4}{3}$ and at most
+two if we use $\frac{9}{5}$ as the width bound. Since $\Phi_+$ is
+nonincreasing and $\Phi_+(\frac{4}{3})=\frac{8}{3}$, it follows that
+\[
+ \frac{|T|}{p}\le\left(t+\frac{J}{p}\right)\Phi_+\left(\frac{4}{3}\right)
+       \le(8+25)\frac{8}{3}=88.\qedhere
+\]
+\end{proof}
+
+\subsection{The projection bound in higher dimensions}
+
+We first record the growth estimate used in this section and in
+\cref{sec:gzpw-wide}. For every $u\ge1$, both sequences $M_i=V_i(u)$
+and $M_i=A_i(u)$ satisfy
+\begin{equation}\label{eq:volume-scale-growth}
+ \frac{M_{i+1}}{M_i^2}\ge\frac{u^i i!}{i+1}\ge1\qquad(i\ge3).
+\end{equation}
+Indeed, substitution of their definitions and of the recurrence for
+$f_i$ gives the two quotients in the form
+\[
+ \frac{V_{i+1}(u)}{V_i(u)^2}=\frac{u^i i!}{i+1}
+                 \left(1+\frac{1}{f_i(u)}\right),\qquad
+ \frac{A_{i+1}(u)}{A_i(u)^2}=\frac{u^i i!}{i+1}
+                 \left(1+\frac{1}{f_{i-1}(u)}\right)^2 .
+\]
+Thus $M_{i+1}\ge M_i^2$. If $\sqrt[i]{M_i}>4$ and $i\ge3$, then
+\[
+ \frac{\sqrt[i+1]{M_{i+1}}}{\sqrt[i]{M_i}}
+     \ge\bigl(\sqrt[i]{M_i}\bigr)^{\frac{i-1}{i+1}}>2,
+\]
+because $\frac{i-1}{i+1}\ge\frac{1}{2}$. The same hypothesis holds
+at $i+1$, so the roots at least double at every subsequent step.
+
+\begin{proof}[Proof of \cref{prop:projections} in dimensions $d\ge4$]
+Set $T_i=\sqrt[i]{V_i}$. By \cref{aux:torus},
+$\mu_{i-1}\ge\mu_i-\frac{1}{L_i}$, and $L_i>T_i$.
+At $i=d$, \eqref{eq:gzpw-density} and $L_d^d\ge|C|\ge(k+1)A_d$ imply
+\begin{equation}\label{eq:rat-top-loss}
+ 1-\mu_{d-1}\le \sqrt[d]{\frac{k}{|C|}}+\frac{1}{L_d}
+ \le\frac{\sqrt[d]{k}+1}{\sqrt[d]{(k+1)A_d}}
+ \le\sqrt[d]{\frac{2^{d-1}}{A_d}}<\frac{2}{T_d}.
+\end{equation}
+The penultimate inequality follows from convexity of the $d$th power,
+and the last one follows from $V_d<2A_d$. For $3\le j\le d$ with $T_j>4$,
+we claim that $1-\mu_{j-1}<\frac{2}{T_j}$. By
+\eqref{eq:volume-scale-growth}, $T_{i+1}\ge2T_i$ for every $i\ge j$.
+Thus whenever $j\le i<d$ and $1-\mu_i<\frac{2}{T_{i+1}}$, we obtain
+\[
+ 1-\mu_{i-1}\le1-\mu_i+\frac{1}{L_i}
+ <\frac{2}{T_{i+1}}+\frac{1}{T_i}\le\frac{2}{T_i}.
+\]
+The initial estimate \eqref{eq:rat-top-loss} therefore proves the claim by descending induction.
+
+Suppose $u\ge6$. Since $f_1(u)=u(u+1)$ and $f_{i+1}(u)>f_i(u)^2$,
+we have $f_i(u)\ge[u(u+1)]^{2^{i-1}}$ for every $i\ge1$. In particular,
+\[
+ \frac{T_4}{u}\ge\frac{(u+1)^2}{\sqrt[4]{24u}}>14,\qquad
+ V_3\ge\frac{(u+1)^4}{6}>7^3 .
+\]
+The first lower bound equals $\frac{49}{\sqrt{12}}>14$ at $u=6$ and
+increases with $u$, since its logarithmic derivative is
+$\frac{2}{u+1}-\frac{1}{4u}>0$. The second follows from
+$7^4>6\cdot7^3$. The claim with $j=4$ now implies
+$1-\mu_3<\frac{1}{7u}$, while $L_3>\sqrt[3]{V_3}>7$. It follows that
+\[
+ \mu_3-\frac{1}{L_3}>1-\frac{1}{42}-\frac{1}{7}>\frac{3}{4}.
+\]
+Consequently $\lfloor\mu_3 L_3\rfloor>\frac{3}{4}L_3$. By
+\cref{aux:torus} with $T=L_3$ and $j=\lfloor\mu_3 L_3\rfloor$,
+\[
+ L_3^3\ge\lfloor\mu_3 L_3\rfloor |Q_3|>
+             \frac{3}{4}L_3 V_3\ge \frac{L_3(u+1)^4}{8}.
+\]
+Thus $L_3>\frac{(u+1)^2}{\sqrt{8}}>2\sqrt{2}\,u>\frac{14u}{5}$,
+where $(u+1)^2>8u$ for $u\ge6$. These estimates yield
+\[
+ 1-\mu_2\le1-\mu_3+\frac{1}{L_3}<
+         \frac{1}{7u}+\frac{5}{14u}=\frac{1}{2u},
+\]
+contrary to \eqref{eq:rat-planar-radius}.
+
+Suppose now that $u=2$. By the observations before
+\cref{lem:half-three-image}, that lemma applies to $Q_3$.
+If $d=4$, then $|C|\ge(k+1)A_4$, where $A_4=\frac{1806^2}{768}>4200$.
+By \eqref{eq:gzpw-density}, $1-\mu_4\le\sqrt[4]{\frac{k}{|C|}}
+<\frac{1}{\sqrt[4]{4200}}<\frac{1}{2}$. If $L_4\le10$, the choices
+$T=10$ and $j=2$ in \cref{aux:torus} would yield
+$|C|\le\frac{10^4}{2}<2A_4$. Hence $L_4>10$. Also,
+$\frac{1}{16}<1-\mu_3\le\frac{k+1}{L_4}$ by
+\eqref{eq:rat-half-radius-three} and \eqref{eq:gzpw-one-step}.
+
+Set $n=\lfloor\frac{L_4}{10}\rfloor$. Then $n\ge1$ and
+$10\le\frac{L_4}{n}<20$. Let $T$ be the set of points of $Q_3$
+whose fibers have length at least $n$. By \cref{aux:chords}, this
+set contains a translate of $(1-\frac{n}{L_4})Q_3$, hence also one
+of $\frac{9}{10}Q_3$, and $I(T)\le\lfloor\frac{k}{n}\rfloor$.
+It follows from \eqref{eq:rat-thick-three} that
+$|T|\le88(\lfloor\frac{k}{n}\rfloor+1)$. Since
+$4(1-\frac{n}{L_4})^3\ge4(\frac{9}{10})^3>1$,
+\eqref{aux:support-basic} implies $|C|\le L_4|T|$. Therefore
+\[
+ \frac{|C|}{k+1}\le88\left(\frac{k}{k+1}\frac{L_4}{n}+
+                              \frac{L_4}{k+1}\right)
+        <88(20+16)<4200,
+\]
+which contradicts $|C|\ge(k+1)A_4$.
+
+If $d\ge5$, then $V_4=\frac{3263442}{768}>4200$ and
+$T_5^5=\frac{3263442\cdot3263443}{5!\,2^6}>65^5$ by the recurrence
+for $f_i(2)$. The claim with $j=5$ implies
+$\mu_4>1-\frac{2}{65}>\frac{31}{32}$. Since
+$\mu_4-\mu_3\le\frac{1}{L_4}$ and $\mu_3<\frac{15}{16}$, we obtain
+$\frac{1}{L_4}>\frac{31}{32}-\frac{15}{16}=\frac{1}{32}$.
+For $L_4\le15$ we may take $T=15$, $j=14$ in \cref{aux:torus},
+because $15\mu_4>14$. This yields $|Q_4|\le\frac{15^4}{14}<4200$.
+For $15<L_4<32$, we have $\mu_3>\frac{31}{32}-\frac{1}{15}>
+\frac{9}{10}$. There is a hollow translate of $\frac{9}{10}Q_3$.
+Its volume is at most $88$ by \eqref{eq:rat-thick-three} with $p=1$.
+We conclude that
+\[
+ |Q_4|\le L_4|Q_3|<
+       32\cdot88\left(\frac{10}{9}\right)^3<4200.
+\]
+Both alternatives contradict $|Q_4|>V_4$. This completes the proof.
+\end{proof}
+
+\section{Small projections of four-dimensional lattice polytopes}\label{sec:gzpw-four-chords}
+
+For a lattice four-polytope $P$, the thresholds in \cref{prop:projections}
+are $V_2(1)=3$ and $V_3(1)=7$. Every lattice projection of $P$ is a
+lattice polytope. In dimension $i$, the volume of such a polytope
+multiplied by $i!$ is an integer, as one sees by triangulating it
+into simplices with lattice vertices and taking determinants.
+If all images of ranks two and three exceed their respective thresholds,
+their normalized volumes are therefore at least $7$ and $43$.
+We shall prove that these lower bounds force
+$|P|<\frac{147}{2}(I(P)+1)$ whenever $\lw(P)\ge3$ and $I(P)\ge1$.
+The proof uses the lattice points in successive fibers of $P$.
+
+\subsection{The volume of a hollow three-dimensional body}
+
+\begin{lemma}\label{aux:hollow-envelope}
+Let $K$ and $Q$ be convex bodies in the same three-dimensional lattice
+space. Suppose that $K$ is hollow and contains a translate of $sQ$, where $\frac{3}{5}<s\le1$.
+Suppose also that every planar lattice projection of $Q$ has width
+at least three and area at least $b$. Set
+\[
+ J=L(K),\qquad A=\Phi(\frac{9}{5})=\frac{81}{40},\qquad q=\frac{5s}{5s-3}.
+\]
+If $J\le q$, then $|K|\le\max\{\frac{729}{128},Aq\}$. If $J\ge q$,
+then $|K|\le AJ$. Furthermore, for every $\gamma>0$ such that
+$A\gamma^2\le b$ and $\gamma s>1$, we have
+\begin{equation}\label{aux:eq-hollow-envelope}
+ |K|\le H_\gamma(s):=
+ \max\left\{\frac{729}{128},\frac{5As}{5s-3},
+                         \frac{A(\gamma s)^3}{3(\gamma s-1)}\right\}.
+\end{equation}
+For fixed $\gamma$, $H_\gamma$ is convex on $\frac{3}{5}<s\le1$, $\gamma s>1$.
+\end{lemma}
+
+\begin{proof}
+We project along a direction attaining $J$. For $0\le t\le J$, let
+$E_t$ be the set of points over which the fiber of $K$ has length at
+least $t$. The image $E_0$ contains a translate of a planar projection
+of $sQ$, so $|E_0|\ge bs^2$ and $\lw(E_0)\ge w:=3s$. If $J>1$,
+\cref{aux:chords} implies $I(E_1)\le I(K)=0$. It also implies that
+$E_1$ contains a translate of $\left(1-\frac{1}{J}\right)E_0$.
+Consequently, $\lw(E_1)\ge v:=w\left(1-\frac{1}{J}\right)$.
+The value of $v$ increases with $J$ and equals $\frac{9}{5}$ at $J=q$.
+Since $s\le1$, we have $q\ge\frac{5}{2}$.
+
+First suppose $J\le q$. If $J\le\frac{9}{4}$, we use
+\cref{aux:torus} with $T=\frac{9}{4}$ and $j=2$. This is possible
+because $\mu(K)\ge1$ for a hollow body. Thus
+$|K|\le\frac{1}{2}\left(\frac{9}{4}\right)^3=\frac{729}{128}$.
+For $\frac{9}{4}\le J\le q$, we have
+$1<\frac{5w}{9}\le v\le\frac{9}{5}$, where the strict inequality
+uses $w=3s>\frac{9}{5}$. By \cref{aux:planar},
+$|E_1|\le\Phi(v)$. From \eqref{aux:support-basic}, with $a=1$
+and $n=2$, the upper bound for $|K|$ is the larger of
+\[
+  J\Phi(v)=\frac{w^2(J-1)^2}{2((w-1)J-w)},\qquad
+  \frac{J^3\Phi(v)}{3(J-1)^2}
+        =\frac{w^2J^2}{6((w-1)J-w)}.
+\]
+Both denominators are positive because $v>1$. Each expression is
+convex in $J$. In fact, if $p$ and $h$ are affine functions with
+$h>0$, the second derivative of $\frac{p^2}{h}$ is
+$\frac{2(p'h-ph')^2}{h^3}\ge0$. Thus the larger of the two
+expressions is also convex, and we need only evaluate it at the
+endpoints. Their ratio, second to first, is $\frac{J^2}{3(J-1)^2}$.
+At $J=\frac{9}{4}$ it is $\frac{27}{25}>1$, so the larger value is
+\[
+       \frac{27w^2}{8(5w-9)}=\frac{w}{3}Aq\le Aq .
+\]
+Here $q=\frac{5w}{5w-9}$ and $w\le3$. For $J\ge q\ge\frac{5}{2}$,
+the ratio is at most $\frac{25}{27}<1$. In particular the larger value
+at $J=q$ is $q\Phi(\frac{9}{5})=Aq$. This proves the assertion for
+$J\le q$. If $J\ge q$, then $v\ge\frac{9}{5}$, and \cref{aux:planar}
+implies $|E_1|\le A$. The same ratio comparison in
+\eqref{aux:support-basic} now yields $|K|\le AJ$.
+
+For \eqref{aux:eq-hollow-envelope} it remains to consider $J\ge q$.
+We use \cref{aux:support} with $n=2$ and $a=p=1$. Since
+$|E_1|\le A$ and $|E_0|\ge bs^2$, its supporting line has a
+parameter $c$ satisfying
+\[
+ 0<\gamma s-1\le\sqrt{\frac{bs^2}{A}}-1
+ \le c\le\frac{1}{J-1}\le\frac{2}{3},\qquad
+ |K|\le A\frac{(1+c)^3}{3c}.
+\]
+The volume estimate here is \eqref{eq:moment-cone}. The function
+$\frac{(1+c)^3}{3c}=\frac{1}{3c}+1+c+\frac{c^2}{3}$ is convex for
+$c>0$. At $c=\gamma s-1$ the bound is the last term in
+\eqref{aux:eq-hollow-envelope}, and at $c=\frac{2}{3}$ it is
+$\frac{75}{16}<\frac{729}{128}$. This proves the required maximum.
+Finally, $\frac{5s}{5s-3}=1+\frac{3}{5s-3}$ and
+$\frac{x^3}{x-1}=x^2+x+1+\frac{1}{x-1}$ are convex for
+$s>\frac{3}{5}$ and $x>1$, respectively. Hence $H_\gamma$ is convex
+on its stated domain.
+\end{proof}
+
+\subsection{Areas of planar fibers}
+
+For a planar projection of a four-dimensional body, the square root
+of the fiber area is concave. The following estimate for its second
+moment will apply both to the original body and to a translate of its
+dilate by $\sigma_0=\frac{99}{100}$. We use this fixed value of $\sigma_0$
+throughout this section.
+
+\begin{lemma}\label{aux:planar-moment}
+Let $B$ be a planar convex body with
+$\lw(B)\ge3\sigma_0$ and $|B|\ge\frac{7}{2}\sigma_0^2$. If
+$f\colon B\to[0,\infty)$ is upper semicontinuous and concave, and
+$f(z)\le1$ for each interior lattice point $z$ of $B$, then
+\[
+                     \int_B f^2\le\max\{\frac{25|B|}{9},\frac{58}{5}\}.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $M=\max_B f$. If $M\le\frac{5}{3}$, then $\int_B f^2\le\frac{25|B|}{9}$.
+Suppose that $M>\frac{5}{3}$. Let $E=\{y\in B:f(y)\ge1\}$ and $w=3\sigma_0$. For a point
+$y_*\in B$ attaining $M$, concavity implies
+\[
+                 (1-\frac{1}{M})B+\frac{y_*}{M}\subset E.
+\]
+Indeed, the value of $f$ at every point of the displayed translate
+is at least $(1-\frac{1}{M})\,0+\frac{1}{M}M=1$. For
+$z\in\intr E$ with $z\ne y_*$, the segment from $y_*$ through $z$
+extends beyond $z$ in $E$. The value of $f$ at $y_*$ exceeds one and
+at the far endpoint it is at least one, so $f(z)>1$ by concavity.
+This also holds at $y_*$ itself. Since $\intr E\subseteq\intr B$
+and $f\le1$ at the interior lattice points of $B$, $E$ is hollow. The displayed inclusion also gives
+$\lw(E)\ge w(1-\frac{1}{M})$.
+
+By \cref{aux:support} at level one with $n=p=2$, there exists
+$\max\{0,\sqrt{\frac{|B|}{|E|}}-1\}\le c\le\frac{1}{M-1}$ such that
+\[
+                    \int_B f^2\le |E|\int_0^M 2t(1+c(1-t))^2\,dt .
+\]
+The integral on the right is convex in $c$, as its integrand is a
+nonnegative multiple of the square of an affine function of $c$.
+At $c=0$ the integral is $M^2$. At $c=\frac{1}{M-1}$ it is
+\[
+ \frac{1}{(M-1)^2}\int_0^M 2t(M-t)^2\,dt
+       =\frac{M^4}{6(M-1)^2}.
+\]
+Thus, on the full interval $0\le c\le\frac{1}{M-1}$,
+\begin{equation}\label{eq:planar-moment-endpoints}
+   \int_B f^2\le |E|\max\left\{M^2,\frac{M^4}{6(M-1)^2}\right\}.
+\end{equation}
+
+Suppose first that $\frac{5}{3}\le M\le\frac{7}{3}$. The lower
+bound $w(1-\frac{1}{M})$ on $\lw(E)$ varies between
+$\frac{2w}{5}=\frac{297}{250}>1$ and $\frac{4w}{7}=\frac{297}{175}<2$.
+Hence $|E|\le\Phi(w(1-\frac{1}{M}))$ by \cref{aux:planar}. After
+substitution in \eqref{eq:planar-moment-endpoints}, the two quantities
+to be bounded are
+\[
+ \frac{w^2 M(M-1)^2}{2((w-1)M-w)}
+ \qquad\text{and}\qquad
+ \frac{w^2 M^3}{12((w-1)M-w)} .
+\]
+The pole $\frac{w}{w-1}$ lies strictly between $1$ and $\frac{5}{3}$.
+When either numerator is divided by the affine denominator, the
+quotient is a quadratic with positive leading coefficient, and the
+remainder is the numerator evaluated at the pole, hence positive.
+The reciprocal of the denominator is convex to the right of the pole.
+Both quantities are therefore convex in $M$. The two endpoint
+comparisons reduce to
+\[
+\begin{array}{c|cc}
+ M&\Phi(w(1-\frac{1}{M}))&
+       \max\{M^2,\frac{M^4}{6(M-1)^2}\}\\ \hline
+ \frac{5}{3}&\frac{88209}{23500}<\frac{19}{5}&\frac{625}{216}\\[2pt]
+ \frac{7}{3}&\frac{88209}{42700}<\frac{207}{100}&\frac{49}{9}
+\end{array}
+\]
+The products in the two rows are less than $11$ and $\frac{23}{2}$,
+respectively. Both are less than $\frac{58}{5}$.
+
+If $M\ge\frac{7}{3}$, then $\lw(E)\ge\frac{4w}{7}$, so the same
+planar bound yields $|E|<\frac{207}{100}$. Since
+$(\frac{9}{7})^2\frac{207}{100}<\frac{7}{2}\sigma_0^2\le |B|$,
+we have $\sqrt{\frac{|B|}{|E|}}-1>\frac{2}{7}$. The upper bound
+$c\le\frac{1}{M-1}$ is at most $\frac{3}{4}$. The logarithmic
+derivative of $\frac{(1+c)^4}{c^2}$ is
+$\frac{2(c-1)}{c(1+c)}\le0$ on $(0,1]$. Thus \eqref{eq:moment-cone},
+followed by the lower bound on $c$, implies
+\[
+ \int_B f^2\le |E|\frac{(1+c)^4}{6c^2}
+ \le\frac{207}{100}\frac{(\frac{9}{7})^4}{6(\frac{2}{7})^2}
+ =\frac{452709}{39200}<\frac{58}{5}. \qedhere
+\]
+\end{proof}
+
+\begin{lemma}
+Let $W$ be a four-dimensional convex body, and let $h$ be a positive
+integer with $I(W)<h$. Set $x=\frac{L(W)}{h}$ and
+\[
+ G(x)=
+ \begin{cases}
+       \frac{9}{4},&0<x\le\frac{3}{2},\\
+       \frac{2x^2}{2x-1},&x\ge\frac{3}{2} .
+ \end{cases}
+\]
+Let $B$ be a planar lattice projection of $W$. For each interior
+lattice point $z$ of $B$, the fiber $W_z$ has area at most $hG(x)$.
+If also $\lw(B)\ge3\sigma_0$ and $|B|\ge\frac{7}{2}\sigma_0^2$, then
+\begin{equation}\label{eq:four-fiber-area}
+             \frac{|W|}{h}\le G(x)\max\{\frac{25|B|}{9},\frac{58}{5}\}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For an interior lattice point $z$ of $B$, \eqref{eq:relative-fiber}
+identifies the relative interior lattice points of $W_z$ with the
+interior lattice points of $W$ over $z$. Thus $I(W_z)\le h-1$.
+The fiber carries an affine translate of the kernel lattice.
+We choose lattice coordinates on it and a primitive height attaining
+$u=\lw(W_z)$. The kernel of this height in the fiber lattice is
+generated by a vector primitive also in the ambient lattice. Hence
+a chord on a line of constant height has lattice length at most
+$L(W)$. Since the primitive height ranges over an interval of length
+$u$, Fubini's theorem yields $|W_z|\le uL(W)$.
+
+For $u\le1$, this proves $\frac{|W_z|}{h}\le x$. For $u\ge2$,
+\cref{aux:planar} bounds $|W_z|$ by $2$ if $I(W_z)=0$.
+Otherwise $h\ge2$ and the same lemma bounds it by
+$2(h-1)+\frac{5}{2}=2h+\frac{1}{2}\le\frac{9h}{4}$.
+Thus $\frac{|W_z|}{h}\le\frac{9}{4}$ in either case. If $1<u\le2$,
+then $I(W_z)+1\le h$, and \cref{aux:planar} implies
+\[
+                 \frac{|W_z|}{h}\le\min\{xu,\Phi(u)\}.
+\]
+For $x\le1$ the first term is at most two. For $x\ge1$, it increases
+with $u$, whereas $\Phi(u)$ decreases on $(1,2]$. The two are equal
+at $u=\frac{2x}{2x-1}\in(1,2]$. Below this value the first term is at
+most its value at the crossing, and above it the second is at most its
+value there. The resulting bound is $\frac{2x^2}{2x-1}$.
+It exceeds $x$, has derivative $\frac{4x(x-1)}{(2x-1)^2}\ge0$ for
+$x\ge1$, and equals $\frac{9}{4}$ at $x=\frac{3}{2}$. This proves
+$|W_z|\le hG(x)$ in all three width ranges.
+
+For the volume inequality, the function
+$f(y)=\sqrt{\frac{|W_y|}{hG(x)}}$ is upper semicontinuous and concave
+by the fiber properties in \cref{sec:reduction}. We have just proved
+that $f(z)\le1$ for every interior lattice point of $B$. From
+\cref{aux:planar-moment} and $\int_B |W_y|\,dy=|W|$ we obtain
+\eqref{eq:four-fiber-area}.
+\end{proof}
+
+\subsection{Hollow sets of long chords}
+
+The inequalities $71<A_4(1)=\frac{147}{2}$ and $\frac{71}{\sigma_0^4}<74<V_4(1)$
+explain the common constant in the next lemma. We apply it to a
+hollow translate of a dilated four-dimensional image in
+\cref{aux:four-profile} and to the lattice four-polytope at
+the end of the section.
+
+\begin{lemma}\label{lem:hollow-chord-four}
+Let $W$ be a four-dimensional convex body. For a fixed primitive
+lattice direction, let $L$ be the maximum chord length in that
+direction, and let $D_t$ be the set of projected points whose
+chord has length at least $t$. Suppose that $D_a$ is hollow for some
+$0<a<L$ and that $D_0$ contains a translate of $\sigma Q$, where
+$\sigma_0\le\sigma\le1$. Assume that $Q$ is a three-dimensional convex
+body of volume at least $\frac{43}{6}$ and that each of its planar lattice
+projections has width at least three and area at least $b\ge\frac{7}{2}$.
+Then $|W|<71a$ whenever one of the following conditions holds.
+\begin{enumerate}
+\item $\sigma(1-\frac{a}{L})\ge\frac{81}{100}$.
+\item $\sigma=1$, $L\ge3a$, and $b\ge5$.
+\item $\sigma=\sigma_0$, $L\ge\frac{41a}{10}$, and $b\ge4$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+In case (i), $\sigma\le1$ implies
+$\frac{a}{L}\le1-\frac{81}{100}=\frac{19}{100}$. In (ii) and (iii)
+the stated bounds on $L$ also imply $L\ge3a$. Thus
+$4(1-\frac{a}{L})^3\ge4(\frac{2}{3})^3>1$. By \eqref{aux:support-basic}
+with $n=3$, the larger of its two terms is $L$, so $|W|\le L|D_a|$.
+The inclusion of \cref{aux:chords} implies that $D_a$ contains a
+translate of $\alpha Q$, where $\alpha=\sigma(1-\frac{a}{L})$.
+In all three cases $\alpha>\frac{3}{5}$. Since
+$\frac{a}{L}=1-\frac{\alpha}{\sigma}$, \cref{aux:hollow-envelope}
+therefore implies
+\[
+ \frac{|W|}{a}\le\frac{H_\gamma(\alpha)}{1-\frac{\alpha}{\sigma}}
+ \quad\text{if }\frac{81}{40}\gamma^2\le b\text{ and }\gamma\alpha>1.
+\]
+
+Suppose first that $\alpha\le\frac{9}{10}$. For
+$\alpha\ge\frac{81}{100}$ we use $\gamma=\frac{21}{16}$ in all
+three cases. Since $\sigma\ge\sigma_0$, it suffices on this interval
+to prove $H_\gamma(\alpha)<71(1-\frac{\alpha}{\sigma_0})$.
+For $\alpha<\frac{81}{100}$, only cases (ii) and (iii) remain.
+Their lower endpoints for $\alpha$ are, respectively,
+$\frac{2}{3}$ and $\sigma_0(1-\frac{10}{41})=\frac{3069}{4100}$.
+We use $\gamma=\frac{31}{20}$ in (ii) and $\gamma=\frac{7}{5}$ in
+(iii). The three choices satisfy the area condition since
+\[
+ \frac{81}{40}\left(\frac{21}{16}\right)^2<\frac{7}{2},\qquad
+ \frac{81}{40}\left(\frac{31}{20}\right)^2<5,\qquad
+ \frac{81}{40}\left(\frac{7}{5}\right)^2<4 .
+\]
+On each interval $H_\gamma$ is convex, while
+$71(1-\frac{\alpha}{\sigma})$ is affine for fixed $\sigma$. It is
+therefore enough to establish the strict inequality at both endpoints
+of each interval.
+
+We now compare the three terms at the endpoints in
+\eqref{aux:eq-hollow-envelope}. In the table the first pair has
+$\sigma=1$, and the other two pairs use $\sigma=\sigma_0$. For the
+third term write $v=\gamma\alpha$. The last column is the upper bound
+we seek at the given endpoint.
+\[
+\renewcommand{\arraystretch}{1.35}
+\begin{array}{cc|ccc|c}
+ \gamma&\alpha& v&
+ \frac{405\alpha}{40(5\alpha-3)}\text{ at most}&
+ \frac{1}{v-1}\text{ at most}& 71(1-\frac{\alpha}{\sigma})\\ \hline
+ \frac{31}{20}&\frac{2}{3}&\frac{31}{30}&\frac{81}{4}&30&\frac{71}{3}\\
+ \frac{31}{20}&\frac{81}{100}&\frac{2511}{2000}&8&4&\frac{1349}{100}\\
+ \frac{7}{5}&\frac{3069}{4100}&\frac{21483}{20500}&11&21&\frac{710}{41}\\
+ \frac{7}{5}&\frac{81}{100}&\frac{567}{500}&8&8&\frac{142}{11}\\
+ \frac{21}{16}&\frac{81}{100}&\frac{1701}{1600}&8&\frac{317}{20}&\frac{142}{11}\\
+ \frac{21}{16}&\frac{9}{10}&\frac{189}{160}&\frac{243}{40}&\frac{50}{9}&\frac{71}{11}
+\end{array}
+\]
+In particular $v>1$ at each left endpoint, so $\gamma\alpha>1$ on
+all three intervals. The constant term $\frac{729}{128}$ is less
+than the least entry $\frac{71}{11}$ in the last column. The fourth
+column bounds the second term strictly below the last column in each
+row. For the third term we use the identity
+\[
+       \frac{81}{40}\frac{v^3}{3(v-1)}
+       =\frac{27}{40}\left(v^2+v+1+\frac{1}{v-1}\right).
+\]
+All six values of $v$ are less than $\frac{13}{10}$, so
+$v^2+v+1<4$. In the fifth row $v<\frac{27}{25}$, which implies the
+sharper bound $v^2+v+1<\frac{13}{4}$. Thus the third terms, in row
+order, are bounded above by $\frac{27}{40}$ times
+\[
+ 34,\quad 8,\quad 25,\quad 12,\quad
+ \frac{13}{4}+\frac{317}{20},\quad 4+\frac{50}{9}.
+\]
+These products are respectively less than the entries in the last
+column. In particular the last two are $\frac{5157}{400}<\frac{142}{11}$
+and $\frac{129}{20}<\frac{71}{11}$. The endpoint comparisons imply
+$\frac{|W|}{a}<71$ on each interval.
+
+Suppose next that $\alpha\ge\frac{9}{10}$. A translate of
+$\frac{9}{10}Q$ then lies in $D_a$. In the last row,
+$v=\frac{189}{160}<\frac{19}{16}$ implies $v^2+v+1<\frac{18}{5}$.
+Thus the third term of $H_\gamma(\frac{9}{10})$ is at most
+$\frac{27}{40}(\frac{18}{5}+\frac{50}{9})=\frac{309}{50}$.
+From \eqref{aux:eq-hollow-envelope} with $\gamma=\frac{21}{16}$
+we obtain
+\[
+ |D_a|\le H_\gamma\left(\frac{9}{10}\right)
+ \le\max\left\{\frac{729}{128},\frac{243}{40},
+              \frac{309}{50}\right\}<\frac{25}{4}.
+\]
+Also $|D_0|\ge\sigma_0^3\frac{43}{6}>\frac{25}{4}(\frac{31}{30})^3$
+and $\frac{a}{L}=1-\frac{\alpha}{\sigma}\le\frac{1}{10}$. Thus
+$\sqrt[3]{\frac{4|D_0|}{25}}-1>\frac{1}{30}$ and
+$\frac{L}{a}\ge10>4$. These are the hypotheses of \eqref{aux:cone}
+with $n=3$, $A=\frac{25}{4}$ and $\eta=\frac{1}{30}$. It follows that
+\[
+ \frac{|W|}{a}\le\frac{25}{4}\left(\frac{31}{30}\right)^4
+                          \frac{30}{4}
+              =\frac{923521}{17280}<54<71. \qedhere
+\]
+\end{proof}
+
+\begin{proposition}\label{aux:four-profile}
+Let $V$ be a four-dimensional convex body with $\lw(V)\ge3$.
+Suppose that every planar lattice projection of $V$ has area at least
+$\frac{7}{2}$ and every three-dimensional lattice projection has volume at least
+$\frac{43}{6}$. If $\mu(V)>\frac{99}{100}$, then $|V|<74$.
+\end{proposition}
+
+\begin{proof}
+Since $\sigma_0<\mu(V)$, there is a hollow translate $W$ of
+$\sigma_0V$. Its volume is $\sigma_0^4|V|$. Suppose for a
+contradiction that $|W|\ge74\sigma_0^4$, and set $L=L(W)$.
+If $L\le\frac{41}{10}$, then $4<\frac{41}{10}\mu(W)$ since
+$\mu(W)\ge1$. By \cref{aux:torus} with $T=\frac{41}{10}$ and $j=4$,
+\[
+ |W|\le\frac{41^4}{4\cdot10^4}<71
+       <74\left(\frac{99}{100}\right)^4 .
+\]
+Hence $L>\frac{41}{10}$.
+
+Suppose $L\le\frac{11}{2}$. If some planar image of $V$ had area
+at most four, the corresponding image of $W$ would have width at least
+$3\sigma_0$ and area between $\frac{7}{2}\sigma_0^2$ and
+$4\sigma_0^2$. We can use \eqref{eq:four-fiber-area} with $h=1$,
+since $W$ is hollow. The monotonicity of $G$ and the inequality
+$\frac{25}{9}\,4\sigma_0^2<\frac{58}{5}$ would imply
+\[
+ |W|\le G\left(\frac{11}{2}\right)\frac{58}{5}
+       =\frac{121}{20}\frac{58}{5}
+       =\frac{3509}{50}<71<74\sigma_0^4 .
+\]
+Thus every planar image of $V$ has area greater than four in this
+range of $L$.
+
+We now project $V$ and $W$ along a direction attaining $L(W)$.
+If $Q$ is the image of $V$, then the image of $W$ is a translate of
+$\sigma_0Q$. Every planar lattice projection of $Q$ is a planar
+lattice projection of $V$, and $|Q|\ge\frac{43}{6}$ by hypothesis.
+Since $I(W)=0$ and $1<L$, the chord superlevel set $D_1$ of $W$ is
+hollow by \cref{aux:chords}. For $\frac{41}{10}<L\le\frac{11}{2}$,
+we can take $b=4$ in \cref{lem:hollow-chord-four}(iii).
+For $L\ge\frac{11}{2}$ we have
+$\sigma_0(1-\frac{1}{L})\ge\frac{99}{100}\frac{9}{11}
+=\frac{81}{100}$, so (i) of the same lemma applies. In either case,
+with $a=1$ we obtain $|W|<71<74\sigma_0^4$, the desired contradiction.
+\end{proof}
+
+\subsection{Lattice-point counts for shorter chords}
+
+\begin{lemma}\label{lem:short-layer}
+Let $q\ge2$ be a power of two, and let $C$ be a three-dimensional
+convex body with $I(C)<q$. Suppose that $C$ contains a translate
+of $sQ$, where $Q$ is a three-dimensional convex body whose planar
+lattice projections have width at least three and area at least $b$.
+Then
+\[
+ \begin{aligned}
+ |C|&\le \frac{45q}{4} &&\text{if }s=\frac{2}{3},\ b\ge\frac{15}{2},\\
+ |C|&\le 14q   &&\text{if }s=\frac{7}{12},\ b\ge10 .
+ \end{aligned}
+\]
+\end{lemma}
+
+\begin{proof}
+Let $J=L(C)$, and let $E_m$ be the set of points over which the
+fiber has length at least $m$ in a direction attaining $J$. The image
+$E_0$ contains a translate of $sB$, where $B$ is the projection of $Q$
+along the same direction. By \eqref{aux:planar-radius} with width
+lower bound three,
+\[
+ \min\{\mu(B),\frac{2}{3}\}\le\frac{1}{3}+\frac{3}{2|B|}
+                         \le\frac{1}{3}+\frac{3}{2b}.
+\]
+The right side is less than $\frac{2}{3}$ in both cases, so it
+bounds $\mu(B)$. If $J>q$, then $qI(E_q)\le I(C)<q$
+by \cref{aux:chords}. Thus $E_q$ is hollow and contains a translate
+of $s(1-\frac{q}{J})B$, whence $s(1-\frac{q}{J})\le\mu(B)$.
+This inequality also holds for $J\le q$, when its left side is nonpositive.
+
+If $s=\frac{2}{3}$ and $b\ge\frac{15}{2}$, then
+$\mu(B)\le\frac{1}{3}+\frac{1}{5}=\frac{8}{15}$. Hence
+$\frac{q}{J}\ge1-\frac{8}{15}\frac{3}{2}=\frac{1}{5}$ and $J\le5q$.
+If $s=\frac{7}{12}$ and $b\ge10$, we obtain
+$\mu(B)\le\frac{1}{3}+\frac{3}{20}=\frac{29}{60}$ and
+$\frac{q}{J}\ge1-\frac{29}{60}\frac{12}{7}=\frac{6}{35}$.
+We set $a=\frac{5}{2}$ in the first case and $a=3$ in the second.
+Thus $J\le2aq$ in both. If $J<a$, then $|C|<a^3$ by \cref{aux:torus}, and the result follows from
+$(\frac{5}{2})^3<\frac{45q}{4}$ and $3^3<14q$ for $q\ge2$.
+
+For $a\le J\le2aq$, the intervals $[am,2am]$ with $m=1,2,4,\ldots,q$
+cover $[a,2aq]$, since successive intervals share an endpoint.
+Thus some divisor $m$ of $q$ satisfies $a\le t:=\frac{J}{m}\le2a$.
+Set $w=3s$. The planar image of $C$ has width at least $w$, and
+the lower endpoint of $w(1-\frac{1}{t})$ is $\frac{6}{5}$ in the
+first case and $\frac{7}{6}$ in the second. In each case
+$1<w(1-\frac{1}{t})\le w\le2$ and $t\ge\frac{5}{2}$, so the
+divisibility assertion of \cref{lem:three-count} yields
+\[
+ \frac{|C|}{q}\le t\Phi_+\left(w\left(1-\frac{1}{t}\right)\right)
+   =\max\left\{\frac{9t}{4},\frac{w^2(t-1)^2}{2((w-1)t-w)}\right\}.
+\]
+The denominator is positive because $w(1-\frac{1}{t})>1$. The
+second term is convex as the square of an affine function divided by
+a positive affine function. The first term is affine, so the maximum
+is convex and its largest value occurs at an endpoint. The four
+substitutions are
+\[
+\renewcommand{\arraystretch}{1.3}
+\begin{array}{cc|cc}
+ w&t&\frac{9t}{4}&\frac{w^2(t-1)^2}{2((w-1)t-w)}\\ \hline
+ 2&\frac{5}{2}&\frac{45}{8}&9\\
+ 2&5&\frac{45}{4}&\frac{32}{3}\\
+ \frac{7}{4}&3&\frac{27}{4}&\frac{49}{4}\\
+ \frac{7}{4}&6&\frac{27}{2}&\frac{1225}{88}
+\end{array}
+\]
+The first two rows are bounded by $\frac{45}{4}$, and the last two
+by $14$. This proves both estimates.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:projections} for $(d,u)=(4,1)$]
+We argue by contradiction. Suppose that all lattice projections of the
+given four-polytope $P$ of ranks two and three exceed $V_2(1)=3$ and
+$V_3(1)=7$, respectively. Their volumes are then at least
+$\frac{7}{2}$ and $\frac{43}{6}$. Let $K=k+1$, $L=L(P)$, and
+$X=\frac{L}{K}$. By hypothesis $\frac{|P|}{K}\ge A_4(1)=\frac{147}{2}$.
+Every planar lattice projection $B$ has width at least three, and
+its area $b=|B|$ satisfies $2b\in\Z$. Thus we may apply
+\eqref{eq:four-fiber-area} with $h=K$ to obtain
+\[
+       \frac{147}{2}\le G(X)\max\left\{\frac{25b}{9},\frac{58}{5}\right\}.
+\]
+The right side is nondecreasing in both $X$ and $b$. At the following
+three pairs, direct substitution gives
+\[
+\renewcommand{\arraystretch}{1.3}
+\begin{array}{cc|ccc}
+ X&b&G(X)&\max\{\frac{25b}{9},\frac{58}{5}\}&
+                G(X)\max\{\frac{25b}{9},\frac{58}{5}\}\\ \hline
+ \frac{100}{19}&\frac{9}{2}&\frac{20000}{3439}&
+              \frac{25}{2}&\frac{250000}{3439}\\
+ 3&7&\frac{18}{5}&\frac{175}{9}&70\\
+ 2&\frac{19}{2}&\frac{8}{3}&\frac{475}{18}&\frac{1900}{27}
+\end{array}
+\]
+Each entry in the last column is less than $\frac{147}{2}$. For example,
+if $X\le3$, the second row rules out $b\le7$, and $2b\in\Z$
+then implies $b\ge\frac{15}{2}$. The same argument in the other two
+rows establishes
+\begin{equation}\label{eq:four-area}
+ b\ge5\quad (X\le\frac{100}{19}),\qquad
+ b\ge\frac{15}{2}\quad (X\le3),\qquad b\ge10\quad (X\le2).
+\end{equation}
+
+We project along a direction attaining $L$. Write $Q$ for the image
+and $D_t$ for the set of projected points whose fibers have length
+at least $t$. Suppose first that $X\ge3$. Then $K<L$ and
+$K I(D_K)\le I(P)=K-1$, so $D_K$ is hollow. Every planar lattice
+projection of $Q$ is also a planar lattice projection of $P$.
+For $3\le X\le\frac{100}{19}$, \eqref{eq:four-area} allows
+$b=5$ in \cref{lem:hollow-chord-four}(ii) with $a=K$ and $\sigma=1$.
+For $X\ge\frac{100}{19}$ we have $1-\frac{1}{X}\ge\frac{81}{100}$,
+so (i) of the same lemma applies. In either case
+$\frac{|P|}{K}<71<\frac{147}{2}$, a contradiction.
+
+Now suppose $X<3$. Let $q\ge2$ be the smallest power of two such that
+$qX\ge\frac{16}{5}$, and set $n=\lceil\frac{K}{q}\rceil$. If $q>2$,
+then $\frac{q}{2}X<\frac{16}{5}$ by minimality. If $q=2$, then
+$qX<6<\frac{32}{5}$. Thus
+$\frac{16}{5}\le qX\le\frac{32}{5}$ in both cases. Whenever $n<L$,
+\cref{aux:chords} shows that $nI(D_n)\le K-1<nq$, since $K\le nq$.
+In particular $I(D_n)<q$, and $D_n$ contains a translate of
+$(1-\frac{n}{L})Q$. By \eqref{aux:support-basic} with $a=n$, the
+volume of $P$ is at most the larger of $L|D_n|$ and
+$\frac{L^4|D_n|}{4(L-n)^3}$. Equivalently,
+\begin{equation}\label{eq:four-chord-volume}
+ \frac{|P|}{K}\le X|D_n|
+   \max\left\{1,\frac{1}{4(1-\frac{n}{L})^3}\right\}.
+\end{equation}
+
+If $n\le\frac{L}{3}$, we have $1-\frac{n}{L}\ge\frac{2}{3}$.
+In particular $n<L$, and $4(\frac{2}{3})^3>1$ makes the maximum
+in \eqref{eq:four-chord-volume} equal to one. By convexity, a
+translate of $\frac{2}{3}Q$ lies in $D_n$. Since $X<3$,
+\eqref{eq:four-area} bounds every planar image area below by
+$\frac{15}{2}$. From \cref{lem:short-layer},
+\[
+         \frac{|P|}{K}\le X|D_n|\le \frac{45}{4}qX
+               \le \frac{45}{4}\frac{32}{5}=72<\frac{147}{2}.
+\]
+
+Suppose instead that $n>\frac{L}{3}$ and $qn\le\frac{4K}{3}$.
+Then $qX=\frac{qL}{K}<\frac{3qn}{K}\le4$, so $X<2$ since $q\ge2$.
+Moreover
+\[
+ \frac{n}{L}=\frac{qn}{K}\frac{1}{qX}
+       \le\frac{4}{3}\frac{5}{16}=\frac{5}{12}.
+\]
+Thus $n<L$ and $D_n$ contains a translate of $\frac{7}{12}Q$.
+Now \eqref{eq:four-area} allows $b=10$ in \cref{lem:short-layer},
+whence $|D_n|\le14q$. The maximum in \eqref{eq:four-chord-volume}
+is at most $\frac{12^3}{4\cdot7^3}=\frac{432}{343}>1$. Therefore
+\[
+        \frac{|P|}{K}\le14qX\frac{432}{343}
+          <56\frac{432}{343}=\frac{3456}{49}<\frac{147}{2}.
+\]
+
+The remaining case is $n>\frac{L}{3}$ and $qn>\frac{4K}{3}$.
+Since $n-1<\frac{K}{q}<\frac{3n}{4}$, we have $n<4$. On the
+other hand, $K\ge2$ and \cref{aux:torus} imply
+$L^4\ge|P|\ge147>3^4$. Thus $n>\frac{L}{3}>1$, so $n=2$ or $n=3$.
+From \eqref{eq:gzpw-density} and $k=K-1$ we obtain
+\[
+ 1-\mu(P)\le\left(\frac{K-1}{|P|}\right)^{\frac{1}{4}}
+       <\left(\frac{2}{147}\right)^{\frac{1}{4}}<\frac{7}{20}.
+\]
+The last comparison follows from $2\cdot20^4=320000
+<352947=147\cdot7^4$. We can therefore take $T=\frac{40n}{13}$ and
+$j=2n$ in \cref{aux:torus}. Indeed, $T>3n>L$ and
+$\mu(P)T>\frac{13}{20}T=2n$. Consequently
+\[
+ |P|\le\frac{1}{2n}\left(\frac{40n}{13}\right)^4
+     =\frac{1280000}{28561}n^3<45n^3 .
+\]
+For $n=2$ we have $q<K<\frac{3q}{2}$. If $q=2$ this would require
+$2<K<3$, so $q\ge4$ and $K\ge5$. For $n=3$ we have
+$2q<K<\frac{9q}{4}$. At $q=2$ and $q=4$ these open intervals are
+$(4,\frac{9}{2})$ and $(8,9)$, neither of which contains an integer.
+Hence $q\ge8$ and $K\ge17$. The two lower bounds on $K$ now yield
+\[
+ \frac{|P|}{K}<
+ \max\left\{\frac{45\cdot2^3}{5},\frac{45\cdot3^3}{17}\right\}
+ =72<\frac{147}{2}.
+\]
+This last contradiction completes the proof.
+\end{proof}
+
+\section{Reduction to a four-dimensional lattice image}\label{sec:gzpw-wide}
+
+We assume the hypotheses of \cref{prop:projections} with $u=1$ and
+$d\ge5$. Write $V_i=V_i(1)$ and $A_i=A_i(1)$. Suppose that every
+proper lattice projection of rank $i\ge2$ has volume greater than
+$V_i$. We use the successive projections of \cref{aux:flag}, with
+$Q_d=C$, $L_i=L(Q_i)$ and $\mu_i=\mu(Q_i)$. We have $|Q_i|>V_i$
+for $2\le i\le d$, since $|Q_d|\ge2A_d>V_d$. In particular,
+$|Q_4|>\frac{1806}{24}>75$. All lattice projections have width at
+least three. By our assumption on all proper lattice projections, each planar image has
+area greater than $V_2=3$ and each three-dimensional image has volume
+greater than $V_3=7$. Their normalized volumes are integers. Hence the
+respective lower bounds are $\frac{7}{2}$ and $\frac{43}{6}$. The same argument applies to every planar and
+three-dimensional projection of $Q_4$, by composition with the
+projection onto $Q_4$. Thus \cref{aux:four-profile} and $|Q_4|>75$
+imply $\mu_4\le0.99$. Our aim is to deduce the opposite strict
+inequality from the covering radii of the successive images.
+All terminating decimals denote exact rational numbers.
+
+\subsection{Covering radii in dimensions four and five}
+
+\begin{lemma}\label{lem:wide-radius}
+Under the assumptions above,
+\begin{equation}\label{eq:wide-loss-direct}
+ \mu_5>0.87,\qquad \mu_4>0.81,\qquad
+                 1-\mu_4<0.002+\frac{|Q_4|}{25000}.
+\end{equation}
+If $d\ge6$, then $\mu_5>0.95$.
+\end{lemma}
+
+\begin{proof}
+For $u=1$ we have $V_i>A_i$, since
+$f_i(1)=f_{i-1}(1)(f_{i-1}(1)+1)>f_{i-1}(1)^2$.
+The recurrence gives $f_4(1)=1806$ and $f_5(1)=3263442$. Hence
+\[
+ \begin{aligned}
+ A_5&=\frac{1806^2}{120}>27000,\\
+ A_6&=\frac{3263442^2}{720}>14\cdot10^9>48^6,\\
+ A_7&=\frac{(3263442\cdot3263443)^2}{5040}>1500^7 .
+ \end{aligned}
+\]
+By \eqref{eq:volume-scale-growth}, $\sqrt[i]{A_i}$ and $\sqrt[i]{V_i}$
+at least double at each step from $i=7$ onward.
+
+Suppose first that $d=5$. Since $|Q_5|\ge(k+1)A_5$, we obtain from
+\eqref{eq:gzpw-density}
+\[
+ 1-\mu_5\le\sqrt[5]{\frac{k}{|Q_5|}}
+ <\sqrt[5]{\frac{k}{27000(k+1)}}<0.13.
+\]
+Here $27000(0.13)^5>1$. Also $L_5^5\ge|Q_5|>54000>(8.4)^5$, so
+$0.12L_5>1$. In particular,
+$\lfloor0.87L_5\rfloor\ge0.87L_5-1>0.75L_5$.
+This positive integer is at most $\mu_5 L_5$. By \cref{aux:torus}
+with $T=L_5$ and $j=\lfloor0.87L_5\rfloor$, we have
+$L_5^5\ge j|Q_5|>0.75L_5\cdot27000(k+1)$. Thus
+$L_5^4>20250(k+1)$, and $\mu_4\ge\mu_5-\frac{1}{L_5}$ implies
+\[
+ 1-\mu_4<
+ \sqrt[5]{\frac{k}{27000(k+1)}}+
+ \sqrt[4]{\frac{1}{20250(k+1)}} .
+\]
+For every positive integer $k$, the sum of these roots is less than $0.19$. The entries are upper bounds for the two
+radicands, followed by the powers to which we compare them.
+\[
+\begin{array}{c|c|c}
+ k & \text{first radicand} & \text{second radicand}\\ \hline
+ 1 & \frac{1}{54000}<(0.115)^5 & \frac{1}{40500}<(0.075)^4\\[2pt]
+ 2 & \frac{2}{81000}<(0.12)^5  & \frac{1}{60750}<(0.07)^4\\[2pt]
+ k\ge3 & \frac{1}{27000}<(0.13)^5 & \frac{1}{81000}<(0.06)^4
+\end{array}
+\]
+The sum of the two decimals in each row is $0.19$, so $\mu_4>0.81$.
+For the last inequality in \eqref{eq:wide-loss-direct},
+\eqref{eq:gzpw-one-step} with $\tau=A_5$ implies
+$1-\mu_4\le\frac{|Q_4|}{A_5}<\frac{|Q_4|}{27000}$.
+
+Now suppose $d\ge6$. By \eqref{eq:gzpw-density} and $|C|\ge(k+1)A_d$,
+we have $1-\mu_d<\frac{1}{\sqrt[d]{A_d}}$. Moreover,
+$\frac{1}{L_i}<\frac{1}{\sqrt[i]{V_i}}$, and
+$\mu_i-\mu_{i-1}\le\frac{1}{L_i}$ by \cref{aux:torus}. For $d=6$
+these bounds imply $1-\mu_5<\frac{2}{48}$. For $d\ge7$, the doubling
+of the roots gives
+\[
+ \begin{aligned}
+ 1-\mu_6
+ &\le1-\mu_d+\sum_{i=7}^{d}\frac{1}{L_i}\\
+ &<\frac{1}{1500}
+ \left(\frac{1}{2^{d-7}}+\sum_{i=7}^{d}\frac{1}{2^{i-7}}\right)
+ =\frac{2}{1500}.
+ \end{aligned}
+\]
+Hence $1-\mu_5<\frac{2}{1500}+\frac{1}{48}$ in this case.
+In both cases $\mu_5>0.95$. If $L_5\le8$, then $8\mu_5>7$
+and \cref{aux:torus} with $T=8$, $j=7$ would yield
+$|Q_5|\le\frac{8^5}{7}<27000$, a contradiction. Thus $L_5>8$, and
+$\mu_4\ge\mu_5-\frac{1}{L_5}>0.95-\frac{1}{8}>0.81$.
+
+It remains to bound $1-\mu_4$ in terms of $|Q_4|$. First,
+$|Q_5|\le L_5|Q_4|$ implies
+$\frac{1}{L_5}\le\frac{|Q_4|}{|Q_5|}<\frac{|Q_4|}{27000}$.
+Also $L_5\le2L_6$ by \eqref{aux:nested} at level zero, so
+\[
+ |Q_6|\le L_6|Q_5|\le L_6 L_5|Q_4|\le2L_6^2|Q_4|.
+\]
+When $d=6$, we have $|Q_6|\ge2A_6$. Consequently,
+$\frac{1}{L_6}\le\sqrt{\frac{|Q_4|}{A_6}}$, and
+\eqref{eq:gzpw-continuous-count} with $m=4$ and $\tau=A_6$ yields
+\[
+ 1-\mu_4\le2\sqrt{\frac{|Q_4|}{A_6}}+\frac{1}{L_5}+\frac{1}{L_6}
+             \le\frac{1}{L_5}+3\sqrt{\frac{|Q_4|}{A_6}} .
+\]
+When $d\ge7$, the preceding bound on $1-\mu_6$ yields
+\[
+ 1-\mu_4\le1-\mu_6+\frac{1}{L_6}+\frac{1}{L_5}
+ <0.002+\sqrt{\frac{2|Q_4|}{|Q_6|}}+\frac{1}{L_5}.
+\]
+In either estimate the square-root term is at most
+$3\sqrt{\frac{|Q_4|}{14\cdot10^9}}$, since $A_6,|Q_6|>14\cdot10^9$.
+After division by $|Q_4|>75$, this term is less than
+\[
+ \frac{3}{\sqrt{75\cdot14\cdot10^9}}<\frac{1}{337500}
+                 =\frac{1}{25000}-\frac{1}{27000},
+\]
+where the strict inequality follows by squaring.
+Together with $\frac{1}{L_5}<\frac{|Q_4|}{27000}$, this proves
+\eqref{eq:wide-loss-direct}.
+\end{proof}
+
+\subsection{The diameter and volume of the four-dimensional image}
+
+\begin{proof}[Proof of \cref{prop:projections} for $u=1$ and $d\ge5$]
+We shall prove first that $L_4<17$ and then that $|Q_4|<200$. The latter
+bound implies $1-\mu_4<0.002+\frac{200}{25000}=0.01$ by
+\cref{lem:wide-radius}, contrary to $\mu_4\le0.99$.
+
+We begin with two bounds for $|Q_3|$. In \cref{aux:hollow-envelope},
+take $\gamma=\frac{21}{16}$, where $A=\Phi(\frac{9}{5})=\frac{81}{40}$.
+For $\frac{16}{21}<x\le1$, set
+\[
+ \Psi(x)=\frac{H_\gamma(x)}{x^3}
+  =\max\left\{\frac{729}{128x^3},\frac{A}{x^2(x-0.6)},
+                         \frac{A\gamma^3}{3(\gamma x-1)}\right\}.
+\]
+For $x\le\mu_3$ a translate of $xQ_3$ is hollow. Every planar image of
+$Q_3$ has width at least three and area at least $\frac{7}{2}>A\gamma^2$.
+Thus the lemma applies, and division by $x^3$ yields $|Q_3|\le\Psi(x)$.
+We shall use the following strict upper bounds for the individual terms.
+They follow by substitution, and each comparison has positive denominators.
+\[
+\begin{array}{c|ccc}
+ x & \frac{729}{128x^3} & \frac{A}{x^2(x-0.6)}
+   & \frac{A\gamma^3}{3(\gamma x-1)}\\ \hline
+ 0.80 & 12 & 16 & 31\\
+ 0.85 & 10 & 12 & 14\\
+ 0.93 & 7.1 & 7.1 & 7
+\end{array}
+\]
+For example, the third term simplifies to $\frac{250047}{10240(21x-16)}$.
+At $x=0.93$ the second term is
+$\frac{81\cdot10^6}{40\cdot93^2\cdot33}<7.1$.
+If $\mu_3\ge0.93$, the last row would imply $|Q_3|<7.1<\frac{43}{6}$.
+We conclude that $\mu_3<0.93$.
+
+Our second bound applies also for $x$ near $0.72$. The planar flatness
+theorem of Hurkens~\cite{Hurkens} states that a hollow planar convex
+body has lattice width at most $1+\frac{2}{\sqrt{3}}$ in the normalization
+of \cite[Theorem~2.1]{AW}. A translate of $\mu_2Q_2$ is hollow, and
+$\lw(Q_2)\ge3$, so
+$\mu_2\le\frac{1}{3}(1+\frac{2}{\sqrt{3}})<0.72$.
+By the projection inequality of \cref{aux:torus},
+$\mu_3\le\mu_2+\frac{1}{L_3}$. For $0.72<x\le\mu_3$ we therefore have
+$L_3<\frac{1}{x-0.72}$. A hollow translate of $xQ_3$ has rational
+diameter $xL_3$. The first two bounds of \cref{aux:hollow-envelope}
+apply on the two respective ranges of this diameter, so in all cases
+\[
+ x^3|Q_3|\le\max\left\{\frac{729}{128},\frac{Ax}{x-0.6},AxL_3\right\}
+                   \le\frac{Ax}{x-0.72}.
+\]
+For the middle term this is immediate from $x-0.6>x-0.72$, and for
+the last term it follows from the diameter bound. For the first term,
+$x\mapsto\frac{x}{x-0.72}$ decreases and
+$\frac{A(0.93)}{0.93-0.72}>\frac{729}{128}$. We have proved
+\begin{equation}\label{eq:wide-flat-three}
+ |Q_3|\le\frac{A}{x^2(x-0.72)}\qquad(0.72<x\le\mu_3).
+\end{equation}
+
+To bound $L_4$, we first exclude $L_4\ge150$. Since $L_4\le2L_5$ by
+\eqref{aux:nested}, two applications of \cref{aux:torus} yield
+\[
+ \mu_3\ge\mu_5-\frac{1}{L_5}-\frac{1}{L_4}\ge\mu_5-\frac{3}{L_4}.
+\]
+For $d\ge6$, \cref{lem:wide-radius} implies $\mu_5>0.95$, whence
+$L_4\ge150$ would imply $\mu_3>0.95-\frac{3}{150}=0.93$.
+For $d=5$, the weaker bound $\mu_5>0.87$ first implies $\mu_3>0.85$.
+The row $x=0.85$ in the table then implies $|Q_3|<14$. Since $A_5>27000$,
+\eqref{eq:gzpw-continuous-count} with $m=3$, $\tau=A_5$ gives
+\[
+ 1-\mu_3\le2\sqrt{\frac{|Q_3|}{A_5}}+\frac{1}{L_4}+\frac{1}{L_5}
+           <2\sqrt{\frac{14}{27000}}+\frac{3}{150}<0.07 .
+\]
+The last comparison follows from $14<27000(0.025)^2$. Both cases
+contradict $\mu_3<0.93$, so $L_4<150$.
+
+By \eqref{eq:wide-loss-direct}, $0.998<\mu_4+\frac{|Q_4|}{25000}$.
+Now $\mu_4\le\mu_3+\frac{1}{L_4}$ and $|Q_4|\le L_4|Q_3|$, hence
+\begin{equation}\label{eq:wide-rectangle}
+             0.998<\mu_3+\frac{1}{L_4}+\frac{L_4|Q_3|}{25000}.
+\end{equation}
+For $17\le L_4\le45$ we have
+$\mu_3\ge\mu_4-\frac{1}{L_4}>0.81-\frac{1}{17}>0.75$.
+For $45\le L_4\le150$, we have
+$\mu_3\ge\mu_5-\frac{3}{L_4}>0.87-\frac{3}{45}>0.80$.
+We substitute the bound \eqref{eq:wide-flat-three} at $x=\mu_3$ on
+the first range and $\Psi(\mu_3)$ on the second range. Both bounds
+are convex functions of $x$ on the intervals under consideration.
+Indeed, each term has the form of a positive constant times a product
+of negative powers of positive affine functions. Its logarithm is convex,
+since $-\log$ is convex, and the exponential preserves convexity.
+The maximum of the three terms defining $\Psi$ is therefore also convex.
+For fixed $L_4$, the right side after substitution is convex in $x$.
+For fixed $x$, it is the sum of a constant, $\frac{1}{L_4}$, and a
+linear function of $L_4$, so it is convex in $L_4$ as well. The
+endpoint bound in one variable, followed by the bound in the other, shows that
+the expression is bounded by its largest corner value on each rectangle.
+
+For the first rectangle, $\frac{A}{x^2(x-0.72)}$ equals $120$ at
+$x=0.75$ and is less than $12$ at $x=0.93$. For the second rectangle,
+the table for $\Psi$ supplies $31$ and $8$ as upper bounds at
+$x=0.80$ and $x=0.93$. The table below records the resulting corner
+estimates. The last two columns refer to the left and right endpoints
+of the indicated interval for $L_4$.
+\[
+\begin{array}{c|c|c|cc}
+ L_4 & x & \text{upper bound function at }x
+     & \text{left} & \text{right}\\ \hline
+ {[17,45]}  &0.75&120&<0.891&<0.989\\
+ {[17,45]}  &0.93&12 &<0.997&<0.974\\
+ {[45,150]} &0.80&31 &<0.879&<0.993\\
+ {[45,150]} &0.93&8  &<0.967&<0.985
+\end{array}
+\]
+For instance, the second row at $L_4=17$ has upper bound
+$0.93+\frac{1}{17}+\frac{17\cdot12}{25000}<0.997$.
+Every corner value is less than $0.998$, contrary to
+\eqref{eq:wide-rectangle}. It follows that $L_4<17$.
+
+We finally convert this bound on $L_4$ into a volume bound. For
+$0<t<\mu_4$ with $t\le1$ there is a hollow translate of $tQ_4$.
+Its longest chord in the direction defining $Q_3$ has length $tL_4$.
+If $tL_4>1$, let $E$ be the set of projected points whose chords have
+length at least one. By \cref{aux:chords}, $E$ is hollow and contains
+a translate of $\alpha Q_3$, where
+$\alpha=t(1-\frac{1}{tL_4})=t-\frac{1}{L_4}$. If $tL_4\ge4$,
+then $4(1-\frac{1}{tL_4})^3\ge4(\frac{3}{4})^3>1$, and therefore
+\eqref{aux:support-basic} yields $t^4|Q_4|\le tL_4|E|$. Moreover,
+\eqref{aux:nested} bounds $L(E)$ by $\max\{tL_4,2tL_4-2\}=2(tL_4-1)$.
+For $\alpha>0.6$, the first two bounds of \cref{aux:hollow-envelope}
+applied to $E$ consequently imply
+\[
+ |Q_4|\le\frac{L_4}{t^3}
+ \max\left\{\frac{729}{128},\frac{A\alpha}{\alpha-0.6},2A(tL_4-1)\right\}.
+\]
+If $L_4\le8$, then $8\mu_4>8(0.81)>6$. From \cref{aux:torus} with
+$T=8$, $j=6$, we obtain $|Q_4|\le\frac{8^4}{6}<1700$.
+If $8\le L_4<17$, take $t=0.81$. We have $tL_4>4$ and
+$\alpha\ge0.81-\frac{1}{8}=0.685$. Since
+$\frac{A(0.685)}{0.685-0.6}<52$ and $2A(0.81\cdot17-1)<52$,
+the maximum in the last display is less than $52$. Here we used
+that $\frac{\alpha}{\alpha-0.6}$ decreases with $\alpha$.
+Thus $|Q_4|<\frac{17\cdot52}{(0.81)^3}<1700$ also in this range.
+By \eqref{eq:wide-loss-direct},
+$1-\mu_4<0.002+\frac{1700}{25000}=0.07$.
+
+We can now use the larger scale $t=0.93$. If $L_4\le5$, then
+$5\mu_4>4$, so \cref{aux:torus} with $T=5$ and $j=4$ yields
+$|Q_4|\le\frac{5^4}{4}<200$. If $5\le L_4\le7$, then $tL_4>4$ and
+$\alpha\ge0.93-\frac{1}{5}=0.73$. Since
+$\frac{A(0.73)}{0.73-0.6}<22.5$ and $2A(0.93\cdot7-1)<22.5$,
+we obtain $|Q_4|\le\frac{7(22.5)}{(0.93)^3}<200$.
+For $7\le L_4\le17$, we have
+$\alpha\ge0.93-\frac{1}{7}=\frac{551}{700}>\frac{16}{21}$,
+so $\gamma\alpha>1$. By \eqref{aux:eq-hollow-envelope},
+$|Q_4|\le\frac{L_4}{t^3}H_\gamma(\alpha)$. Since
+$\frac{1}{L_4}=t-\alpha$, it remains to show
+\[
+ H_\gamma(\alpha)<200t^3(t-\alpha),\qquad
+        \frac{551}{700}\le\alpha\le\frac{1481}{1700}.
+\]
+The left side is convex by \cref{aux:hollow-envelope}, and the right
+side is affine. It suffices to check the two endpoints. For clarity,
+we display strict upper bounds for the three terms of
+$\frac{L_4}{t^3}H_\gamma(\alpha)$ at those endpoints, with $t=0.93$.
+\[
+\begin{array}{c|c|ccc}
+ L_4&\alpha&
+ \frac{L_4}{t^3}\frac{729}{128}&
+ \frac{L_4}{t^3}\frac{A\alpha}{\alpha-0.6}&
+ \frac{L_4}{t^3}\frac{A(\gamma\alpha)^3}{3(\gamma\alpha-1)}
+ \\ \hline
+ 7 & \frac{551}{700} &50&75&196\\[2pt]
+ 17& \frac{1481}{1700} &121&138&149
+\end{array}
+\]
+All six bounds are less than $200$. Thus $|Q_4|<200$ throughout the
+last range as well. As observed at the start of the proof, this
+contradicts $\mu_4\le0.99$ and proves the proposition.
+\end{proof}
+
+\section{The volume bound and its equality case}\label{sec:volume-proof}
+
+The preceding three sections prove \cref{prop:projections} in all
+its cases. We now apply \cref{lem:reduction} to the fiber over an
+interior lattice point. The induction proves the volume bound and determines the
+length of an edge at equality.
+
+\begin{proof}[Proof of \cref{thm:general-rational}]
+We argue by induction on $d$ for all the indicated values of $u$
+simultaneously. The $k$ interior lattice points of an interval in
+dimension one are consecutive integers. The first and last are $k-1$ apart,
+and each is at distance at most one from its respective endpoint.
+The interval therefore has length at most $1+(k-1)+1=k+1$. Here $A_1(u)=1$, and an interval
+attaining the bound is itself an edge of length
+$\frac{(k+1)f_0(u)}{u}=k+1$. This proves the initial case.
+
+Suppose $d\ge2$. It suffices to consider $|C|\ge(k+1)A_d(u)$.
+A lattice translation preserves volume, lattice-point counts and all
+vertex denominators. Since $k\ge1$, we may therefore suppose
+$0\in\intr C$.
+
+We first consider $d=2$ and $w=\lw(C)\ge1+\frac{2}{u}$. Here
+$u\ge2$. If $w\le2$, then \cref{aux:planar} and the monotonicity
+of $\Phi$ imply
+\[
+ \frac{|C|}{k+1}\le\Phi(w)\le\Phi\left(1+\frac{2}{u}\right)
+ =\frac{(u+2)^2}{4u}<\frac{(u+1)^2}{2u}=A_2(u).
+\]
+The strict comparison follows from
+$2(u+1)^2-(u+2)^2=u^2-2>0$. If $w>2$, then \cref{aux:planar}
+implies
+\[
+ \frac{|C|}{k+1}\le\frac{2k+\frac{5}{2}}{k+1}
+ =2+\frac{1}{2(k+1)}\le\frac{9}{4}\le A_2(u).
+\]
+The penultimate inequality is an equality only at $k=1$.
+For the last one,
+$A_2(u)-\frac{9}{4}=\frac{(2u-1)(u-2)}{4u}$, with equality exactly at
+$u=2$. Thus we have the volume bound in this planar case, and its
+only possible equality parameters are the stated exception $(2,2,1)$.
+
+For the remaining cases we choose a lattice projection $\pi$ of rank
+$n$ as follows. If $\lw(C)<1+\frac{2}{u}$, take a primitive integral height
+attaining the width, so $n=1$. Otherwise $d\ge3$, so there is a projection $\pi$ of rank $n\ge2$ with
+$|\pi(C)|\le V_n(u)$ by \cref{prop:projections}.
+In the latter case the image has width at least $\lw(C)\ge1+\frac{2}{u}$. In both cases the central fiber $C_0$ has dimension $r=d-n$,
+and \cref{lem:reduction} bounds its vertex denominators by $U=f_n(u)$.
+Since $0\in\intr C$, the relative interior of $C_0$ contains the
+origin. By \eqref{eq:relative-fiber}, each of its lattice points lies
+in $\intr C$. Thus $1\le I(C_0)\le k$.
+
+We check that the theorem in dimension $r$ applies with the new
+denominator bound $U$. If $u=n=1$, then $U=f_1(1)=2$ and $r=d-1\ge3$,
+because the hypotheses with $u=1$ require $d\ge4$. If $u=1$ and
+$n\ge2$, then $U\ge f_2(1)=6$. For $u\ge2$ we have
+$U\ge f_1(u)=u(u+1)\ge6$. In all cases $1\le r<d$ and
+$(r,U,I(C_0))\ne(2,2,1)$. Thus both the volume bound and the
+assertion about an edge are available for $C_0$.
+
+By the induction hypothesis and the definition of $A_r(U)$,
+\[
+ \Vol_r(C_0)=r!|C_0|
+     \le \frac{(I(C_0)+1)f_{r-1}(U)^2}{U^{r+1}}.
+\]
+Since $r+n=d$ and $U=f_n(u)$, the recurrence implies
+$f_{r-1}(U)=f_{d-1}(u)$. Substitution in \eqref{eq:one-lift}
+cancels the factor $U^{r+1}$, and we obtain
+\[
+ \Vol_d(C)
+ \le\frac{U^{r+1}}{u^{d+1}}\Vol_r(C_0)
+ \le\frac{(I(C_0)+1)f_{d-1}(u)^2}{u^{d+1}}
+ \le\frac{(k+1)f_{d-1}(u)^2}{u^{d+1}} .
+\]
+After division by $d!$ this is the required upper bound.
+
+At equality every inequality in the last display is an equality.
+In particular $I(C_0)=k$, and $C_0$ attains its own volume bound.
+The induction hypothesis therefore shows that $C_0$ is an
+$r$-simplex with an edge of lattice length
+$\frac{(k+1)f_{r-1}(U)}{U}$. Since the pair $(d,u)=(2,1)$ is
+outside the hypotheses, the equality assertion of
+\cref{lem:reduction} applies. A face of $C$ is a translate of
+$\frac{U}{u}C_0$, and this face together with $n$ further points
+spans $C$. The face has $r+1$ vertices, so $C$ is the convex hull of
+at most $r+1+n=d+1$ points. Its dimension $d$ forces these points to
+be affinely independent. Hence $C$ is a simplex.
+
+The corresponding edge of the face is an edge of $C$. A primitive
+vector of the kernel lattice remains primitive in $N$. Indeed, if
+it were an integral multiple $m z$ with $z\in N$ and $m>1$, then
+$m\pi(z)=0$ in the quotient lattice, so $\pi(z)=0$, contradicting
+primitivity in the kernel lattice. It follows that the lattice length
+of the edge after dilation is
+\[
+ \frac{U}{u}\cdot\frac{(k+1)f_{r-1}(U)}{U}
+ =\frac{(k+1)f_{d-1}(u)}{u} .
+\]
+
+The simplex following \cref{thm:general-rational} attains the bound
+for every admissible $d,u,k$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:general-zpw}]
+By \cref{thm:general-rational} with $u=1$, we have
+$\Vol_d(P)\le(k+1)(s_d-1)^2$. Suppose equality holds. Then $P$
+has an edge of lattice length $(k+1)(s_d-1)$.
+
+The lattice diameter of $P$ is the maximum number of collinear lattice
+points in $P$ minus one. Averkov, Kr\"umpelmann, and
+Nill~\cite[Theorem~2.8 and the discussion of~(2.5)]{AKN} show that
+the lattice diameter is at most $(k+1)(s_d-1)$,
+with equality precisely when $P$ is affinely unimodularly equivalent
+to $S_{d,k}$. The edge just obtained contains $(k+1)(s_d-1)+1$ lattice
+points, including its endpoints, so the lattice diameter attains the bound. Conversely, $S_{d,k}$ has $k$ interior lattice points and
+attains the volume bound.
+\end{proof}
+
+
+
+\vspace{5mm}
+\noindent
+\textbf{Acknowledgments.}
+Feihu Liu was partially supported by the Postdoctoral Fellowship Program and China Postdoctoral Science Foundation (Grant No. BX2026002).
+
+\noindent\textbf{Declaration of AI assistance.}
+During the preparation of this manuscript, the authors used ChatGPT to assist in exploring possible approaches, checking technical details, and improving the exposition. All mathematical arguments, computations, proofs, and results were independently verified by the authors. The authors take full responsibility for the content of this manuscript.
+
+
+\begin{thebibliography}{99}
+
+\bibitem{AKN}
+G.~Averkov, J.~Kr\"umpelmann, and B.~Nill,
+\href{https://doi.org/10.1016/j.aim.2014.12.035}{\emph{Largest integral simplices with one interior integral point:
+Solution of Hensley's conjecture and related results}},
+Advances in Mathematics \textbf{274} (2015), 118--166.
+
+\bibitem{AW}
+G.~Averkov and C.~Wagner,
+\href{https://doi.org/10.1007/s13366-011-0028-8}{\emph{Inequalities for the lattice width of lattice-free convex sets
+in the plane}},
+Beitr\"age zur Algebra und Geometrie \textbf{53} (2012), no.~1, 1--23.
+
+\bibitem{BK}
+G.~Balletti and A.~M.~Kasprzyk,
+\emph{Three-dimensional lattice polytopes with two interior lattice points},
+\href{https://arxiv.org/abs/1612.08918}{arXiv:1612.08918} (2016).
+
+\bibitem{BKN}
+G.~Balletti, A.~M.~Kasprzyk, and B.~Nill,
+\href{https://doi.org/10.1017/fms.2022.93}{\emph{On the maximum dual volume of a canonical Fano polytope}},
+Forum of Mathematics, Sigma \textbf{10} (2022), Article e109.
+
+\bibitem{Bohnert}
+M.~Bohnert,
+\emph{Area bounds for planar convex bodies containing a fixed number
+of interior integral points},
+\href{https://arxiv.org/abs/2305.11485v2}{arXiv:2305.11485v2} (2025).
+
+\bibitem{Gardner}
+R.~J.~Gardner, \href{https://doi.org/10.1090/S0273-0979-02-00941-2}{\emph{The Brunn--Minkowski inequality}},
+Bulletin of the American Mathematical Society (N.S.) \textbf{39}
+(2002), no.~3, 355--405.
+
+\bibitem{Hensley}
+D.~Hensley, \href{https://msp.org/pjm/1983/105-1/pjm-v105-n1-p10-s.pdf}{\emph{Lattice vertex polytopes with interior lattice points}},
+Pacific Journal of Mathematics \textbf{105} (1983), no.~1, 183--191.
+
+\bibitem{Hurkens}
+C.~A.~J.~Hurkens, \href{https://doi.org/10.1016/0024-3795(90)90010-A}{\emph{Blowing up convex sets in the plane}},
+Linear Algebra and its Applications \textbf{134} (1990), 121--128.
+
+\bibitem{Kasprzyk}
+A.~M.~Kasprzyk, \href{https://doi.org/10.4153/CJM-2010-070-3}{\emph{Canonical toric Fano threefolds}},
+Canadian Journal of Mathematics \textbf{62} (2010), no.~6, 1293--1309.
+
+\bibitem{LZ}
+J.~C.~Lagarias and G.~M.~Ziegler, \href{https://doi.org/10.4153/CJM-1991-058-4}{\emph{Bounds for lattice polytopes
+containing a fixed number of interior points in a sublattice}},
+Canadian Journal of Mathematics \textbf{43} (1991), no.~5, 1022--1035.
+
+\bibitem{LTTZ}
+F.~Liu, J.~Tang, S.~Tao, and Z.~Zhang,
+\emph{The Zaks--Perles--Wills volume conjecture I:
+three-dimensional lattice polytopes}, \href{https://arxiv.org/abs/2611.22337}{arXiv:2611.22337} (2026).
+
+\bibitem{LTTZII}
+F.~Liu, J.~Tang, S.~Tao, and Z.~Zhang,
+\emph{The Zaks--Perles--Wills volume conjecture II: lattice simplices},
+preprint, 2026.
+
+\bibitem{Macbeath}
+A.~M.~Macbeath,
+\href{https://doi.org/10.1017/S0305004100028012}{\emph{On measure of sum sets II. The sum-theorem for the torus}},
+Proceedings of the Cambridge Philosophical Society \textbf{49}
+(1953), no.~1, 40--43.
+
+\bibitem{Rockafellar}
+R.~T.~Rockafellar, \href{https://doi.org/10.1515/9781400873173}{\emph{Convex Analysis}},
+Princeton Mathematical Series, vol.~28, Princeton University Press,
+Princeton, NJ, 1970.
+
+\bibitem{ZPW}
+J.~Zaks, M.~A.~Perles, and J.~M.~Wills,
+\emph{On lattice polytopes having interior lattice points},
+Elemente der Mathematik \textbf{37} (1982), no.~2, 44--46.
+
+\end{thebibliography}
+\end{document}

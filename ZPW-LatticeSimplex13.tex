@@ -1,0 +1,2074 @@
+\documentclass[reqno, 11pt]{article}
+
+\def\comment#1{{\bf Comment:}\textsf{\sl#1}}
+\newcommand\commentL[2]{\textcolor{red}{#1},(\textcolor{blue}{You suggest #2})}
+\usepackage{enumerate}
+\usepackage{needspace}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb,mathtools}
+\setcounter{MaxMatrixCols}{20}
+\usepackage{newlfont}
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{float}
+\usepackage{diagbox}
+\usepackage{tocloft}
+\usepackage{titlesec}
+\usepackage{booktabs,array,longtable,enumitem,microtype}
+\usepackage{extpfeil}
+\usepackage{centernot}
+
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\usepackage{url}
+
+\usepackage[margin=1in]{geometry}
+
+\usepackage{tabularx}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage{extarrows}
+\usepackage[sort,compress,numbers]{natbib}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{aliascnt}
+\usepackage[pagebackref,colorlinks=true,linkcolor=blue,citecolor=red,urlcolor=blue]{hyperref}
+\usepackage[nameinlink,noabbrev,capitalize]{cleveref}
+\numberwithin{equation}{section}
+
+\setlist[enumerate]{label=\textup{(\roman*)},leftmargin=*}
+\newtheorem{theorem}{Theorem}[section]
+\newaliascnt{proposition}{theorem}
+\newtheorem{proposition}[proposition]{Proposition}
+\aliascntresetthe{proposition}
+\newaliascnt{lemma}{theorem}
+\newtheorem{lemma}[lemma]{Lemma}
+\aliascntresetthe{lemma}
+\newaliascnt{corollary}{theorem}
+\newtheorem{corollary}[corollary]{Corollary}
+\aliascntresetthe{corollary}
+\newtheorem{maintheorem}{Theorem}
+\renewcommand{\themaintheorem}{\Alph{maintheorem}}
+\theoremstyle{definition}
+\newaliascnt{definition}{theorem}
+\newtheorem{definition}[definition]{Definition}
+\aliascntresetthe{definition}
+\newaliascnt{remark}{theorem}
+\newtheorem{remark}[remark]{Remark}
+\aliascntresetthe{remark}
+\newaliascnt{example}{theorem}
+\newtheorem{example}[example]{Example}
+\aliascntresetthe{example}
+\newaliascnt{conjecture}{theorem}
+\newtheorem{conjecture}[conjecture]{Conjecture}
+\aliascntresetthe{conjecture}
+\newaliascnt{question}{theorem}
+\newtheorem{question}[question]{Question}
+\aliascntresetthe{question}
+\newaliascnt{problem}{theorem}
+\newtheorem{problem}[problem]{Problem}
+\aliascntresetthe{problem}
+\newaliascnt{alg}{theorem}
+\newtheorem{alg}[alg]{Algorithm}
+\aliascntresetthe{alg}
+\newtheorem{fig}{Figure}
+
+\allowdisplaybreaks[4]
+
+\SetKwInput{KwInput}{Input}                
+\SetKwInput{KwOutput}{Output}              
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\conv}{conv}
+
+\setcounter{tocdepth}{1}
+\renewcommand{\cftsecfont}{\normalfont\bfseries\color{blue}} 
+\renewcommand{\cftsecpagefont}{\normalfont\bfseries\color{blue}} 
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} 
+
+\title{The Zaks--Perles--Wills volume conjecture II:\\ lattice simplices}
+
+\author{Feihu Liu$^{\color{blue} \dag}$, Jinlong Tang$^{\color{blue} \ddag}$, Sihao Tao$^{\color{blue} \P}$, and Zihao Zhang$^{\color{blue} \S}$
+\\[2mm]
+{\small $^{\color{blue} \dag}$ Center for Combinatorics, LPMC,}\\[-0.8ex]
+{\small Nankai University, Tianjin 300071, P.R.~China}\\
+{\small $^{\color{blue} \ddag, \P}$ School of Mathematical Sciences,}\\[-0.8ex]
+{\small Capital Normal University, Beijing, 100048, P.R.~China}\\
+{\small $^{\color{blue} \S}$ School of Mathematics and Statistics,}\\[-0.8ex]
+{\small Beijing Institute of Technology, Beijing 102400, P.R.~China}\\
+{\small {\color{blue} $^\dag$} Email address: \url{liufeihu7476@163.com}}\\
+{\small {\color{blue} $^\ddag$} Email address: \url{jinlong\_tang@cnu.edu.cn}}\\
+{\small {\color{blue} $^\P$} Email address: \url{sihao\_tao@cnu.edu.cn}}\\
+{\small {\color{blue} $^\S$} Email address: \url{zihao-zhang@foxmail.com}}\\
+}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+For $d\geq 3$ and $k\geq 1$, the well-known Zaks--Perles--Wills volume conjecture states that the volume of any $d$-dimensional lattice polytope with exactly $k$ interior lattice points is bounded above by the volume of the Sylvester simplex.
+It is further conjectured that, except when $(d,k)=(3,1)$, the volume of a lattice polytope attains the upper bound if and only if the polytope is affinely unimodularly equivalent to the Sylvester simplex. We prove that this conjecture holds for all lattice simplices, with equality precisely for the Sylvester simplex up to affine unimodular equivalence.
+This improves significantly upon the previous results by Averkov, Kr\"umpelmann, and Nill from 2020.
+\end{abstract}
+
+\noindent
+\begin{small}
+\emph{2020 Mathematics Subject Classification}: Primary 52B20;
+Secondary 52A38, 52B11, 52C07.
+\end{small}
+
+\noindent
+\begin{small}
+\emph{Keywords}: Lattice polytope; Simplex; Interior lattice point;
+Volume; Sylvester sequence.
+\end{small}
+
+%\tableofcontents
+
+\section{Introduction}\label{sec:introduction}
+
+Let $P\subset\mathbb R^d$ be a \emph{lattice polytope}, i.e., $P=\operatorname{conv}\{v_1,\ldots,v_m\}$ with all vertices
+$v_i\in\mathbb Z^d$. Let $\operatorname{int}(P)$ denote its interior.
+Define
+\begin{align*}
+ I(P):=\#(\operatorname{int}(P)\cap\mathbb Z^d),\quad
+ \operatorname{Vol}(P):=d!\operatorname{vol}(P),
+\end{align*}
+where $\operatorname{vol}(P)$ denotes the standard Euclidean volume,
+and $\operatorname{Vol}(P)$ represents the normalized volume.
+Two lattice polytopes $P$ and $Q$ are said to be \emph{affinely
+unimodularly equivalent}, denoted by $P\simeq Q$, if there exist
+$U\in\operatorname{GL}_d(\mathbb Z)$ and a vector $b\in\mathbb Z^d$
+such that $Q=UP+b$.
+Affine unimodular equivalence preserves lattice-point counts and
+normalized volume.
+
+The study of volumes of lattice polytopes has attracted considerable
+attention. For computational treatments, the reader is referred to
+\cite{BBCVVolum,DeLoera}.
+As regards upper volume bounds, Hensley~\cite[Theorem~3.6]{Hensley1983}
+proved that the volume of a lattice polytope is bounded when its
+dimension and its positive number of interior lattice points are fixed;
+quantitative estimates were subsequently obtained by
+Pikhurko~\cite{Pikhurko2001}.
+Other work on volume is found in \cite{Bau25,Nill07}.
+
+A related problem is Ehrhart's volume conjecture
+\cite{EhrhartVolume,BNillPaffenhonlz}, which asserts the following.
+Let $K\subset\mathbb R^d$ be a full-dimensional compact convex body
+with barycenter $0$. If $\operatorname{int}(K)\cap\mathbb Z^d=\{0\}$,
+then $\operatorname{vol}(K)\leq\frac{(d+1)^d}{d!}$.
+Moreover, equality is attained exactly when 
+\[
+ K=U\bigl((d+1)\conv(0,e_1,\ldots,e_d)-(1,\ldots,1)^{\mathsf{T}}\bigr)
+ \quad\text{for some }U\in\operatorname{GL}_d(\mathbb Z),
+\]
+where $e_1,\ldots,e_d$ are the standard basis vectors of $\mathbb R^d$.
+Recently, the inequality was proved by
+\mbox{OpenAI}~\cite[Chapter~8, Theorem~1.1]{OAI26}, while the equality case
+was established by Liu~\cite[Theorem~1.3]{LiuJiHao}.
+
+For fixed dimension and a fixed positive number of interior lattice
+points, which lattice polytopes have the largest volume?
+Zaks, Perles, and Wills~\cite{ZPW1982} constructed simplices whose
+conjectured extremality is now known as the Zaks--Perles--Wills maximum
+volume conjecture.
+Balletti and Kasprzyk~\cite[Conjecture~1.5]{BK2016} give its volume and
+uniqueness formulation, with the exception to uniqueness at
+$(d,k)=(3,1)$.
+In this paper, we prove the conjecture for lattice simplices in every
+dimension at least four.
+
+We now present the definition of a Sylvester simplex. Define the
+\emph{Sylvester sequence} $(s_n)_{n\geq1}$ by $s_1=2$ and
+$s_{j+1}=s_1s_2\cdots s_j+1$ for $j\geq1$; see OEIS entry
+A000058~\cite{Sloane23}. We adjoin the initial term $s_0=1$. Thus we have
+\[
+ (s_n)_{n\geq0}=(1,2,3,7,43,1807,3263443,\ldots).
+\]
+For convenience in what follows, we set $t_j=s_j-1$ for $j\geq1$.
+The elementary identities
+\begin{equation}\label{intro:eq:sylvester}
+ t_1=1,\quad t_{j+1}=t_j(t_j+1),\quad
+ t_d=\prod_{i=1}^{d-1}s_i,\quad
+ \sum_{i=1}^{d-1}\frac1{s_i}=1-\frac1{t_d}
+\end{equation}
+will be used throughout. The numbers $s_i$ are pairwise coprime.
+Zaks, Perles, and Wills~\cite{ZPW1982} introduced the $d$-dimensional
+simplex
+\begin{align*}
+ S_{d,k}=\operatorname{conv}
+ (0,s_1e_1,\ldots,s_{d-1}e_{d-1},(k+1)(s_d-1)e_d).
+\end{align*}
+Such simplices are referred to as \emph{Sylvester simplices};
+see \cite{CCJP2026}. They are sometimes also referred to as
+Zaks--Perles--Wills simplices~\cite{ALocal}.
+The Ehrhart properties of Sylvester simplices have been studied by
+Caicedo, Castillo, Juhnke, and Poullot in \cite{CCJP2026}.
+
+For a Sylvester simplex, the interior lattice points are precisely $(1,\ldots,1,j)$, $1\leq j\leq k$; see \cite[Proposition~2.9(d)]{CCJP2026}.
+Hence, $I(S_{d,k})=k$. The normalized volume of the Sylvester simplex
+is given by
+\begin{equation}\label{intro:eq:model-volume}
+ \operatorname{Vol}(S_{d,k})=(k+1)(s_d-1)^2=(k+1)t_d^2.
+\end{equation}
+
+\Needspace{9\baselineskip}
+The following conjecture can be traced back to Zaks, Perles, and
+Wills~\cite{ZPW1982}. This explicit version can be found in
+\cite[Conjecture~1.5]{BK2016}.
+We refer to this as the Zaks--Perles--Wills volume conjecture.
+\begin{conjecture}\label{ConjectureZPW}
+For all $d\geq3$ and $k\geq1$, any $d$-dimensional lattice polytope $P$
+with exactly $k$ interior lattice points satisfies
+\begin{align*}
+ \operatorname{Vol}(P)\leq\operatorname{Vol}(S_{d,k})
+ =(k+1)(s_d-1)^2.
+\end{align*}
+Except when $(d,k)=(3,1)$, equality holds if and only if
+$P\simeq S_{d,k}$.
+\end{conjecture}
+
+Lagarias and Ziegler~\cite{LZ91} provided quantitative bounds and
+established the finiteness, up to affine unimodular equivalence, of
+lattice polytopes with bounded volume in each fixed dimension.
+Consequently, together with Hensley's theorem, for fixed $d$ and
+$k\geq1$, there exist only finitely many affine unimodular equivalence
+classes of lattice polytopes with exactly $k$ interior lattice points.
+This also lays the groundwork for computational classifications in
+low dimensions.
+
+For general lattice polytopes, \cref{ConjectureZPW} remains open,
+although some partial results have been obtained.
+We summarize these results in \cref{tab:Volume}.
+
+
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabularx}{\textwidth}{l|l|>{\raggedright\arraybackslash}X}
+\toprule
+Parameters $d,k$ & Polytope $P$ & References\\
+\midrule
+$d=2$, $k=1$ & Lattice polytopes &
+The proposed bound fails in certain cases. Therefore,
+\cref{ConjectureZPW} is considered starting from $d=3$.\\
+$d=2$, $k\geq2$ & Lattice polytopes &
+Scott~\cite{Scott1976}; Haase and Schicho~\cite{HaaseSch09}.\\
+\hline
+$d=3$, $k=1$ & Lattice polytopes &
+Kasprzyk~\cite{Kas10} classified the $3$-dimensional canonical Fano
+polytopes.\\
+$d=3$, $k=2$ & Lattice polytopes &
+Balletti and Kasprzyk~\cite[Corollary~5.2]{BK2016}.\\
+$d=3$, $1\leq k\leq11$ & Lattice simplices &
+Balletti~\cite[Corollary~7.5 and Theorem~7.7]{Bal21}.\\
+$d=3$, $k\geq3$ & Lattice polytopes &
+Liu, Tang, Tao, and Zhang~\cite{LTTZ26}.\\
+\hline
+$d\geq4$, $k=1$ & Reflexive polytopes &
+Balletti, Kasprzyk, and Nill~\cite[Corollary~1.2]{BKN22}.
+They also proved the corresponding sharp upper bound for the volume
+of the dual polytope.\\
+$d\geq2$, $k\geq1$ & A family of simplices &
+Averkov~\cite[Theorem~3]{ALocal} established the sharp bound and
+uniqueness for simplices having a facet with exactly one lattice point
+in its relative interior.\\
+$d\geq3$, $k=1$ & Lattice simplices &
+Averkov~\cite{Ave12} provided a volume estimate for lattice simplices
+based on chains of faces.\\
+$d\geq3$, $k=1$ & Lattice simplices &
+Averkov, Kr\"umpelmann, and Nill~\cite[Theorem~2.2]{AKN} proved the sharp bound and, for $d\ge4$, uniqueness.\\
+$d\geq3$, $k\geq1$ & Lattice simplices &
+Averkov, Kr\"umpelmann, and Nill~\cite[Theorem~1.2]{AKN2020} proved
+a nearly optimal bound on the volume.\\
+\bottomrule
+\end{tabularx}
+\caption{An overview of the known results on the Zaks--Perles--Wills volume conjecture. The parameter $d$ denotes the dimension,
+and the parameter $k$ denotes the number of interior lattice points
+of the polytope.}\label{tab:Volume}
+\end{table}
+
+
+For $k=1$, Averkov, Kr\"umpelmann, and Nill established the sharp volume bound and characterized the equality case for lattice $d$-simplices with $d\ge4$ \cite[Theorem~2.2]{AKN}. They subsequently proved the general upper bound
+\[
+\operatorname{Vol}(S)\le k(d+1)t_d^2
+\]
+for $d\ge3$ and $k\ge1$ \cite[Theorem~1.2]{AKN2020}. The following theorem confirms the conjectured sharp bound for all $d\ge4$ and $k\ge1$ and characterizes the equality case.
+
+
+\begin{theorem}\label{main:theorem}
+Let $d\ge4$ and $k\ge1$ be integers. Every full-dimensional lattice simplex
+$S\subset\R^d$ with exactly $k$ interior lattice points satisfies
+\[
+ \operatorname{Vol}(S)\le(k+1)(s_d-1)^2=(k+1)t_d^2.
+\]
+Equality holds if and only if $S$ is affinely unimodularly equivalent to
+$S_{d,k}$.
+\end{theorem}
+
+Consequently, it follows from \cref{main:theorem} and the three-dimensional results in \cref{tab:Volume} that \cref{ConjectureZPW} holds for all lattice simplices of dimension $d\geq3$, with uniqueness except when $(d,k)=(3,1)$.
+
+
+Our proof uses the barycentric coordinates introduced in
+\cref{sec:preliminaries} to relate lattice-point counts to volume.
+We choose an interior lattice point whose least barycentric coordinate
+is maximal and count lattice points in two associated symmetric boxes.
+When these counts account for all interior lattice points, a product
+inequality yields the required volume bound. In the remaining case,
+estimates for the barycentric coordinates allow us to construct another
+interior lattice point that contradicts the counting bound whenever the
+volume reaches or exceeds the proposed maximum. Finally, we use the
+equality conditions in these estimates to identify the simplex up to
+affine unimodular equivalence.
+
+The paper is organized as follows. \Cref{sec:preliminaries} introduces
+barycentric coordinates and records the Sylvester identities used
+throughout the paper. \Cref{sec:geometry} develops the two-box counting
+argument and the product--sum inequalities. \Cref{ra:sec:analysis}
+establishes the coordinate estimates needed for the volume bound.
+In \cref{sec:low-dimensional}, we combine these estimates with
+lattice-point constructions to prove the volume inequality in
+\cref{main:theorem}. Finally, \cref{sec:equality} determines the equality
+case for all $k\geq1$.
+
+
+
+\section{Barycentric coordinates}\label{sec:preliminaries}
+
+A $d$-dimensional convex polytope with exactly $d+1$ vertices is called a $d$-dimensional \emph{simplex}.
+Let $S=\operatorname{conv}(v_1,\ldots,v_{d+1})\subset\mathbb{R}^d$ be a full-dimensional lattice simplex.
+Assume that $k=I(S)\ge1$.
+The \emph{barycentric coordinate vector} of a point $p\in\mathbb{R}^d$
+is the unique vector
+$\beta(p)=(\beta_1(p),\ldots,\beta_{d+1}(p))\in\mathbb{R}^{d+1}$
+satisfying
+\[
+p=\sum_{i=1}^{d+1}\beta_i(p)v_i,
+\qquad
+\sum_{i=1}^{d+1}\beta_i(p)=1.
+\]
+When no ambiguity arises, we write $\beta$ for $\beta(p)$.
+Then $p\in\operatorname{int}(S)$ if and only if all coordinates
+of $\beta$ are positive. 
+
+
+
+
+\begin{definition}\label{def:max-min}
+A \emph{max--min point} of $S$ is a point
+$w\in\operatorname{int}(S)\cap\Z^d$ satisfying
+\[
+\min_i\beta_i(w)
+=
+\max_{x\in\operatorname{int}(S)\cap\Z^d}\min_i\beta_i(x).
+\]
+\end{definition}
+
+Since $k\ge1$, the set $\operatorname{int}(S)\cap\mathbb{Z}^d$
+is nonempty and finite. Thus $S$ has at least one max--min point.
+For a positive vector $x=(x_1,\ldots,x_n)$ with $n\ge2$ and
+$\sum_{i=1}^{n}x_i=1$, let $x^\downarrow$ denote its
+nonincreasing rearrangement. Set
+\[
+F(x)=
+\left(\prod_{j=1}^{n-2}x_j^\downarrow\right)
+\left(x_{n-1}^\downarrow+x_n^\downarrow\right).
+\]
+Thus, $F(x)$ is the sum of the products obtained by deleting
+either the smallest or the second smallest component of $x$. In particular, for any index $i$,
+\begin{equation}\label{geo:eq:delete-one}
+ F(x)\ge\prod_{j\ne i}x_j.
+\end{equation}
+For convenience, we write \(F(p) = F(\beta(p))\) for any \(p \in \operatorname{int}(S)\).
+
+
+
+We will use two congruences for the integers in \eqref{intro:eq:sylvester}.
+For integers $m\ge1$ and $1\le i\le m$, 
+\begin{equation}\label{prelim:eq:sylvester-congruences}
+ \frac{t_{m+1}}{s_i}\equiv-1\pmod{s_i},\qquad
+ \frac{t_{m+1}}{s_i}\equiv0\pmod{s_j}
+ \quad(1\le j\le m,\ j\ne i).
+\end{equation}
+In the first congruence the factors before $s_i$ have product
+$s_i-1$. Each subsequent factor is congruent to $1$ modulo $s_i$,
+which also shows that the $s_i$ are pairwise coprime.
+The second congruence follows because $s_j$ divides the quotient. We use the conventions
+that an empty sum is zero and an empty product is one.
+
+\section{Barycentric boxes and product--sum inequalities}\label{sec:geometry}
+Let $S$ be as in \cref{sec:preliminaries}.
+For each interior lattice point $w$ of $S$, we  obtain an upper bound
+for $\operatorname{Vol}(S)$ using $F(w)$ and lattice-point counts
+in two specially constructed boxes.
+
+\subsection{The two-box volume bound}
+Fix an interior lattice point $w$ of $S$, with barycentric
+coordinates $\beta=(\beta_1,\ldots,\beta_{d+1})$.
+For each $i\in\{1,\ldots,d+1\}$, define the
+\emph{barycentric box} $B_i$, its lattice-point set $Y_i$,
+and the product $Q_i$ by
+\[
+B_i=
+\left\{
+\sum_{j\ne i}y_j(v_j-v_i): |y_j|<\beta_j
+\right\},
+\qquad
+Y_i=B_i\cap\mathbb{Z}^d,
+\qquad
+Q_i=\prod_{j\ne i}\beta_j.
+\]
+For each interior lattice point $q$, set
+\[
+ J(q)=\{j\in\{1,\ldots,d+1\}:\beta_j(q)\ge2\beta_j\}.
+\]
+Let $2H$ be the number of points $q\ne w$ with $J(q)=\varnothing$,
+and let $n_i$ be the number with $J(q)=\{i\}$.
+The coordinates of $2w-q$ are $2\beta_j-\beta_j(q)$. Thus, $J(q)=\varnothing$ exactly when $2w-q$ is interior. Apart from $w$,
+these points occur in pairs, and hence $H$ is an integer. Moreover, the sets of interior lattice points counted by
+$2H,n_1,\ldots,n_{d+1}$ are pairwise disjoint and do not contain $w$.
+Hence $2H+\sum_{i=1}^{d+1}n_i\le k-1.$
+
+
+
+\begin{lemma}\label{geo:lem:box}
+For every $i\in\{1,\ldots,d+1\}$, we have
+\[
+ |Y_i|=1+2H+2n_i,\qquad \operatorname{Vol}(S)Q_i\le1+H+n_i.
+\]
+\end{lemma}
+\begin{proof}
+Let $y=\sum_{j\ne i}y_j(v_j-v_i)\in Y_i$.
+The barycentric coordinates of $w\pm y$ at the vertices $v_j$,
+$j\ne i$, are $\beta_j\pm y_j>0$.
+Their $i$-th coordinates sum to $2\beta_i>0$, so at least one of
+$w+y$ and $w-y$ lies in $\operatorname{int}(S)$.
+Conversely, let $q\in\operatorname{int}(S)\cap\mathbb{Z}^d$.
+Since $\sum_j\beta_j(q)=\sum_j\beta_j=1$, we have
+\[
+q-w
+=\sum_{j=1}^{d+1}\bigl(\beta_j(q)-\beta_j\bigr)v_j
+=\sum_{j\ne i}\bigl(\beta_j(q)-\beta_j\bigr)(v_j-v_i).
+\]
+The vectors $v_j-v_i$ ($j\ne i$) form a basis of $\mathbb{R}^d$. Therefore, these coefficients are uniquely determined.
+Since $q-w\in\mathbb{Z}^d$, the definition of $Y_i$ gives
+\[
+\begin{aligned}
+q-w\in Y_i
+&\iff |\beta_j(q)-\beta_j|<\beta_j
+      \quad\text{for every }j\ne i\\
+&\iff J(q)\subseteq\{i\},
+\end{aligned}
+\]
+where the last equivalence uses $\beta_j(q)>0$.
+
+The $2H$ interior lattice points $q\ne w$ with
+$J(q)=\varnothing$ form $H$ reflection pairs $\{q,2w-q\}$,
+each contributing the two vectors $\pm(q-w)$ to $Y_i$.
+If $J(q)=\{i\}$, then $2w-q\notin\operatorname{int}(S)$,
+and $q$ contributes a further pair $\{\pm(q-w)\}$.
+Distinct such points give disjoint pairs.
+These pairs partition $Y_i\setminus\{0\}$. Hence
+\[
+|Y_i|=1+2H+2n_i.
+\]
+
+The matrix with columns $v_j-v_i$, $j\ne i$, has determinant
+of absolute value $\operatorname{Vol}(S)$.
+Since $\operatorname{int}(\overline{B_i})=B_i$, by applying van der Corput's inequality~\cite[(1)]{A18} to $\overline{B_i}$, we obtain
+\[
+2^d\operatorname{Vol}(S)Q_i
+=\operatorname{vol}(\overline{B_i})
+\le 2^{d-1}(|Y_i|+1).
+\]
+Therefore $\operatorname{Vol}(S)Q_i\le 1+H+n_i$.
+\end{proof}
+
+
+Fix a permutation $(i_1,\ldots,i_{d+1})$ such that
+$\beta_{i_1}\ge\cdots\ge\beta_{i_{d+1}}$. 
+For this fixed ordering, define the
+\emph{two-box defect} of $w$ by
+\[
+r(w)=k-1-2H-n_{i_d}-n_{i_{d+1}}.
+\]
+Equivalently, $r(w)$ counts the interior points
+$q\ne w$ for which $J(q)\notin
+\{\varnothing,\{i_d\},\{i_{d+1}\}\}$.
+
+
+\begin{corollary}\label{cor-bound-F(q)}
+For every $w\in\operatorname{int}(S)\cap\mathbb Z^d$ and every
+nonincreasing ordering of its barycentric coordinates, we have
+\begin{equation}\label{geo:eq:two}
+ \operatorname{Vol}(S)F(w)\le k+1-r(w)\le k+1.
+\end{equation}
+In particular, $\operatorname{Vol}(S)\le\frac{k+1}{F(w)}$.
+\end{corollary}
+
+\begin{proof}
+Since $Q_{i_d}+Q_{i_{d+1}}=F(w)$, by adding the corresponding bounds in \cref{geo:lem:box}, we have 
+\[
+ \operatorname{Vol}(S)F(w)
+ \le2+2H+n_{i_d}+n_{i_{d+1}}=k+1-r(w).
+\]
+The remaining assertions follow from $r(w)\ge0$ and $F(w)>0$.
+\end{proof}
+
+
+
+
+\subsection{Shifted product--sum inequalities}
+We seek lower bounds for $F(w)$ by studying product--sum inequalities
+for the barycentric coordinates of $w$.
+We show that the failure of such an inequality produces another
+interior lattice point with controlled coordinates.
+
+For a vector $x$ of length $n$, its
+prefix of length $j$ is $(x_1,\ldots,x_j)$; it is proper when $j<n$. The proof of the following lemma adapts the determinant arguments in
+\cite[proof of Theorem~1.1]{Ave12} and \cite[proof of Theorem~2.2]{AKN2020} 
+to allow a general shift parameter $\lambda$.
+
+\begin{lemma}\label{geo:lem:jump}
+Let \(w\in\operatorname{int}(S)\cap\mathbb Z^d\) have barycentric coordinates \(\beta_1,\ldots,\beta_{d+1}\).
+Fix $1\le j\le d$ and $0\le\lambda<\min_{1\le i\le j}\beta_i$. If
+
+\[
+ \prod_{i=1}^j(\beta_i-\lambda)>
+ \sum_{i=j+1}^{d+1}\beta_i,
+\]
+then there exists an interior lattice point $q\ne w$ with
+\begin{equation}\label{geo:lem:jump-eq}
+ \lambda<\beta_i(q)<2\beta_i-\lambda\quad(i\le j),
+ \qquad \beta_i(q)=N\beta_i\quad(i>j)
+\end{equation}
+for an integer $N\ge2$. In particular,
+$J(q)=\{j+1,\ldots,d+1\}$.
+\end{lemma}
+\begin{proof}
+We seek an interior lattice point $q$ satisfying \eqref{geo:lem:jump-eq} and having the form
+\[
+q=(M+1)w-\sum_{i=1}^{j}a_iv_i.
+\]
+It suffices to find integers $M,a_1,\ldots,a_j$ satisfying
+\[
+M\ge1,\qquad
+M=\sum_{i=1}^{j}a_i,\qquad
+|a_i-M\beta_i|<\beta_i-\lambda
+\quad (1\le i\le j).
+\]
+Define a linear map
+$\psi:\mathbb{R}^{j+1}\to\mathbb{R}^{j+1}$ by
+\[
+\psi(a_1,\ldots,a_j,M)
+=
+\left(
+\frac{a_1-M\beta_1}{\beta_1-\lambda},
+\ldots,
+\frac{a_j-M\beta_j}{\beta_j-\lambda},
+M-\sum_{i=1}^{j}a_i
+\right).
+\]
+A direct computation and the hypothesis give
+\[
+\det\psi
+=
+\frac{\sum_{i=j+1}^{d+1}\beta_i}
+     {\prod_{i=1}^{j}(\beta_i-\lambda)}
+\in(0,1).
+\]
+Set $K=\psi^{-1}([-1,1]^{j+1})$.
+Then \(K\) is a full-dimensional centrally symmetric convex body,
+and
+\[
+\operatorname{vol}(\operatorname{int}(K))
+=\operatorname{vol}(K)
+=\frac{2^{j+1}}{\det\psi}
+>2^{j+1}.
+\]
+By Minkowski's convex body theorem, $\operatorname{int}(K)$
+contains a nonzero integer vector $(a_1,\ldots,a_j,M)$.
+Thus
+\[
+|a_i-M\beta_i|<\beta_i-\lambda
+\quad (1\le i\le j),
+\qquad
+\left|M-\sum_{i=1}^{j}a_i\right|<1.
+\]
+By integrality, $M=\sum_{i=1}^{j}a_i$.
+Moreover, $M\ne0$: otherwise, $|a_i|<\beta_i<1$ for every
+$i\le j$, forcing the entire vector to be zero.
+Replacing the vector by its negative if necessary,
+we may assume $M\ge1$.
+
+We define $q$ as above and set $N=M+1\ge2$.
+The defining conditions give the asserted coordinate relations
+and show that $q\in\operatorname{int}(S)\cap\mathbb{Z}^d$.
+Moreover, $\beta_{d+1}(q)=N\beta_{d+1}>\beta_{d+1}$,
+so $q\ne w$.
+Finally, since $\lambda\ge0$ and $N\ge2$, we have
+$\beta_i(q)<2\beta_i$ for $i\le j$ and
+$\beta_i(q)\ge2\beta_i$ for $i>j$. Hence $J(q)=\{j+1,\ldots,d+1\}.$
+\end{proof}
+
+At a max--min point, \cref{geo:lem:jump} with the least coordinate as
+shift yields the generalized product--sum inequalities of Averkov,
+Kr\"umpelmann, and Nill~\cite[Theorem~2.2]{AKN2020}.
+
+\begin{lemma}\label{geo:lem:strong}
+Let $w$ be a max--min point of $S$.
+Relabel the vertices of $S$ so that the barycentric coordinates of $w$
+satisfy $\beta_1\ge\cdots\ge\beta_{d+1}=c>0$. Then
+\begin{equation}\label{geo:eq:strong-ps}
+\prod_{i=1}^{j}(\beta_i-c)
+\le \sum_{i=j+1}^{d+1}\beta_i
+\qquad (1\le j\le d).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Suppose that $\prod_{i=1}^j(\beta_i-c)>\sum_{i=j+1}^{d+1}\beta_i$ for some $1\le j\le d$.
+Since the sum on the right is positive and $\beta_i\ge c$ for all $i$, we must have $\beta_i>c$ for every $i\le j$. Thus $c=\beta_{d+1}$ is an admissible shift in \cref{geo:lem:jump}. By applying \cref{geo:lem:jump} with $\lambda=c$, we obtain an interior lattice point of $S$ whose barycentric coordinates all exceed $c$. This contradicts the max--min property of $w$.
+\end{proof}
+
+More generally, a vector $x=(x_1,\ldots,x_n)$, with $n\ge2$,
+is called \emph{feasible} if $x_1\ge\cdots\ge x_n>0$,
+$\sum_{i=1}^n x_i=1$, and
+\[
+ \prod_{i=1}^j(x_i-x_n)\le\sum_{i=j+1}^n x_i
+ \qquad(1\le j<n).
+\]
+The corresponding inequalities with shift $0$ are called the
+\emph{ordinary product--sum inequalities}.
+
+
+
+\subsection{Coordinate merging and the zero-defect case}
+
+Merging the two least coordinates expresses $F(\beta)$ as a product
+of the entries of the resulting vector. To estimate that product, we first show that merging preserves the product–sum inequalities with a common shift, without assuming that the two merged coordinates are equal. The unshifted equal-entry case is used in
+\cite[proof of Lemma~5.6, Part~III]{Nill07}.
+
+\begin{lemma}\label{orb:lem:merge}
+Let $d\ge3$, $\beta_1\ge\cdots\ge\beta_{d+1}>0$, and
+$\sum_i\beta_i=1$. Suppose $0\le h\le\beta_{d+1}$ and
+\begin{equation}\label{lem-ieq-1}
+\prod_{i=1}^j(\beta_i-h)\le\sum_{i=j+1}^{d+1}\beta_i
+ \qquad(1\le j\le d-1).
+\end{equation}
+Replace $\beta_d,\beta_{d+1}$ by their sum and reorder. The resulting
+vector $x_1\ge\cdots\ge x_d>0$ satisfies
+\begin{equation}\label{lem-ieq-2}
+\prod_{i=1}^j(x_i-h)\le\sum_{i=j+1}^d x_i
+ \qquad(1\le j\le d-1).
+\end{equation}
+These inequalities remain valid if $h$ is increased to the new least
+coordinate.
+\end{lemma}
+\begin{proof}
+Since $\beta_d,\beta_{d+1}\le\beta_{d-1}$, we have $\beta_d+\beta_{d+1}\le2\beta_{d-1}$.
+
+If $\beta_d+\beta_{d+1}\le\beta_{d-1}$, then $(x_1,\ldots,x_d)=(\beta_1,\ldots,\beta_{d-1},\beta_d+\beta_{d+1})$. 
+Therefore, the required inequalities follow from \eqref{lem-ieq-1}.
+
+Suppose that $\beta_d+\beta_{d+1}>\beta_{d-1}$. Then $x_d=\beta_{d-1}$.
+Now we consider a proper prefix $(x_1,\ldots,x_j)$.
+If the prefix does not contain $\beta_d+\beta_{d+1}$,
+its entries are $\beta_1,\ldots,\beta_j$ and its tail sum is
+unchanged. Thus~\eqref{lem-ieq-1} again gives the required inequality.
+
+If the prefix contains $\beta_d+\beta_{d+1}$ and $j\ge2$,
+one of its other entries equals $\beta_1$.
+By \eqref{lem-ieq-1} with $j=1$, we have $\beta_1-h\le1-\beta_1$. Hence, $\beta_1-h\le\frac{1-h}{2}\le\frac12$. 
+Furthermore, we obtain 
+\[
+\begin{aligned}
+\prod_{i=1}^{j}(x_i-h)
+\le(\beta_d+\beta_{d+1}-h)(\beta_1-h)\le\frac{\beta_d+\beta_{d+1}}{2}
+\le\beta_{d-1}
+\le\sum_{i=j+1}^{d}x_i.
+\end{aligned}
+\]
+
+It remains to consider $j=1$ and $x_1=\beta_d+\beta_{d+1}$.
+Using $\beta_i\ge\beta_{d-1}$ for $i\le d-1$ and
+$\beta_{d-1}\ge\frac{\beta_d+\beta_{d+1}}{2}$, we get 
+\[
+1
+=\beta_d+\beta_{d+1}+\sum_{i=1}^{d-1}\beta_i
+\ge\beta_d+\beta_{d+1}+(d-1)\beta_{d-1}
+\ge\frac{d+1}{2}(\beta_d+\beta_{d+1}).
+\]
+Since $d\ge3$, we have $\beta_d+\beta_{d+1}\le\frac{2}{d+1}\le \frac{1}{2}$.
+Therefore,
+\[
+x_1-h=\beta_d+\beta_{d+1}-h
+\le\beta_d+\beta_{d+1}
+\le1-(\beta_d+\beta_{d+1})
+=\sum_{i=2}^{d}x_i.
+\]
+
+Finally, $x_d\ge h$.
+Replacing $h$ by any $h'\in[h,x_d]$ only decreases the
+nonnegative factors on the left-hand side and leaves the
+tail sums unchanged.
+Thus all inequalities remain valid, in particular for $h'=x_d$.
+\end{proof}
+
+For zero shift, \cref{orb:lem:merge} yields Nill's auxiliary product bound \cite[proof of Lemma~5.6, Part~II]{Nill07}. We provide a derivation for completeness, including the equality characterization needed in \cref{sec:equality}.
+
+\begin{lemma}\label{geo:lem:ordinary}
+Let $d\ge 3$ and let $\beta_1\ge\cdots\ge\beta_{d+1}>0$ satisfy $\sum_{i=1}^{d+1}\beta_i=1$. If
+\[
+ \prod_{i=1}^j\beta_i\le\sum_{i=j+1}^{d+1}\beta_i, \qquad (1\le j\le d-1),
+\]
+then
+\[
+ \left(\prod_{i=1}^{d-1}\beta_i\right)(\beta_d+\beta_{d+1}) \ge\frac1{t_d^2}.
+\]
+For $d\ge4$, equality holds if and only if
+\[
+ \beta_i=\frac{1}{s_i}\quad(1\le i\le d-1),\qquad \beta_d+\beta_{d+1}=\frac{1}{t_d}.
+\]
+\end{lemma}
+
+\begin{proof}
+Set $\beta'=\beta_d+\beta_{d+1}$, and let
+$x=(x_1,\ldots,x_d)$ be the nonincreasing rearrangement of
+$(\beta_1,\ldots,\beta_{d-1},\beta')$.
+By \cref{orb:lem:merge} with $h=0$, $x$ has sum one and
+satisfies all ordinary product--sum inequalities.
+We employ the Izhboldin--Kurliandchik inequality~\cite{IK95}, in the form
+stated in \cite[Lemma~5.3]{Nill07}. This is given by 
+\[
+F(\beta)=\prod_{i=1}^{d}x_i\ge\frac1{t_d^2},
+\]
+with equality if and only if
+$x=\left(\frac1{s_1},\ldots,\frac1{s_{d-1}},\frac1{t_d}\right)$.
+
+Suppose that $d\ge4$ and equality holds.
+If $\beta'\ne\frac{1}{t_d}$, then $\beta_{d-1}=\frac{1}{t_d}$ and
+$\beta'\ge\frac{1}{s_{d-1}}$.
+Since $\beta'\le2\beta_{d-1}$, we have 
+\[
+\frac1{s_{d-1}}
+\le\beta'
+\le2\beta_{d-1}
+=\frac2{t_d}
+<\frac1{s_{d-1}},
+\]
+a contradiction.
+Here the strict inequality follows from
+$t_d=s_{d-1}t_{d-1}$ and $t_{d-1}>2$.
+Thus $\beta'=\frac{1}{t_d}$ and
+$\beta_i=\frac{1}{s_i}$ for $1\le i\le d-1$.
+Conversely, these values give $F(\beta)=\frac{1}{t_d^2}$.
+\end{proof}
+
+
+
+We now show that zero two-box defect implies these inequalities.
+
+
+\begin{theorem}\label{geo:subsec:defect}
+Let $w$ be an interior lattice point of $S$. Label the vertices so that
+the barycentric coordinates of $w$ satisfy
+$\beta_1\ge\cdots\ge\beta_{d+1}>0$, and let $r(w)$ be the two-box defect
+for this ordering. Suppose that $r(w)=0$. Then the ordinary product--sum
+inequalities hold for every $1\le j\le d-1$. If $d\ge3$, then
+$F(w)\ge t_d^{-2}$ and
+\begin{equation}\label{geo:eq:rzero}
+\operatorname{Vol}(S)\le(k+1)t_d^2.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+By \cref{geo:lem:jump} with $\lambda=0$, if an ordinary product--sum inequality fails at some length
+$1\le j\le d-1$, then we obtain an interior lattice point $q$ with $d,d+1\in J(q)$.
+This point is counted by $r(w)$, contradicting $r(w)=0$.
+For $d\ge3$, by \cref{geo:lem:ordinary}, we get $F(w)\ge t_d^{-2}$.
+By combining this lower bound with \cref{cor-bound-F(q)}, we obtain \eqref{geo:eq:rzero}.
+\end{proof}
+
+
+The case of positive two-box defect will be treated in \cref{sec:low-dimensional},
+after establishing the coordinate estimates in \cref{ra:sec:analysis}.
+
+
+
+
+
+\section{Coordinate bounds for feasible vectors}
+\label{ra:sec:analysis}
+
+We first establish prefix-sum bounds for feasible vectors and obtain an
+upper bound for the least coordinate when the product of the coordinates
+is small. For a feasible vector \(\beta\) of length \(d+1\) 
+with $d\ge4$ and $F(\beta)\le t_d^{-2}$, we give upper and lower bounds for the sum of its two least coordinates. 
+We also show that this sum is smaller than each of the remaining coordinates. These estimates
+will be used in the lattice-point constructions of the next section.
+
+\subsection{Prefix sums and an upper bound for the least coordinate}
+
+For nonincreasing vectors \(u, v\) of the same length and with the same sum, we say that \(u\) \emph{majorizes} \(v\), and write \(u \succeq v\), if \(\sum_{i=1}^j u_i \ge \sum_{i=1}^j v_i\) for every \(1 \le j < n\), where \(n\) is their common length. If \(u \succeq v\) and all entries are positive, then \(\prod_i u_i \le \prod_i v_i\) \cite[Chapter~3]{MOA2011}, with equality only when \(u = v\).
+If we subtract a common shift smaller than every entry, majorization is preserved. 
+Thus, if $u\succeq v$ and $0\le h<\min\{u_n,v_n\}$, then $\prod_{i=1}^n(u_i-h) \le\prod_{i=1}^n(v_i-h)$.
+
+
+
+To bound the prefix sums of a vector satisfying shifted inequalities,
+we first rescale its coordinates to obtain ordinary product--sum
+inequalities. We can then apply the ordinary prefix estimate
+\cite[Lemma~4.5]{AKN}.
+
+\begin{lemma}\label{ra:lem:prefix-sums}
+Let $x_1\ge\cdots\ge x_{n+1}>0$ have sum one, let
+$0\le h\le x_{n+1}$, and let $1\le m\le n$. Suppose
+\begin{equation}\label{ra:lem:prefix-sums-ieq}
+ \prod_{i=1}^j(x_i-h)\le1-\sum_{i=1}^j x_i
+ \qquad(1\le j\le m).
+\end{equation}
+Set $y_i=\frac{x_i}{1+h}$. Then
+\begin{equation}\label{ra:eq:rescaled-ps}
+ \prod_{i=1}^j y_i\le 1-\sum_{i=1}^j y_i
+ \qquad(1\le j\le m),
+\end{equation}
+and
+\[
+ \sum_{i=1}^j x_i\le
+ (1+h)\sum_{i=1}^j\frac1{s_i}
+ =(1+h)\left(1-\frac1{t_{j+1}}\right)
+ \qquad(1\le j\le m).
+\]
+\end{lemma}
+\begin{proof}
+Fix $1\le j\le m$ and write $S_j=\sum_{i=1}^j x_i<1$.
+Since $0\le x_i-h\le x_i$, we obtain 
+\begin{align*}
+ \prod_{i=1}^j x_i-\prod_{i=1}^j(x_i-h)
+ =h\sum_{r=1}^j
+   \left(\prod_{i=1}^{r-1}(x_i-h)\right)
+   \left(\prod_{i=r+1}^j x_i\right)\le h\sum_{r=1}^j
+   \prod_{\substack{1\le i\le j\\i\ne r}}x_i
+ \le \frac{h}{(j-1)!}S_j^{j-1}
+ \le h.
+\end{align*}
+Here the penultimate inequality follows from the multinomial theorem.
+Together with \eqref{ra:lem:prefix-sums-ieq}, it follows that 
+\[
+ \prod_{i=1}^j x_i\le1+h-S_j.
+\]
+As $(1+h)^j\ge1+h$ and $1+h-S_j>0$, we obtain
+\[
+ \prod_{i=1}^j y_i
+ \le\frac{1+h-S_j}{(1+h)^j}
+ \le\frac{1+h-S_j}{1+h}
+ =1-\sum_{i=1}^j y_i,
+\]
+which proves \eqref{ra:eq:rescaled-ps}.
+
+Finally, $y_1\ge\cdots\ge y_m>0$ and $\sum_{i=1}^m y_i<1$.
+By applying \cite[Lemma~4.5]{AKN} to each prefix, we obtain $\sum_{i=1}^j y_i\le\sum_{i=1}^j\frac{1}{s_i}$ for $1\le j\le m$.
+By multiplying by $1+h$, we prove the stated bound.
+\end{proof}
+
+
+We next establish a bound on the
+least coordinate of a feasible vector with small product.
+
+\begin{lemma}\label{ra:lem:small-least}
+Let $x=(x_1,\ldots,x_n)$ be a feasible
+vector with $n\ge4$. If $\prod_{i=1}^n x_i\le t_n^{-2}$, then
+$x_n <\frac{1}{4t_{n-1}}$.
+\end{lemma}
+
+\begin{proof}
+Suppose first that $n\ge5$.
+Define
+$z=(z_1,\ldots,z_{n+1})=\frac{1}{1+x_n}(x_1,\ldots,x_n,x_n)$.
+This vector is nonincreasing and has sum one.
+Since $x$ is feasible, by \cref{ra:lem:prefix-sums} with $h=x_n$, we have
+\[
+\prod_{i=1}^{j}z_i
+\le\sum_{i=j+1}^{n+1}z_i
+\qquad (1\le j\le n-1).
+\]
+We merge the last two coordinates of $z$ and rearrange the resulting vector in nonincreasing order to obtain $y=(y_1,\ldots,y_n)$.
+By \cref{orb:lem:merge} with $h=0$, $y$ has sum one and
+satisfies all ordinary product--sum inequalities.
+By applying \cref{geo:lem:ordinary} with $d=n-1$, we obtain
+$F(y)\ge\frac1{t_{n-1}^2}$.
+
+On the other hand, $y$ is a rearrangement of
+$
+\frac{1}{1+x_n}(x_1,\ldots,x_{n-1},2x_n).
+$
+Consequently,
+\[
+y_n\ge\frac{x_n}{1+x_n},
+\qquad
+\prod_{i=1}^{n}y_i
+=\frac{2}{(1+x_n)^n}\prod_{i=1}^{n}x_i.
+\]
+By $y_{n-1}\ge y_n$ and the assumed product bound, we get
+\[
+\begin{aligned}
+F(y)
+=\left(\prod_{i=1}^{n}y_i\right)
+  \left(\frac1{y_{n-1}}+\frac1{y_n}\right)\le\frac{4}{x_n(1+x_n)^{n-1}}
+     \prod_{i=1}^{n}x_i\le\frac{4}{x_n t_n^2}.
+\end{aligned}
+\]
+By combining the two bounds for $F(y)$, we obtain 
+\[
+x_n\le\frac{4t_{n-1}^2}{t_n^2}
+=\frac{4}{(t_{n-1}+1)^2}.
+\]
+Since $n\ge5$, we have $t_{n-1}\ge t_4=42$, and hence
+$(t_{n-1}+1)^2>16t_{n-1}$.
+Therefore $x_n<\frac{1}{4t_{n-1}}$.
+
+Now let $n=4$, so that $t_3=6$ and $t_4=42$.
+Suppose that $x_4\ge\frac{1}{24}$ for a contradiction.
+Since $x$ is feasible, its defining inequality for $j=1$ gives $x_1-x_4\le1-x_1$, which implies $ x_1\le \frac{1+x_4}{2}.$
+Since $x_2,x_3,x_4\ge x_4$, the sum condition also gives $x_1+3x_4\le1.$
+We consider the first inequality as $2x_1-x_4\le1$. Hence, 
+\[
+ 7x_1=3(2x_1-x_4)+(x_1+3x_4)\le4.
+\]
+Thus $x_1\le\frac{4}{7}$.
+
+Set $A=x_1+x_2$. The first shifted inequality and ordering imply
+\[
+ 0\le x_2-x_4 \le x_1-x_4
+ \le\frac{1-x_4}{2}
+ \le\frac12.
+\]
+Therefore
+\[
+ \left(\frac12-x_1+x_4\right)
+ \left(\frac12-x_2+x_4\right)\ge0,
+\]
+and expanding gives
+\[
+ (x_1-x_4)(x_2-x_4)
+ \ge\frac{(x_1-x_4)+(x_2-x_4)}{2}-\frac14
+ =\frac{A-2x_4}{2}-\frac14.
+\]
+Moreover, $x_3\ge x_4$ implies
+$1-A=x_3+x_4\ge2 x_4,$ and $-x_4\ge\frac{A-1}{2}$.
+By combining these estimates with the second shifted
+product--sum inequality, we obtain
+\begin{align*}
+ 1-A
+ \ge(x_1-x_4)(x_2-x_4)\ge\frac{A-2x_4}{2}-\frac14\ge\frac A2+\frac{A-1}{2}-\frac14
+  =A-\frac34.
+\end{align*}
+It follows that
+$$
+ x_1+x_2=A\le\frac78.
+$$
+Finally, by the assumption $x_4\ge\frac{1}{24}$, we have
+$$
+ x_1+x_2+x_3=1-x_4\le\frac{23}{24}.
+$$
+
+Define
+$v = \left( \frac{4}{7}, \frac{7}{8} - \frac{4}{7}, \frac{23}{24} - \frac{7}{8}, 1 - \frac{23}{24} \right).
+$
+Its coordinates are positive and nonincreasing, and their
+sum is one. The three prefix-sum bounds above show that
+\[
+ \sum_{i=1}^r v_i
+ \ge
+ \sum_{i=1}^r x_i
+ \qquad(1\le r\le3).
+\]
+Thus $v$ majorizes $x$. Therefore, we obtain 
+\[
+ \prod_{i=1}^4x_i\ge\prod_{i=1}^4v_i =
+ \frac47\cdot\frac{17}{56}\cdot\frac1{12}\cdot\frac1{24}
+ =
+ \frac{17}{16\cdot42^2}
+ >
+ \frac1{42^2}=t_4^{-2}.
+\]
+This contradicts the assumption $\prod_{i=1}^4x_i\le t_4^{-2}$.
+Hence $x_4<\frac{1}{24}=\frac{1}{4t_3}$. This completes the proof.
+\end{proof}
+
+\subsection{Bounds for the sum of the two least coordinates}
+
+We next merge the two least coordinates. We then show that their sum is
+smaller than each remaining entry. We also obtain upper and lower bounds for this sum.
+
+\begin{lemma}\label{orb:lem:separation}
+Let $d\ge4$, and let $\beta=(\beta_1,\ldots,\beta_{d+1})$ be feasible
+with $F(\beta)\le t_d^{-2}$. Set $g=\beta_d+\beta_{d+1}$. Then
+\begin{equation}\label{ra:eq:initial-g}
+ \frac{1}{t_{d-1}\left(t_{d-1}+\frac{13}{6}\right)}\le g<\frac{1}{t_{d-1}^2},
+ \qquad g<\beta_{d-1}.
+\end{equation}
+For $\beta_{d+1}\le h\le \frac{g}{2}$, define $b=(b_1,\ldots,b_{d-1})$ by
+\begin{equation}\label{ra:eq:comparison-vector}
+ b_i=\frac{1+h}{s_i}\quad(1\le i\le d-2),\qquad
+ b_{d-1}=1-g-\sum_{i=1}^{d-2}b_i.
+\end{equation}
+Then $b$ is nonincreasing, every entry exceeds $h$, and
+$b\succeq(\beta_1,\ldots,\beta_{d-1})$.
+\end{lemma}
+
+%\begin{proof}
+%Set $T=t_{d-1}\ge6$. We first show that the sum of the two least
+%coordinates is the least entry of the merged vector. By
+%\cref{orb:lem:merge}, merging these coordinates and reordering gives a
+%feasible vector of length $d$ with product $F(\beta)$. Its least entry
+%is less than $1/(4T)$ by \cref{ra:lem:small-least}. If
+%$g\ge\beta_{d-1}$, this least entry is $\beta_{d-1}$. \textcolor[rgb]{1.00,0.00,0.00}{Applying
+%\cref{ra:lem:prefix-sums} to the original vector through length $d-2$,
+%and using $g\le2\beta_{d-1}$, gives
+%\[
+% \frac1T-\beta_{d-1}\le\beta_{d-1}+g\le3\beta_{d-1},
+%\]
+%which contradicts the bound on the least merged entry.} Therefore
+%$g<\beta_{d-1}$ and $g<1/(4T)$.
+%
+%Fix $\beta_{d+1}\le h\le g/2$. By \cref{orb:lem:merge}, the ordered
+%merged vector satisfies the product--sum inequalities with the original
+%shift, and these inequalities remain valid when the shift is increased
+%to $h$. The Sylvester sum identity expresses the last entry of $b$ as
+%$(1+h)/T-g-h$, so
+%\[
+% b_{d-1}-h\ge\frac1T-2g>0,\qquad
+% b_{d-1}<\frac1T\le b_{d-2}.
+%\]
+%Thus $b$ is nonincreasing and all of its entries exceed $h$.
+%Its sum is $1-g$, and \cref{ra:lem:prefix-sums} bounds each of the
+%proper prefix sums of the remaining original coordinates by the
+%corresponding prefix sum of the comparison vector. This proves the
+%claimed majorization.
+%Applying the product comparison with and without the shift, and using
+%the final shifted prefix inequality for the merged vector, yields
+%\begin{equation}\label{ra:eq:comparison-products}
+% F(\beta)\ge g\prod_{i=1}^{d-1}b_i,\qquad
+% g\ge\prod_{i=1}^{d-1}(b_i-h).
+%\end{equation}
+%
+%We now set $h=g/2$ to bound the sum of the two least coordinates.
+%Substituting the definition of the comparison vector into the first
+%inequality of \eqref{ra:eq:comparison-products} gives
+%\[
+% F(\beta)>\frac{g}{T^2}\left(1-\frac{3Tg}{2}\right).
+%\]
+%The right-hand side is increasing for $0<g<1/(4T)$. If
+%$g\ge T^{-2}$, the identity $t_d=T(T+1)$ therefore gives
+%\[
+% t_d^2F(\beta)>
+% \left(1+\frac1T\right)^2\left(1-\frac{3}{2T}\right)
+% >1+\frac{T-6}{2T^2}\ge1,
+%\]
+%contrary to the assumed bound on the coordinate product. Hence $g<T^{-2}$.
+%
+%To prove the lower bound, we first estimate the sum of the Sylvester
+%parameters. Expanding the product in the following calculation gives
+%\[
+% \sum_{i=2}^{d-2}t_i
+% =2+\sum_{i=3}^{d-2}t_i
+% \le2\prod_{i=3}^{d-2}(1+t_i)=\frac T3.
+%\]
+%The upper bound just proved ensures that all factors in the following
+%product lie in $(0,1)$. We apply the second inequality in
+%\eqref{ra:eq:comparison-products} with $h=g/2$, then use
+%$\prod(1-u_i)\ge1-\sum u_i$ and the preceding sum estimate to obtain
+%\[
+%\begin{aligned}
+% T^2g
+% &\ge\left(1-\left(2T-\frac12\right)g\right)
+%          \prod_{i=1}^{d-2}\left(1-\frac{t_i g}{2}\right)\\
+% &\ge1-\left(2T+\frac12\sum_{i=2}^{d-2}t_i\right)g
+% \ge1-\frac{13Tg}{6}.
+%\end{aligned}
+%\]
+%Rearranging proves the lower bound in \eqref{ra:eq:initial-g}.
+%\end{proof}
+
+\begin{proof}
+Set $T=t_{d-1}\ge6$.
+We will use the Sylvester identities
+\[
+T=\prod_{i=1}^{d-2}s_i,
+\qquad
+\sum_{i=1}^{d-2}\frac1{s_i}=1-\frac1T,
+\qquad
+t_d=T(T+1).
+\]
+Let $x=(x_1,\ldots,x_d)$ be the nonincreasing rearrangement of $(\beta_1,\ldots,\beta_{d-1},g)$. By \cref{orb:lem:merge}, this vector satisfies the shifted product--sum inequalities with shift $x_d$ and is therefore feasible. Moreover,
+\[
+\prod_{i=1}^d x_i=F(\beta)\le t_d^{-2}.
+\]
+Thus $x$ satisfies the hypotheses of \cref{ra:lem:small-least}, which yields $\min\{g,\beta_{d-1}\}=x_d<\frac{1}{4T}$.
+We claim that $g<\beta_{d-1}$. If $g\ge\beta_{d-1}$, then $\beta_{d-1}=x_d<\frac{1}{4T}$. By applying \cref{ra:lem:prefix-sums} to $\beta$ with shift $\beta_{d+1}$ and prefix length $d-2$, we obtain
+\[
+\sum_{i=1}^{d-2}\beta_i
+\le(1+\beta_{d+1})\left(1-\frac1T\right)
+\le1+\beta_{d-1}-\frac1T.
+\]
+By using $g=1-\beta_{d-1}-\sum_{i=1}^{d-2}\beta_i$ for the lower bound and the ordering of the barycentric coordinates for the upper bound, we obtain
+\[
+\frac1T-2\beta_{d-1}
+\le g=\beta_d+\beta_{d+1}
+\le2\beta_{d-1}.
+\]
+This forces $\beta_{d-1}\ge\frac{1}{4T}$, a contradiction. Hence $g<\beta_{d-1}$, and thus $g=x_d<\frac{1}{4T}$.
+
+Now fix $\beta_{d+1}\le h\le \frac{g}{2}$. 
+We applied the Sylvester sum identity to obtain
+\[
+b_{d-1}
+=1-g-(1+h)\left(1-\frac1T\right)
+=\frac{1+h}{T}-g-h
+<\frac1T
+\le b_{d-2}.
+\]
+Since $h\le \frac{g}{2}$ and $g<\frac{1}{4T}$, we also have
+\[
+b_{d-1}-h
+=\frac{1+h}{T}-g-2h
+\ge\frac1T-2g>0.
+\]
+Since $s_1<\cdots<s_{d-2}$, the first $d-2$ entries of $b$
+are nonincreasing.
+Thus $b$ is nonincreasing and every entry exceeds $h$.
+
+Since $h\le \frac{g}{2}<g$, by \cref{orb:lem:merge}, we have 
+\begin{equation}\label{eq:4.3-shiftproduct}
+\prod_{i=1}^j(\beta_i-h)
+=\prod_{i=1}^j(x_i-h)
+\le\sum_{i=j+1}^d x_i
+=\sum_{i=j+1}^{d-1}\beta_i+g
+\qquad(1\le j\le d-1).
+\end{equation}
+By applying \cref{ra:lem:prefix-sums} to $x$ with shift $h$, we obtain
+\[
+\sum_{i=1}^j\beta_i
+=\sum_{i=1}^j x_i
+\le(1+h)\sum_{i=1}^j\frac1{s_i}
+=\sum_{i=1}^j b_i
+\qquad(1\le j\le d-2).
+\]
+Moreover,
+\[
+\sum_{i=1}^{d-1}b_i
+=1-g
+=\sum_{i=1}^{d-1}\beta_i.
+\]
+Thus $b$ majorizes $(\beta_1,\ldots,\beta_{d-1})$. The product comparison for majorization yields
+\begin{equation}\label{eq-g-bound_1}
+F(\beta)
+=g\prod_{i=1}^{d-1}\beta_i
+\ge g\prod_{i=1}^{d-1}b_i.
+\end{equation}
+We know that $b_i>h$ and $\beta_i\ge\beta_{d-1}>g>h$ for all $i<d$. By applying the product comparison to the shifted coordinates, we obtain 
+\begin{equation}\label{eq-g-bound}
+\prod_{i=1}^{d-1}(b_i-h)
+\le\prod_{i=1}^{d-1}(\beta_i-h)
+\le g,
+\end{equation}
+where the last inequality follows from \eqref{eq:4.3-shiftproduct} with $j=d-1$.
+
+To derive an upper bound on $g$, set $h=\frac{g}{2}$. Then
+\[
+\prod_{i=1}^{d-2}b_i=\frac{(1+\frac{g}{2})^{d-2}}{T},
+\qquad
+b_{d-1}=\frac1T-\frac{3g}{2}+\frac{g}{2T}.
+\]
+Since $g<\frac{1}{4T}$, we have $b_{d-1}>\frac{1}{T}-\frac{3g}{2}>0$. Thus, by using $(1+\frac{g}{2})^{d-2}>1$ and \eqref{eq-g-bound_1}, we obtain
+\[
+\begin{aligned}
+F(\beta)
+&\ge\frac{g(1+\frac{g}{2})^{d-2}}{T}
+\left(\frac1T-\frac{3g}{2}+\frac{g}{2T}\right)>\frac{g}{T^2}\left(1-\frac{3Tg}{2}\right).
+\end{aligned}
+\]
+Define
+\[
+f(u)=\frac{u}{T^2}\left(1-\frac{3Tu}{2}\right).
+\]
+Since
+\[
+f'(u)=\frac{1-3Tu}{T^2}>0
+\qquad\left(0<u<\frac1{4T}\right),
+\]
+the function $f$ is strictly increasing on $\left(0,\frac{1}{4T}\right)$. Suppose, for a contradiction, that $g\ge T^{-2}$. Since $T\ge6$, we have $T^{-2}<\frac{1}{4T}$. By using the preceding lower bound $F(\beta)>f(g)$ and $t_d=T(T+1)$, we obtain
+\[
+\begin{aligned}
+t_d^2F(\beta)
+&>t_d^2f(g)\ge t_d^2f(T^{-2})=\left(1+\frac1T\right)^2
+\left(1-\frac3{2T}\right)=1+\frac{T^2-4T-3}{2T^3}>1,
+\end{aligned}
+\]
+where the final inequality follows from $T\ge6$. This contradicts $F(\beta)\le t_d^{-2}$. Hence $g<T^{-2}$.
+
+To derive a lower bound on $g$, set $h=\frac{g}{2}$. Then
+\[
+b_i-h=\frac{1-\frac{t_i g}{2}}{s_i}\quad(i\le d-2),
+\qquad
+b_{d-1}-h=\frac{1-(2T-\frac12)g}{T}.
+\]
+By \eqref{eq-g-bound}, we obtain
+\[
+T^2g\ge
+\left(1-\left(2T-\frac12\right)g\right)
+\prod_{i=1}^{d-2}\left(1-\frac{t_i g}{2}\right).
+\]
+By $t_2=2$, $1+t_i=s_i$, and $T=\prod_{i=1}^{d-2}s_i$, we have
+$$
+\sum_{i=2}^{d-2}t_i
+=2+\sum_{i=3}^{d-2}t_i
+\le2\prod_{i=3}^{d-2}(1+t_i)
+=\frac T3.
+$$
+Since $g<T^{-2}$ and $T\ge6$, all factors in the preceding product lie in $(0,1)$. By applying $\prod_i(1-u_i)\ge1-\sum_i u_i$ and using $t_1=1$, we obtain
+\[
+\begin{aligned}
+T^2g
+&\ge1-\left(2T-\frac12+\frac12\sum_{i=1}^{d-2}t_i\right)g=1-\left(2T+\frac12\sum_{i=2}^{d-2}t_i\right)g\ge1-\frac{13Tg}{6}.
+\end{aligned}
+\]
+Therefore, we have
+\[
+g\ge\frac1{T(T+\frac{13}{6})}.
+\]
+This completes the proof.
+\end{proof}
+
+
+\section{Positive defect and the volume bound}\label{sec:low-dimensional}
+
+
+Let $d\ge4$, and let $S=\operatorname{conv}(v_1,\ldots,v_{d+1})$ be a lattice $d$-simplex with $k\ge1$ interior lattice points. Fix a max--min point $w$ of $S$, and relabel the vertices so that its barycentric coordinates satisfy $\beta_1\ge\cdots\ge\beta_{d+1}>0$.
+By \cref{geo:lem:strong}, the vector $\beta=(\beta_1,\ldots,\beta_{d+1})$ is feasible. Let $r$ denote the two-box defect of $w$ with respect to this ordering.
+
+When $r=0$, the desired volume bound $\operatorname{Vol}(S)\le(k+1)t_d^2$ follows directly from \eqref{geo:eq:rzero}. We now establish a strict bound for the case of positive two-box defect.
+
+\begin{theorem}\label{main:strict}
+Let $d\ge4$, and let $S$ be a lattice $d$-simplex with $k\ge1$ interior lattice points. If $S$ admits a max--min point with positive two-box defect for some nonincreasing ordering of its barycentric coordinates, then
+\[
+\operatorname{Vol}(S)<(k+1)t_d^2.
+\]
+\end{theorem}
+
+To prove \cref{main:strict}, fix a max--min point $w$ and an ordering as in the theorem  with $r\ge1$. For a contradiction, suppose that $\operatorname{Vol}(S)\ge(k+1)t_d^2$.
+Under these assumptions, by \eqref{geo:eq:two}, we have 
+\begin{equation}\label{eq:sec5-contradiction}
+F(w)<t_d^{-2},\qquad
+F(q)\le t_d^{-2}
+\quad\text{for every }
+q\in\operatorname{int}(S)\cap\mathbb Z^d.
+\end{equation}
+We first control the two least barycentric coordinates,
+then derive bounds on the remaining coordinates.
+Together with the estimates established in \cref{ra:sec:analysis}, these estimates will lead to a contradiction with \eqref{eq:sec5-contradiction}.
+
+
+
+\subsection{Balancing the two least coordinates}\label{sec:balance}
+The upper bound $\frac{\beta_{d+1}}{\beta_d+\beta_{d+1}}\leq\frac12$ follows immediately from $\beta_{d}\ge\beta_{d+1}>0$. We now turn to establishing a lower bound for this ratio.
+
+
+\begin{lemma}\label{bal:lem:direct}
+Let $d\ge4$, and let $S$ be a lattice $d$-simplex
+with $k\ge1$ interior lattice points.
+Suppose that $w$ is a max--min point of $S$
+with barycentric coordinates
+$\beta_1\ge\cdots\ge\beta_{d+1}>0$
+and two-box defect $r\ge1$.
+If $\operatorname{Vol}(S)\ge(k+1)t_d^2$, then
+\[
+\frac{\beta_{d+1}}{\beta_d+\beta_{d+1}}>\frac13.
+\]
+\end{lemma}
+\begin{proof}
+We employ the notation $H,n_i,Q_i,B_i$ from \cref{sec:geometry}. 
+Set $g=\beta_d+\beta_{d+1}$ and
+$\theta=\frac{\beta_{d+1}}{g}$. For a contradiction, assume that $\theta\le\frac{1}{3}$.
+
+
+By combining $\operatorname{Vol}(S)\ge(k+1)t_d^2$ with $\operatorname{Vol}(S)F(\beta)\le k+1-r\le k$ from \eqref{geo:eq:two}, we obtain $F(\beta)<t_d^{-2}$. Hence, \cref{orb:lem:separation} implies that $g<\beta_{d-1}$. Since $w$ is a max--min point, \cref{geo:lem:strong}
+implies that $\beta=(\beta_1,\ldots,\beta_{d+1})$
+satisfies \eqref{geo:eq:strong-ps}.
+By merging the last two coordinates, we get $x=(\beta_1,\ldots,\beta_{d-1},g)$, which satisfies
+the shifted product--sum inequalities with shift
+$c=\beta_{d+1}$ by \cref{orb:lem:merge}.
+We then append $c$ to $x$ and normalize by $1+c$ to obtain
+\[
+y=\frac{1}{1+c}(\beta_1,\ldots,\beta_{d-1},g,c).
+\]
+By \cref{ra:lem:prefix-sums}, this vector satisfies
+\[
+\prod_{i=1}^j y_i
+\le \sum_{i=j+1}^{d+1}y_i
+\qquad(1\le j\le d-1).
+\]
+By applying \cref{geo:lem:ordinary} to $y$, we obtain
+\[
+F(y)=\frac{(1+\theta)F(\beta)}{(1+c)^d}\ge t_d^{-2}.
+\]
+Since $\operatorname{Vol}(S)\ge(k+1)t_d^2$ and $c>0$, this implies
+\[
+\operatorname{Vol}(S)F(\beta)>\frac{k+1}{1+\theta}.
+\]
+By combining this with $\theta\le\frac{1}{3}$, we deduce
+\begin{equation}\label{eq:5.1}
+k\ge \operatorname{Vol}(S)F(\beta)>\frac{3(k+1)}4,
+\qquad
+\operatorname{Vol}(S)Q_{d+1}=(1-\theta)\operatorname{Vol}(S)F(\beta)>\frac{k+1}{2}.
+\end{equation}
+In particular, $k\ge4$. Moreover, $\theta\le\frac{1}{3}$ also implies $\beta_d\ge2\beta_{d+1}$.
+
+
+Fix $x\in[0,1)^d$, and consider $X(x)=(\frac12B_{d+1})\cap(x+\Z^d)$.
+Its difference set $X(x)-X(x)=\{u-v:u,v\in X(x)\}$ lies in $B_{d+1}\cap\Z^d$,
+which has $1+2H+2n_{d+1}$ points by \cref{geo:lem:box}.
+If $X(x)$ is noncollinear, the Freiman–Heppes–Uhrin inequality~\cite{FHU}, which also follows from \cite[Theorem~2.1]{GMH16}, gives
+\[
+|X(x)-X(x)|\ge3|X(x)|-3.
+\]
+Consequently,
+\[
+|X(x)|\le\frac{4+2H+2n_{d+1}}{3}.
+\]
+
+
+
+It remains to bound the collinear sets. We claim that every collinear
+$X(x)$ has $|X(x)|\le \frac{k}{2}$.
+The claim is immediate when $|X(x)|\le2$, since $k\ge 4$. Otherwise, let $u$ be a primitive lattice vector
+along the line containing the set, so that $\R u\cap\Z^d=\Z u$.
+The difference between the extreme points of $X(x)$ is $nu$ with
+$|n|\ge2$ and belongs to $B_{d+1}$.
+If $\beta_{d+1}(w+u)\neq\beta_{d+1}$, we choose the sign of $u$ so that $\beta_{d+1}(w+u)>\beta_{d+1}$. Since $nu\in B_{d+1}$ and barycentric coordinates are affine functions, we have
+\[
+\begin{aligned}
+|\beta_j(w+u)-\beta_j|
+&=\frac{1}{|n|}|\beta_j(w+nu)-\beta_j|<\frac{\beta_j}{|n|}
+\le\frac{\beta_j}{2}
+\qquad(1\le j\le d).
+\end{aligned}
+\]
+Consequently,
+\[
+\beta_j(w+u)>\frac{\beta_j}{2}
+\ge\frac{\beta_d}{2}\ge\beta_{d+1}
+\qquad(1\le j\le d),
+\]
+while $\beta_{d+1}(w+u)>\beta_{d+1}$ by our choice of sign.
+Thus $w+u$ is an interior lattice point of $S$ whose barycentric coordinates are all strictly greater than $\beta_{d+1}$, contradicting the max--min property of $w$.
+If instead $\beta_{d+1}(w+u)=\beta_{d+1}$, then every point $q\in w+\left(X(x)-X(x)\right)$ satisfies
+\[
+0<\beta_j(q)<2\beta_j\quad (1\le j\le d), \qquad \beta_{d+1}(q)=\beta_{d+1}.
+\]
+Each such point is therefore an interior lattice point of $S$ with $J(q)=\varnothing$. By counting the interior lattice points with no doubled coordinate, we obtain 
+\[
+2|X(x)|-1\le |X(x)-X(x)|\le 2H+1,
+\]
+where the first inequality follows from the collinearity of $X(x)$. Consequently,
+\[
+|X(x)|\le H+1\le \frac{k}{2},
+\]
+where the last inequality follows from $2H\le k-1-r\le k-2$.
+
+For each $x\in[0,1)^d$, we have
+\[
+|X(x)|=\sum_{z\in\mathbb Z^d}
+\mathbf{1}_{\frac12B_{d+1}}(x+z),
+\]
+where $\mathbf{1}_A$ denotes the indicator function of $A$. Since the integer translates of $[0,1)^d$ partition $\mathbb R^d$, integration over $[0,1)^d$ yields
+\[
+\begin{aligned}
+ \int_{[0,1)^d}|X(x)|\,dx
+ =\sum_{z\in\mathbb Z^d}
+   \int_{[0,1)^d}
+   \mathbf{1}_{\frac12B_{d+1}}(x+z)\,dx
+ =\operatorname{vol}(\frac12B_{d+1})
+ =\operatorname{Vol}(S)Q_{d+1}.
+\end{aligned}
+\]
+By combining this identity with the bounds for collinear
+and noncollinear $X(x)$, we get 
+\[
+ \operatorname{Vol}(S)Q_{d+1}\le\max\left\{\frac{k}{2},\frac{4+2H+2n_{d+1}}{3}\right\}.
+\]
+By \eqref{eq:5.1}, we have
+\[
+\operatorname{Vol}(S)Q_{d+1}>\frac{k+1}{2}>\frac{k}{2}.
+\]
+Thus we employ the second bound to obtain 
+\[
+\operatorname{Vol}(S)Q_{d+1}\le\frac{4+2H+2n_{d+1}}{3}.
+\]
+By combining this with the estimate for $\operatorname{Vol}(S)Q_d$ in \cref{geo:lem:box}, and using $Q_d=\theta F(\beta)$, $Q_{d+1}=(1-\theta)F(\beta)$, $\theta\le\frac13$, and $\operatorname{Vol}(S)F(\beta)>\frac34(k+1)$ from \eqref{eq:5.1}, we obtain
+\[
+k+1\ge (1+H+n_d)+(2+H+n_{d+1})
+\ge \operatorname{Vol}(S)\left(Q_d+\frac32Q_{d+1}\right)
+\ge\frac43\operatorname{Vol}(S)F(\beta)>k+1.
+\]
+This leads to a contradiction.
+This completes the proof.
+\end{proof}
+
+
+
+
+
+
+\subsection{Upper bounds from integer affine combinations}\label{sec:orbits}
+
+
+We next derive bounds on the first $d-1$ barycentric coordinates. The argument relies only on the max--min property and the bound on $F(\beta)$, without requiring positive defect.
+
+\begin{lemma}\label{orb:lem:localization}
+Let $d\ge4$, and let $w$ be a max--min point of a lattice $d$-simplex $S$ with barycentric coordinates
+$\beta_1\ge\cdots\ge\beta_{d+1}=c>0$.
+If $F(\beta)\le t_d^{-2}$, then
+\[
+\beta_i\le\frac{1+c}{s_i}
+\qquad(1\le i\le d-1).
+\]
+\end{lemma}
+\begin{proof}
+Suppose the claimed bound fails. Let $i$ be the smallest index in $\{1,\ldots,d-1\}$ such that $\beta_i>\frac{1+c}{s_i}$. We now consider the point
+\[
+q=s_iw-\sum_{\ell<i}\frac{s_i-1}{s_\ell}v_\ell-v_i.
+\]
+By the Sylvester identities, the coefficients in this
+expression are integers and sum to one. Thus $q$ is a
+lattice point, and its barycentric coordinates follow
+directly from this affine combination.
+
+By the choice of $i$, we have $\beta_i(q)=s_i\beta_i-1>c$,
+while $\beta_\ell(q)=s_i\beta_\ell>c$ for all $i<\ell\le d+1$. If $\beta_\ell(q)>c$ also held for every $1\le\ell<i$, then $q$ would be an interior lattice point of $S$ with all barycentric coordinates strictly greater than $c$, contradicting the max--min property of $w$. Hence there exists an index $j<i$ such that
+\begin{equation}\label{eq:5.2}
+\beta_j(q)=s_i\beta_j-\frac{s_i-1}{s_j}\le c.
+\end{equation}
+Since $\beta_j\ge\beta_i>\frac{1+c}{s_i}$, we obtain
+$
+1+c-\frac{s_i-1}{s_j}
+<s_i\beta_j-\frac{s_i-1}{s_j}\le c.
+$
+As $\frac{s_i-1}{s_j}$ is an integer, this forces $\frac{s_i-1}{s_j}\ge2$, or equivalently, $s_i\ge2s_j+1$.
+By rearranging \eqref{eq:5.2} and using this inequality, we further obtain
+\begin{align}\label{eq:5.2-betajwithbj}
+\beta_j
+\le\frac{s_i-1}{s_is_j}+\frac{c}{s_i}
+\le\left(1-\frac1{s_i}\right)\frac{1+c}{s_j}.
+\end{align}
+
+Set $T=t_{d-1}\ge6$ and $g=\beta_d+c$. Since $w$ is a max--min point, \eqref{geo:eq:strong-ps} holds. Let $b=(b_1,\ldots,b_{d-1})$ denote the comparison vector in \eqref{ra:eq:comparison-vector} with $h=c$, namely
+\[
+b_\ell=\frac{1+c}{s_\ell}\quad(1\le\ell\le d-2),
+\qquad
+b_{d-1}=1-g-(1+c)\left(1-\frac1T\right).
+\]
+By \cref{orb:lem:separation}, we have $g<\beta_{d-1}$ and $g<T^{-2}$. Moreover, every entry of $b$ exceeds $c$, and $b$ majorizes $(\beta_1,\ldots,\beta_{d-1})$.
+We also need an  upper bound for $b_{d-1}$. By applying \cref{ra:lem:prefix-sums}
+to $\beta$ with $h=c$ and prefix length $d-1$, we obtain
+\[
+1-g=\sum_{\ell=1}^{d-1}\beta_\ell
+\le (1+c)\left(1-\frac1{t_d}\right).
+\]
+It follows that
+\[
+\begin{aligned}
+b_{d-1}=1-g-(1+c)\left(1-\frac1T\right)\le (1+c)\left(\frac1T-\frac1{t_d}\right)
+=\frac{1+c}{s_{d-1}}.
+\end{aligned}
+\]
+Together with the definition of $b_\ell$ for $\ell\le d-2$, this gives 
+\[
+b_i\le\frac{1+c}{s_i},
+\qquad
+b_j=\frac{1+c}{s_j}
+\qquad(j<i\le d-1).
+\]
+
+We construct a new vector $b'$ by transferring $\frac{b_j}{s_i}$ from the $j$-th coordinate of $b$ to its $i$-th coordinate. Explicitly,
+\[
+b'_j=\left(1-\frac1{s_i}\right)b_j,\qquad
+b'_i=b_i+\frac{b_j}{s_i},\qquad
+b'_\ell=b_\ell\quad(\ell\ne i,j).
+\]
+All entries of $b'$ remain strictly greater than $c$, since the only decreased entry satisfies
+\[
+b'_j\ge\beta_j\ge\beta_{d-1}>g>c
+\]
+by \eqref{eq:5.2-betajwithbj}.
+By the minimality of $i$, we have $b'_\ell=b_\ell\ge\beta_\ell$ for all $\ell<i$ with $\ell\ne j$, while $b'_j\ge\beta_j$ by \eqref{eq:5.2-betajwithbj}. Moreover, since both modified entries lie among the first $m$ coordinates for $i\le m\le d-1$, we have
+\[
+\sum_{\ell=1}^{m}b'_\ell
+=\sum_{\ell=1}^{m}b_\ell
+\qquad(i\le m\le d-1).
+\]
+Since $b$ majorizes $(\beta_1,\ldots,\beta_{d-1})$, every prefix sum of $b'$ also dominates the corresponding prefix sum of $(\beta_1,\ldots,\beta_{d-1})$. Consequently, the nonincreasing rearrangement of $b'$ also majorizes $(\beta_1,\ldots,\beta_{d-1})$.
+
+
+Since only the $i$-th and $j$-th entries are modified, we compare their products. By using $b_j=\frac{1+c}{s_j}$, $b_i\le\frac{1+c}{s_i}$, $\frac{s_i-1}{s_j}\ge2$, and $s_i\le T+1$, we obtain
+\[
+\begin{aligned}
+ \frac{b'_jb'_i}{b_jb_i}=\left(1-\frac1{s_i}\right)\left(1+\frac{b_j}{s_ib_i}\right)\ge\left(1-\frac1{s_i}\right)\left(1+\frac1{s_j}\right)
+ =1+\frac{\frac{s_i-1}{s_j}-1}{s_i}
+ \ge1+\frac1{s_i}\ge\frac{T+2}{T+1}.
+\end{aligned}
+\]
+In particular, $\Delta:=b'_jb'_i-b_jb_i>0$. Since $b'_j+b'_i=b_j+b_i$,
+we also have
+\[
+\Delta=(b'_j-c)(b'_i-c)-(b_j-c)(b_i-c).
+\]
+As $0<(b_j-c)(b_i-c)<b_jb_i$, it follows that
+\[
+\begin{aligned}
+\frac{(b'_j-c)(b'_i-c)}
+     {(b_j-c)(b_i-c)}=1+\frac{\Delta}{(b_j-c)(b_i-c)}>1+\frac{\Delta}{b_jb_i}=\frac{b'_jb'_i}{b_jb_i}
+\ge\frac{T+2}{T+1}.
+\end{aligned}
+\]
+
+
+We next estimate the two products associated with the original comparison vector $b$. Since $c\le \frac{g}{2}$, $1-Tg-(T-1)c=Tb_{d-1}>0$ and $T>1$, we have
+\[
+\begin{aligned}
+T^2\prod_{\ell=1}^{d-1}b_\ell=(1+c)^{d-2}\bigl(1-Tg-(T-1)c\bigr)\ge 1-Tg-(T-1)c\ge 1-\frac{3T-1}{2}g.
+\end{aligned}
+\]
+For the shifted product, all factors in the following expression lie in $(0,1)$. By applying the inequality $\prod(1-u_\ell)\ge1-\sum u_\ell$, together with $c\le \frac{g}{2}$ and $\sum_{\ell=2}^{d-2}t_\ell\le \frac{T}{3}$ from the proof of \cref{orb:lem:separation}, we obtain
+\[
+\begin{aligned}
+T^2\prod_{\ell=1}^{d-1}(b_\ell-c)&=\bigl(1-Tg-(2T-1)c\bigr)
+\prod_{\ell=1}^{d-2}(1-t_\ell c)\ge 1-Tg-\left(2T+\sum_{\ell=2}^{d-2}t_\ell\right)c\ge 1-\frac{13T}{6}g.
+\end{aligned}
+\]
+
+
+
+Since the nonincreasing rearrangement of $b'$ majorizes
+$(\beta_1,\ldots,\beta_{d-1})$, and all entries exceed $c$,
+the product comparison applies both before and after
+subtracting $c$. Together with $g\ge\prod_{\ell=1}^{d-1}(\beta_\ell-c)$ and the product ratio bounds
+established above, we obtain 
+\begin{align}
+ T^2F(\beta)&=gT^{2}\prod_{\ell=1}^{d-1}\beta_\ell\ge gT^{2}\prod_{\ell=1}^{d-1}b'_\ell\ge \frac{T+2}{T+1}gT^{2}\prod_{\ell=1}^{d-1}b_\ell\ge\frac{T+2}{T+1}\,g
+       \left(1-\frac{3T-1}{2}g\right), \label{Eqaution=First}\\
+ T^2g&\ge T^2\prod_{\ell=1}^{d-1}(\beta_\ell-c)\ge T^2\prod_{\ell=1}^{d-1}(b'_\ell-c)\ge \frac{T+2}{T+1}T^2\prod_{\ell=1}^{d-1}(b_\ell-c)\ge\frac{T+2}{T+1}
+       \left(1-\frac{13Tg}{6}\right).\label{Eqaution=second}
+\end{align}
+By \eqref{Eqaution=second}, we obtain 
+\[
+g\ge\frac{6(T+2)}{T(6T^2+19T+26)}.
+\]
+Since $g<T^{-2}$ and $T\ge6$, the function
+\[
+u\longmapsto u\left(1-\frac{3T-1}{2}u\right)
+\]
+is strictly increasing on $(0,T^{-2})$. By applying this monotonicity to \eqref{Eqaution=First}, we obtain
+\[
+\begin{aligned}
+t_d^2F(\beta)=(T+1)^2T^2F(\beta)&\ge
+\frac{6(T+1)(T+2)^2
+(6T^3+10T^2+11T+6)}
+{T^2(6T^2+19T+26)^2}\\
+&=
+1+\frac{
+T^4(12T-19)+2T^3+272T^2+552T+144
+}{
+T^2(6T^2+19T+26)^2
+}>1,
+\end{aligned}
+\]
+where the final inequality follows from $T\ge6$. This contradicts the hypothesis $F(\beta)\le t_d^{-2}$.
+
+\end{proof}
+
+
+
+
+\subsection{Proof of the volume bound}
+The preceding lemma gives $\beta_i\le\frac{1+c}{s_i}$ for all $i<d$. Under the standing assumption that $\operatorname{Vol}(S)\ge(k+1)t_d^2$, we first sharpen these bounds to $\beta_i\le\frac{1}{s_i}$. Indeed, any failure of these sharper bounds would yield an interior lattice point violating \eqref{eq:sec5-contradiction}. We then combine the resulting bounds with a product comparison at the max--min point to contradict the strict inequality $F(w)<t_d^{-2}$ in \eqref{eq:sec5-contradiction}, thereby ruling out the volume assumption and establishing the desired bound $\operatorname{Vol}(S)<(k+1)t_d^2$.
+
+
+\begin{proof}[Proof of \cref{main:strict}]
+Suppose that $\operatorname{Vol}(S)\ge(k+1)t_d^2$. Fix a max--min point $w$ and relabel the vertices so that its barycentric coordinates satisfy $\beta_1\ge\cdots\ge\beta_{d+1}=c>0$,
+with positive two-box defect relative to this ordering. Set $T=t_{d-1}$ and $g=\beta_d+c$. 
+
+By \eqref{eq:sec5-contradiction}, every interior lattice point $q$ of $S$ satisfies $F(q)\le t_d^{-2}$, with strict inequality for $q=w$. Furthermore, by \cref{orb:lem:separation,bal:lem:direct,orb:lem:localization}, it follows that
+\[
+ \frac1{T(T+\frac{13}{6})}\le g<T^{-2},\qquad
+ g<\beta_{d-1},\qquad \frac g3<c\le\frac g2,\qquad
+ \beta_j\le\frac{1+c}{s_j}\quad(j<d).
+\]
+Define the nonnegative differences
+\[
+\delta_j:=\frac{1+c}{s_j}-\beta_j\ge0
+\qquad(j<d).
+\]
+By the Sylvester sum identity and $c\le \frac{g}{2}$, we obtain
+\begin{equation}\label{orb:eq:uniform-lower}
+\begin{aligned}
+\sum_{j<d}\delta_j=(1+c)\left(1-\frac1{t_d}\right)-(1-g)\le\frac{3g}{2}-\frac1{t_d}.
+\end{aligned}
+\end{equation}
+
+We first prove that $\beta_i\le\frac{1}{s_i}$ for all $1\le i\le d-1$. Suppose that $\beta_i>\frac{1}{s_i}$ for at least one $i<d$, and fix such an index $i$. Set
+\[
+M=T+1+\left\lfloor\frac{T}{s_i}\right\rfloor,\qquad
+q=Mw-\sum_{j<d}\left\lfloor\frac{M}{s_j}\right\rfloor v_j.
+\]
+Define
+\[
+\gamma_j=\frac{M}{s_j}-\left\lfloor\frac{M}{s_j}\right\rfloor
+\qquad(j<d).
+\]
+If $i\le d-2$, then $M=T+1+\frac{T}{s_i}$; otherwise, $M=T+1$. In either case, $T+1\le M<2(T+1)$. Thus we have $\lfloor \frac{M}{s_{d-1}}\rfloor=1$. The Sylvester congruences in \eqref{prelim:eq:sylvester-congruences} then yield
+\[
+\gamma_i=0,\qquad
+\gamma_j=\frac1{s_j}\quad(j\le d-2,\ j\ne i),\qquad
+\gamma_{d-1}=\frac{T}{s_i(T+1)}\quad(i\le d-2).
+\]
+Together with the Sylvester sum identity $\sum_{j\le d-2}\frac{1}{s_j}=1-\frac{1}{T}$, we get 
+\[
+\sum_{j<d}\gamma_j=1-\frac{M}{t_d}.
+\]
+Consequently, we have
+\[
+\begin{aligned}
+M-\sum_{j<d}\left\lfloor\frac{M}{s_j}\right\rfloor=M-\sum_{j<d}\frac{M}{s_{j}}+\sum_{j<d}\gamma_{j}=M-M\left(1-\frac1{t_d}\right)
++\left(1-\frac{M}{t_d}\right)=1.
+\end{aligned}
+\]
+Thus $q$ is an integer affine combination of lattice points and hence a lattice point itself. Its barycentric coordinates are
+\[
+\beta_j(q)=M\beta_j-\left\lfloor\frac{M}{s_j}\right\rfloor
+\quad(j<d),\qquad
+\beta_d(q)=M\beta_d=M(g-c),\qquad
+\beta_{d+1}(q)=Mc.
+\]
+In particular, $\beta_i(q)=M(\beta_i-\frac{1}{s_i})>0$. Set $I=\{j<d:j\ne i\}$.
+For $j\in I$, we have
+\begin{align}\label{eq:5.3-betawitha}
+ \beta_j(q)=\gamma_j+\frac{Mc}{s_j}-M\delta_j
+ >\gamma_j-M\delta_j.
+\end{align}
+By the formulas for $\gamma_j$, we have $0<\gamma_j\le\frac12$ for all $j\in I$, and
+\[
+\prod_{j\in I}\gamma_j
+=
+\begin{cases}
+\frac{1}{T+1},&i\le d-2,\\
+\frac1T,&i=d-1.
+\end{cases}
+\]
+If $i\le d-2$, then $M=T+1+\frac{T}{s_i}$, and the bound $\frac{T}{s_i}\ge2$ further gives $M\ge T+3$. If $i=d-1$, then $M=T+1$. We obtain in either case
+\begin{align}\label{eq:5.3-gammabound}
+\prod_{j\in I}\gamma_j
++\frac{M}{2t_d}\ge\frac{3}{2T}.
+\end{align}
+Moreover, since $s_i\ge2$ and $T\ge6$, we have $T+1\le M\le T+1+\frac T2\le\frac{5T}{3}$.
+By combining these estimates with \eqref{orb:eq:uniform-lower} and $g<T^{-2}$, we conclude that
+\[
+\begin{aligned}
+\prod_{j\in I}\gamma_j
+-\frac M2\sum_{j<d}\delta_j\ge
+\prod_{j\in I}\gamma_j
++\frac{M}{2t_d}-\frac{3Mg}{4}
+\ge\frac{3}{2T}-\frac{3Mg}{4}>\frac1{4T}>0.
+\end{aligned}
+\]
+The product $\prod_{j\in I}\gamma_j$ contains $d-2\ge2$ factors, each lying in $(0,\frac12]$. It follows that, for every $\ell\in I$,
+\[
+ M\delta_\ell\le M\sum_{j<d}\delta_j
+ <2\prod_{j\in I}\gamma_j=\gamma_{\ell}\cdot2\prod_{j\in I\setminus\{\ell\}}\gamma_j
+ \le\gamma_\ell.
+\]
+Hence all barycentric coordinates of $q$ are positive, and thus $q$ lies in the interior of $S$.
+
+Set $a_j=\gamma_j-M\delta_j$ for $j\in I$. Since $0<a_j\le\gamma_j\le\frac12$ and $|I|=d-2\ge2$, the telescoping identity yields
+\[
+\begin{aligned}
+\prod_{j\in I}\gamma_j-\prod_{j\in I}a_j=\sum_{j\in I}M\delta_j
+\prod_{\substack{\ell\in I\\\ell<j}}a_\ell
+\prod_{\substack{\ell\in I\\\ell>j}}\gamma_\ell\le\frac M2\sum_{j\in I}\delta_j,
+\end{aligned}
+\]
+where the last inequality follows because each product in the sum contains at least one factor bounded above by $\frac12$. 
+By combining this with \eqref{orb:eq:uniform-lower}, \eqref{eq:5.3-betawitha} and \eqref{eq:5.3-gammabound}, we obtain
+\[
+\begin{aligned}
+\prod_{j\in I}\beta_j(q)>\prod_{j\in I}a_j\ge\prod_{j\in I}\gamma_j-\frac M2\sum_{j\in I}\delta_j
+\ge\prod_{j\in I}\gamma_j
+-\frac M2\left(\frac{3g}{2}-\frac1{t_d}\right)
+\ge\frac3{2T}-\frac{3Mg}{4}.
+\end{aligned}
+\]
+
+Set $\theta=\frac{c}{g}$. Since $\frac13<\theta\le\frac12$, we have
+\[
+c(g-c)=g^2\theta(1-\theta)>\frac29g^2.
+\]
+We employ \eqref{geo:eq:delete-one} with the $i$-th coordinate omitted. By using the preceding product estimate, we obtain
+\[
+\begin{aligned}
+ t_d^2F(q)
+ \ge t_d^2M^2c(g-c)
+          \prod_{j\in I}\beta_j(q)
+ >\frac{(T+1)^2}{3T}(MTg)^2\left(1-\frac{MTg}{2}\right).
+\end{aligned}
+\]
+By combining the bounds $T+1\le M\le\frac{5T}{3}$ and $\frac{1}{T(T+\frac{13}{6})}\le g<T^{-2}$ with $T\ge6$, we obtain
+\[
+\frac67\le\frac{T+1}{T+\frac{13}{6}}\le MTg<\frac53,\qquad \frac{(T+1)^2}{3T}\ge \frac{49}{18}.
+\]
+Here $\frac{T+1}{T+\frac{13}{6}}$ and $\frac{(T+1)^2}{3T}$ are increasing for
+$T\ge6$. Thus, their lower bounds are obtained at $T=6$. The function $f(u)=u^2(1-\frac{u}{2})$ is strictly concave on $[\frac67,\frac53]$, since $f''(u)=2-3u<0$ throughout this interval. Hence its minimum is attained at an endpoint. Since $f(\frac67)=\frac{144}{343}$ and $f(\frac53)=\frac{25}{54}$,
+the preceding bounds on $MTg$ give
+\[
+(MTg)^2\left(1-\frac{MTg}{2}\right)
+\ge\frac{144}{343}.
+\]
+Consequently, we obtain
+\[
+\begin{aligned}
+t_d^2F(q)>\frac{49}{18}\cdot\frac{144}{343}
+=\frac87>1.
+\end{aligned}
+\]
+However, $q$ is an interior lattice point of $S$. Thus, by \eqref{eq:sec5-contradiction}, we get $t_d^2F(q)\le1$.
+This is a contradiction. We have thus established the sharper coordinate bounds
+\[
+\beta_i\le\frac1{s_i}\qquad(1\le i\le d-1).
+\]
+
+We now return to the original max--min point $w$.
+Since $g<\beta_{d-1}$, the merged vector
+$x=(\beta_1,\ldots,\beta_{d-1},g)$ is in nonincreasing order.
+The bounds $\beta_i\le\frac1s_i$ for $i<d$, together
+with the fact that both $x$ and
+\[
+a=\left(\frac1{s_1},\ldots,\frac1{s_{d-1}},
+\frac1{t_d}\right)
+\]
+have sum one, imply that $a$ majorizes $x$.
+By the product comparison for majorization, we obtain
+\[
+F(w)=g\prod_{i<d}\beta_i
+\ge\frac1{t_d}\prod_{i<d}\frac1{s_i}
+=t_d^{-2},
+\]
+contradicting the strict inequality
+$F(w)<t_d^{-2}$ in \eqref{eq:sec5-contradiction}.
+
+
+\end{proof}
+
+\begin{proof}[Proof of the volume assertion in \cref{main:theorem}]
+Fix a max--min point and consider its two-box defect. If the defect is zero, the desired volume bound follows from \eqref{geo:eq:rzero}. Otherwise, \cref{main:strict} yields the strict volume bound.
+\end{proof}
+
+
+\section{Simplices attaining the volume bound}\label{sec:equality}
+
+The volume bound was established in the preceding section. We now turn to the equality case and show that equality holds precisely when the lattice simplex is affinely unimodularly equivalent to $S_{d,k}$.
+
+\begin{proof}[Proof of the equality assertion in \cref{main:theorem}]
+
+Let $d\ge4$, and let $S$ be a lattice $d$-simplex with $k\ge1$ interior lattice points. Suppose that
+\[
+\operatorname{Vol}(S)=(k+1)t_d^2.
+\]
+Fix a max--min point $w$ of $S$, and relabel the vertices so that its barycentric coordinates satisfy $\beta_1\ge\cdots\ge\beta_{d+1}=c>0$.
+By \cref{main:strict}, the two-box defect of $w$ with respect to this ordering must be zero.
+The zero-defect argument in \cref{geo:subsec:defect} yields
+\[
+\prod_{i=1}^j\beta_i\le\sum_{i=j+1}^{d+1}\beta_i
+\qquad(1\le j\le d-1).
+\]
+By applying \cref{geo:lem:ordinary} to $\beta(w)$, we obtain $F(w)\ge t_d^{-2}$. On the other hand, \eqref{geo:eq:two} and the assumed volume equality imply
+\[
+\operatorname{Vol}(S)F(w)=(k+1)t_d^2F(w)\le k+1,
+\]
+and hence $F(w)\le t_d^{-2}$. Therefore, $F(w)=t_d^{-2}$, and the equality characterization in \cref{geo:lem:ordinary} yields
+\[
+\beta_i=\frac1{s_i}\quad(i<d),
+\qquad
+\beta_d+\beta_{d+1}=\frac1{t_d}.
+\]
+
+Retain the notation $H,n_i,Q_i$ from \cref{sec:geometry}, and set $m_i=1+H+n_i\in\mathbb Z_{>0}$. By \cref{geo:lem:box} and the definition of the two-box defect, we have
+\[
+\operatorname{Vol}(S)Q_d\le m_d,
+\qquad
+\operatorname{Vol}(S)Q_{d+1}\le m_{d+1},
+\]
+where $m_d+m_{d+1}=k+1$. Since $Q_d+Q_{d+1}=F(w)=t_d^{-2}$, we also have
+\[
+ \operatorname{Vol}(S)(Q_d+Q_{d+1})=k+1=m_d+m_{d+1}.
+\]
+Consequently, both upper bounds must be attained, and hence
+\begin{equation}\label{eq:6-betadandd+1}
+m_d=\operatorname{Vol}(S)Q_d
+=(k+1)t_d\beta_{d+1},\qquad 
+m_{d+1}=\operatorname{Vol}(S)Q_{d+1}
+=(k+1)t_d\beta_d.
+\end{equation}
+
+We first consider the point
+\[
+p:=t_dw-\sum_{i<d}\frac{t_d}{s_i}v_i
+=t_d\beta_dv_d+t_d\beta_{d+1}v_{d+1}.
+\]
+Since $\frac{t_d}{s_i}\in\mathbb Z$ for every $i<d$, the first
+expression defining \(p\) above shows that $p$ is a lattice point. The second expression shows that $p$ lies in the relative interior of $[v_d,v_{d+1}]$. We now translate $S$ by $-p$, retaining the same notation for the translated simplex, its vertices, and the point $w$. Thus $p=0$, and its defining identity becomes
+\[
+w=\sum_{i<d}\frac{v_i}{s_i},
+\qquad
+t_d\beta_dv_d+t_d\beta_{d+1}v_{d+1}=0.
+\]
+Fix $i<d$. Since $s_i\mid t_d$ and $s_i\mid \frac{t_d}{s_j}$ for $j\ne i$, reducing $t_dw=\sum_{j<d}\frac{t_d}{s_j}v_j$
+coordinatewise modulo $s_i$ yields
+\[
+\frac{t_d}{s_i}v_i\equiv0\pmod{s_i}.
+\]
+As $\gcd(\frac{t_d}{s_i},s_i)=1$, every coordinate of $v_i$ is divisible by $s_i$. Since $i<d$ was arbitrary, setting $z_i:=\frac{1}{s_i}v_i$ gives
+\[
+z_i\in\mathbb Z^d\quad(i<d),
+\qquad
+w=\sum_{i<d}z_i.
+\]
+
+
+
+Let $u$ be the primitive lattice vector pointing from the origin toward $v_d$. As $0$ lies in the relative interior of $[v_d,v_{d+1}]$, we may write
+\[
+v_d=au,\qquad v_{d+1}=-bu
+\]
+for some positive integers $a,b$. 
+Since $S$ is full-dimensional and contains the origin, its vertices span $\mathbb R^d$. Together with $v_i=s_iz_i$ for $i<d$ and $v_d,v_{d+1}\in\mathbb Ru$, this implies that $z_1,\ldots,z_{d-1},u$ form a basis of $\mathbb R^d$. Set
+\[
+D=|\det(z_1,\ldots,z_{d-1},u)|\in\mathbb Z_{>0}.
+\]
+The origin splits $S$ into two simplices
+\[
+S_1=\operatorname{conv}(0,v_1,\ldots,v_d),
+\qquad
+S_2=\operatorname{conv}(0,v_1,\ldots,v_{d-1},v_{d+1}).
+\]
+On the one hand, the relation $0=t_d\beta_dv_d+t_d\beta_{d+1}v_{d+1}$ gives
+\[
+\operatorname{Vol}(S_1)=t_d\beta_{d+1}\operatorname{Vol}(S)=t_d^2 m_d,
+\qquad
+\operatorname{Vol}(S_2)=t_d\beta_d\operatorname{Vol}(S)=t_d^2 m_{d+1}.
+\]
+On the other hand, using $v_i=s_iz_i$ for $i<d$
+and $\prod_{i<d}s_i=t_d$, we obtain
+\[
+\begin{aligned}
+\operatorname{Vol}(S_1)
+=|\det(v_1,\ldots,v_{d-1},v_d)|
+=t_daD,\quad
+\operatorname{Vol}(S_2)
+=|\det(v_1,\ldots,v_{d-1},v_{d+1})|
+=t_dbD.
+\end{aligned}
+\]
+By comparing these volume formulas, we obtain $aD=t_dm_d$ and $bD=t_dm_{d+1}$. Hence, we have 
+\[
+v_d=\frac{t_dm_d}{D}u,\qquad
+v_{d+1}=-\frac{t_dm_{d+1}}{D}u.
+\]
+
+
+It remains to show that $D=1$, so that $z_1,\ldots,z_{d-1},u$ form a lattice basis. Suppose, for a contradiction, that $D\ge2$. We now consider the parallelotope
+\[
+\left\{\sum_{i<d}\alpha_i z_i+\alpha_d u
+\;\Bigm|\;
+|\alpha_i|\le1\ (i<d),\quad
+|\alpha_d|\le\frac2D\right\}.
+\]
+Its volume is $2^{d+1}>2^d$. Thus Minkowski's convex body theorem
+guarantees a nonzero lattice point $y$ in its interior, which can be written as
+\[
+y=\sum_{i<d}\alpha_i z_i+\alpha_du,
+\qquad
+|\alpha_i|<1\ (i<d),\quad
+|\alpha_d|<\frac2D\le1.
+\]
+Since $u$ is primitive and $|\alpha_d|<1$, we have $y\notin\mathbb Ru$. It follows that some $\alpha_j$ with $j<d$ is nonintegral. We choose the sign of $y$ so that the fractional part of this coefficient
+lies in $(0,\frac12]$. By adding integer combinations of the $z_i$, we may assume
+\[
+0<\alpha_i\le1\quad(i<d),\qquad
+0<\alpha_j\le\frac12
+\]
+for some $j<d$. These operations preserve the lattice-point property
+and the bound $|\alpha_d|<\frac2D$.
+
+
+By comparing coefficients in the basis $z_1,\ldots,z_{d-1},u$, we obtain
+\[
+\beta_i(y)=\frac{\alpha_i}{s_i}\quad(i<d),
+\qquad
+m_d\beta_d(y)-m_{d+1}\beta_{d+1}(y)
+=\frac{D\alpha_d}{t_d}.
+\]
+In particular,
+\begin{equation}\label{eq:6-betaybound}
+0<\beta_i(y)\le\frac1{s_i}\quad(i<d),
+\qquad
+0<\beta_j(y)\le\frac1{2s_j}.
+\end{equation}
+Set
+\[
+L=1-\sum_{i<d}\beta_i(y)
+=\beta_d(y)+\beta_{d+1}(y).
+\]
+We now combine this identity with the preceding coefficient relation. By using \eqref{eq:6-betadandd+1} and $m_d+m_{d+1}=k+1$, we obtain
+\[
+\frac{\beta_d(y)}{\beta_d}
+=t_dL+\frac{D\alpha_d}{m_{d+1}},
+\qquad
+\frac{\beta_{d+1}(y)}{\beta_{d+1}}
+=t_dL-\frac{D\alpha_d}{m_d}.
+\]
+By \eqref{eq:6-betaybound} and the Sylvester sum identity, we have
+\begin{equation}\label{eq:eq:remaining-mass}
+\begin{aligned}
+t_dL
+&\ge t_d\left(1-\sum_{i<d}\frac1{s_i}+\frac1{2s_j}\right)=1+\frac{t_d}{2s_j}
+\ge1+\frac{t_{d-1}}2\ge4,
+\end{aligned}
+\end{equation}
+where the last inequality uses $d\ge4$. Since $m_d,m_{d+1}\ge1$ and $|\alpha_d|<\frac2D$, it follows that
+\[
+\min\left\{
+\frac{\beta_d(y)}{\beta_d},
+\frac{\beta_{d+1}(y)}{\beta_{d+1}}
+\right\}
+\ge t_dL-D|\alpha_d|>2.
+\]
+Together with \eqref{eq:6-betaybound}, this shows that $y$ is an interior lattice point of $S$ satisfying
+\[
+\beta_d(y)>2\beta_d,\qquad
+\beta_{d+1}(y)>2\beta_{d+1}.
+\]
+This contradicts the zero two-box defect of $w$, which rules out any interior lattice point of $S$ whose last two barycentric coordinates are both at least twice those of $w$. Hence $D=1$.
+
+
+Consequently, $z_1,\ldots,z_{d-1},u$ form a lattice basis. Since $s_i\mid t_d$ for all $i<d$, the vectors
+\[
+f_i:=z_i+\frac{t_dm_{d+1}}{s_i}u\quad(i<d),
+\qquad f_d:=u
+\]
+also form a lattice basis. After translating $S$ by $-v_{d+1}$, one vertex is the origin, and the remaining $d$ vertices are given by
+\[
+\begin{aligned}
+v_i-v_{d+1}
+&=s_iz_i+t_dm_{d+1}u=s_if_i
+\qquad(i<d),\\
+v_d-v_{d+1}
+&=t_d(m_d+m_{d+1})u=(k+1)t_df_d.
+\end{aligned}
+\]
+Thus the translated simplex is
+\[
+\operatorname{conv}\bigl(0,s_1f_1,\ldots,s_{d-1}f_{d-1},
+(k+1)t_df_d\bigr),
+\]
+which is affinely unimodularly equivalent to $S_{d,k}$. 
+
+Conversely, \(S_{d,k}\) has exactly \(k\) interior lattice points and satisfies \(\operatorname{Vol}(S_{d,k})=(k+1)t_d^2\), so equality is attained.
+\end{proof}
+
+\vspace{5mm}
+\noindent
+\textbf{Acknowledgments.}
+Feihu Liu was partially supported by the Postdoctoral Fellowship Program and China Postdoctoral Science Foundation (Grant No. BX2026002).
+
+\noindent\textbf{Declaration of AI assistance.}
+During the preparation of this manuscript, the authors used ChatGPT to assist in exploring possible approaches, checking technical details, and improving the exposition. All mathematical arguments, computations, proofs, and results were independently verified by the authors. The authors take full responsibility for the content of this manuscript.
+
+
+\begin{thebibliography}{99}
+
+\bibitem{Ave12} G.~Averkov, \emph{On the size of lattice simplices with a single interior lattice point}, SIAM Journal on Discrete Mathematics \textbf{26} (2012), no.~2, 515--526.
+
+\bibitem{A18} G.~Averkov, \emph{Equality case in van der Corput's inequality and collisions in multiple lattice tilings}, Discrete \& Computational Geometry \textbf{65} (2021), no.~1, 212--226.
+
+\bibitem{ALocal} G.~Averkov, \emph{Local optimality of Zaks--Perles--Wills simplices}, Advances in Applied Mathematics \textbf{112} (2020), Article 101943.
+
+\bibitem{AKN} G.~Averkov, J.~Kr\"umpelmann, and B.~Nill, \emph{Largest integral simplices with one interior integral point: Solution of Hensley's conjecture and related results}, Advances in Mathematics \textbf{274} (2015), 118--166.
+
+\bibitem{AKN2020} G.~Averkov, J.~Kr\"umpelmann, and B.~Nill, \emph{Lattice simplices with a fixed positive number of interior lattice points: a nearly optimal volume bound}, International Mathematics Research Notices \textbf{2020} (2020), no.~13, 3871--3885.
+
+\bibitem{BBCVVolum} M.~W.~Baldoni, M.~Beck, C.~Cochet, and M.~Vergne, \emph{Volume computation for polytopes and partition functions for classical root systems}, Discrete \& Computational Geometry \textbf{35} (2006), no.~4, 551--595.
+
+\bibitem{Bal21} G.~Balletti, \emph{Enumeration of lattice polytopes by their volume}, Discrete \& Computational Geometry \textbf{65} (2021), no.~4, 1087--1122.
+
+\bibitem{BK2016} G.~Balletti and A.~M.~Kasprzyk, \emph{Three-dimensional lattice polytopes with two interior lattice points}, arXiv:1612.08918v1 (2016).
+
+\bibitem{BKN22} G.~Balletti, A.~M.~Kasprzyk, and B.~Nill, \emph{On the maximum dual volume of a canonical Fano polytope}, Forum of Mathematics, Sigma \textbf{10} (2022), Article e109.
+
+\bibitem{Bau25} A.~B\"auerle, \emph{Sharp volume and multiplicity bounds for Fano simplices}, Journal of Algebraic Combinatorics \textbf{61} (2025), Article 9.
+
+\bibitem{CCJP2026} J.~B.~Caicedo, F.~Castillo, M.~Juhnke, and G.~Poullot, \emph{Sylvester simplices: triangulations and Ehrhart-theoretic aspects}, arXiv:2609.23710v1 (2026).
+
+\bibitem{DeLoera} J.~A.~De Loera, B.~Dutra, M.~K\"oppe, S.~Moreinis, G.~Pinto, and J.~Wu, \emph{Software for exact integration of polynomials over polyhedra}, Computational Geometry \textbf{46} (2013), no.~3, 232--252.
+
+\bibitem{EhrhartVolume} E.~Ehrhart, \emph{Une g\'en\'eralisation probable du th\'eor\`eme fondamental de Minkowski}, Comptes rendus de l'Académie des sciences de Paris \textbf{258} (1964), 4885--4887.
+
+\bibitem{FHU} G.~A.~Freiman, A.~Heppes, and B.~Uhrin, \emph{A lower estimation for the cardinality of finite difference sets in $\mathbb R^n$}, in \emph{Problems of Computer Science}, Tanulm\'anyok (MTA SZTAKI), no.~202, MTA SZTAKI, Budapest, 1987, pp.~63--73. \url{https://real-eod.mtak.hu/2160/}.
+
+\bibitem{GMH16} B.~Gonz\'alez Merino and M.~Henze, \emph{A generalization of the discrete version of Minkowski's fundamental theorem}, Mathematika \textbf{62} (2016), no.~3, 637--652.
+
+\bibitem{HaaseSch09} C.~Haase and J.~Schicho, \emph{Lattice polygons and the number $2i+7$}, American Mathematical Monthly \textbf{116} (2009), no.~2, 151--165.
+
+\bibitem{Hensley1983} D.~Hensley, \emph{Lattice vertex polytopes with interior lattice points}, Pacific Journal of Mathematics \textbf{105} (1983), no.~1, 183--191.
+
+\bibitem{IK95} O.~Izhboldin and L.~Kurliandchik, \emph{Unit fractions}, in \emph{Proceedings of the St.~Petersburg Mathematical Society, Vol.~III}, Amer. Math. Soc. Transl. Ser.~2, vol.~166, American Mathematical Society, Providence, RI, 1995, pp.~193--200. 
+
+\bibitem{Kas10} A.~M.~Kasprzyk, \emph{Canonical toric Fano threefolds}, Canadian Journal of Mathematics \textbf{62} (2010), no.~6, 1293--1309.
+
+\bibitem{LZ91} J.~C.~Lagarias and G.~M.~Ziegler, \emph{Bounds for lattice polytopes containing a fixed number of interior points in a sublattice}, Canadian Journal of Mathematics \textbf{43} (1991), no.~5, 1022--1035.
+
+\bibitem{LTTZ26} F.~Liu, J.~Tang, S.~Tao, and Z.~Zhang, \emph{The Zaks--Perles--Wills volume conjecture I: three-dimensional lattice polytopes}, (2026).
+
+%\bibitem{Liu2026} H.~Liu, \emph{On Fano indices of weighted projective spaces}, arXiv:2608.03434v3 (2026). \url{https://arxiv.org/abs/2608.03434v3}.
+
+\bibitem{LiuJiHao} J.~Liu, \emph{The equality case of Ehrhart's volume conjecture}, arXiv:2608.01040 (2026).
+
+\bibitem{MOA2011} A.~W.~Marshall, I.~Olkin, and B.~C.~Arnold, \emph{Inequalities: Theory of Majorization and Its Applications}, 2nd ed., Springer Series in Statistics, Springer, New York, 2011.
+
+\bibitem{Nill07} B.~Nill, \emph{Volume and lattice points of reflexive simplices}, Discrete \& Computational Geometry \textbf{37} (2007), 301--320.
+
+\bibitem{BNillPaffenhonlz} B.~Nill and A.~Paffenholz, \emph{On the equality case in Ehrhart's volume conjecture}, Advances in Geometry \textbf{14} (2014), no.~4, 579--586.
+
+\bibitem{OAI26} OpenAI, \emph{Ten advances in mathematics and theoretical computer science}, 2026, Chapter~8, The sharp inequality in Ehrhart's volume conjecture. \url{https://cdn.openai.com/pdf/ten-proofs-oai.pdf}.
+
+\bibitem{Pikhurko2001} O.~Pikhurko, \emph{Lattice points in lattice polytopes}, Mathematika \textbf{48} (2001), nos.~1--2, 15--24.
+
+\bibitem{Scott1976} P.~R.~Scott, \emph{On convex lattice polygons}, Bulletin of the Australian Mathematical Society \textbf{15} (1976), no.~3, 395--399.
+    
+\bibitem{Sloane23} N. J. A. Sloane, \emph{The on-line encyclopedia of integer sequences}, published electronically at \url{http://oeis.org}.
+
+\bibitem{ZPW1982} J.~Zaks, M.~A.~Perles, and J.~M.~Wills, \emph{On lattice polytopes having interior lattice points}, Elemente der Mathematik \textbf{37} (1982), no.~2, 44--46.
+
+\end{thebibliography}
+
+\end{document}
