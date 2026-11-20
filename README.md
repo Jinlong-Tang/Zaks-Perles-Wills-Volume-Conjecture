@@ -8,9 +8,9 @@ How large can the volume of a lattice polytope be if its dimension and the numbe
 | --- | --- |
 | *The Zaks–Perles–Wills volume conjecture I: three-dimensional lattice polytopes* | For $k\ge 3$ interior lattice points, the maximum Euclidean volume is $6(k+1)$. The inequality is strict for lattice width at least three. Together with the known cases $k=1,2$, this settles dimension three. |
 | *The Zaks–Perles–Wills volume conjecture II: lattice simplices* | For lattice simplices in every dimension $d\ge 4$ and every $k\ge 1$, the paper proves the sharp bound and characterizes equality by counting lattice points in barycentric coordinates. |
-| *The Zaks–Perles–Wills volume conjecture for lattice polytopes* | For arbitrary lattice polytopes in every dimension $d\ge 4$ and every $k\ge 1$, the paper proves the sharp bound by induction on rational sections. At equality, a long edge of a section determines the maximizing polytope. |
+| *Proof of the Zaks--Perles--Wills volume conjecture* | For arbitrary lattice polytopes in every dimension $d\ge 4$ and every $k\ge 1$, the paper proves the sharp bound by induction on rational sections. At equality, a long edge of a section determines the maximizing polytope. |
 
-The first two papers are by Feihu Liu, Jinlong Tang, Sihao Tao, and Zihao Zhang.
+These papers are by Feihu Liu, Jinlong Tang, Sihao Tao, and Zihao Zhang.
 
 ## The sharp bound and its equality cases
 
