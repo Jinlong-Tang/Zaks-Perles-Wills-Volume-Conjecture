@@ -10,7 +10,7 @@ How large can the volume of a lattice polytope be if its dimension and the numbe
 | *The Zaks–Perles–Wills volume conjecture II: lattice simplices* | For lattice simplices in every dimension $d\ge 4$ and every $k\ge 1$, the paper proves the sharp bound and characterizes equality by counting lattice points in barycentric coordinates. |
 | *Proof of the Zaks--Perles--Wills volume conjecture* | For arbitrary lattice polytopes in every dimension $d\ge 4$ and every $k\ge 1$, the paper proves the sharp bound by induction on rational sections. At equality, a long edge of a section determines the maximizing polytope. |
 
-These papers are by Feihu Liu, Jinlong Tang, Sihao Tao, and Zihao Zhang.
+Authors: Feihu Liu, Jinlong Tang, Sihao Tao, and Zihao Zhang.
 
 ## The sharp bound and its equality cases
 
